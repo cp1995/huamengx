@@ -34,9 +34,9 @@ public class ItemForm implements Serializable {
     @NotNull(message = "小孩性别不能为空")
     private Integer sex;
 
-    @ApiModelProperty(value = "出生年月yyyy-MM", required = true)
+    @ApiModelProperty(value = "出生年月yyyy-MM-dd", required = true)
   //  @DateTimeFormat(pattern = "yyyy-MM")
-    @NotNull(message = "出生年月不能为空")
+    @NotNull(message = "出生年月日不能为空")
     private String birth;
 
     @ApiModelProperty(value = "家长姓名", required = true)

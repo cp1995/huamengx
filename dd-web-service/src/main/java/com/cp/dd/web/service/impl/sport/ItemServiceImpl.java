@@ -65,7 +65,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         Item item = new Item();
         BeanUtils.copyProperties(itemForm,item);
         LocalDate today = LocalDate.now();
-        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(itemForm.getBirth()+"-01"));
+        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(itemForm.getBirth()));
        // long years = ChronoUnit.YEARS.between(playerDate, today);
         item.setBirthday(playerDate);
         item.setAge(geAge(itemForm.getBirth()));
@@ -104,7 +104,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
     public static String geAge(String birth){
         LocalDate today = LocalDate.now();
-        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(birth+"-01"));
+        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(birth));
         long years = ChronoUnit.YEARS.between(playerDate, today);
         long month = ChronoUnit.MONTHS.between(playerDate, today);
         String age = String.valueOf(years);
@@ -281,7 +281,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             Cell cell2 =row.getCell(2);
             cell2.setCellType(CellType.STRING);
             item.setSex(Integer.valueOf(cell2.getStringCellValue()));
-            LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(row.getCell(3).getStringCellValue()+"-01"));
+            LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(row.getCell(3).getStringCellValue()));
             // long years = ChronoUnit.YEARS.between(playerDate, today);
             item.setBirthday(playerDate);
             item.setAge(geAge(row.getCell(3).getStringCellValue()));

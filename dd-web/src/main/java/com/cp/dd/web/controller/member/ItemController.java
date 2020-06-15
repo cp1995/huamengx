@@ -1,10 +1,12 @@
 package com.cp.dd.web.controller.member;
 
-import com.cp.dd.common.constant.sys.OperTypeEnum;
+import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
+import com.cp.dd.common.util.SignUtil;
+import com.cp.dd.common.vo.sport.AccessTokenFactory;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.member.sport.ItemForm;
@@ -14,14 +16,22 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.*;
+import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * 登录接口
@@ -34,6 +44,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/item")
 @Api(value = "/item", tags = "信息录入接口")
+@Slf4j
 public class ItemController {
 
     private IItemService  itemService;
@@ -127,4 +138,71 @@ public class ItemController {
         return Result.success(itemService.detail(id));
     }
 
+    @IgnoreLogin
+    @GetMapping(value = "/downloadFile")
+    @ApiOperation(value = "模板下载", notes = "模板下载")
+    public HttpServletResponse  download(HttpServletResponse response) throws IOException {
+          try {
+              HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+                  String path = request.getSession().getServletContext().getRealPath("/");
+                   path = path + File.separator + "体测数据模板-格式统一为文本格式.xlsx";
+                   // path是指欲下载的文件的路径。
+                   File file = new File(path);
+                   // 取得文件名。
+                   String filename = file.getName();
+                   // 取得文件的后缀名。
+                   String ext = filename.substring(filename.lastIndexOf(".") + 1).toUpperCase();
+
+                   // 以流的形式下载文件。
+                   InputStream fis = new BufferedInputStream(new FileInputStream(path));
+                   byte[] buffer = new byte[fis.available()];
+                   fis.read(buffer);
+                   fis.close();
+                   // 清空response
+                   response.reset();
+                   // 设置response的Header
+                  // response.addHeader("Content-Disposition", "attachment;filename=" + new String(filename.getBytes()));
+                   response.addHeader("Content-Length", "" + file.length());
+                   OutputStream toClient = new BufferedOutputStream(response.getOutputStream());
+                   response.setContentType("application/octet-stream");
+                   response.addHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename, "UTF-8"));
+                   toClient.write(buffer);
+                   toClient.flush();
+                   toClient.close();
+                 } catch (IOException ex) {
+                   ex.printStackTrace();
+                 }
+             return response;
+     }
+    @RequestMapping(value = "/share", method = RequestMethod.POST)
+    @ResponseBody
+    @IgnoreLogin
+    @ApiOperation(value = "微信分享", notes = "url(当前连接url,用于签名验证)")
+    public Result share(String url) {
+        String appId ="wx59e0048bc8e7000d";
+        String secret ="1813ffee71693b567b981c502de0e20c";
+        Map<String, String> map = new HashMap<String, String>();
+        String jsapi_ticket = AccessTokenFactory.getJsapiTicket(appId,secret).getTicket();
+        System.out.println("jsapi_ticket="+jsapi_ticket);
+        String timestamp = Long.toString(System.currentTimeMillis() / 1000);
+        String nonceStr = UUID.randomUUID().toString();//生成签名的随机串
+        System.out.println("nonceStr="+nonceStr);
+        String signature = "";
+        try {
+            signature = SignUtil.getSignature(
+                    jsapi_ticket, nonceStr, timestamp,
+                    url);
+        } catch (Exception e) {
+            log.error("获取签名失败", e);
+            log.error(e.getMessage());
+        }
+        System.out.println("signature="+signature);
+        map.put("url", url);
+        map.put("jsapi_ticket", jsapi_ticket);
+        map.put("nonceStr", nonceStr);
+        map.put("timestamp", timestamp);
+        map.put("signature", signature);
+        map.put("appid", appId);
+        return Result.success(map);
+    }
 }

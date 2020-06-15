@@ -19,7 +19,7 @@
                 AND i.phone = #{phone}
             </if>
             <if test="name != null">
-                AND s.`name`  like concat('%',#{name},'%')
+                AND s.`name`   = #{name}
             </if>
             <if test="areaId != null">
                 AND  s.area_id = #{areaId}
@@ -42,7 +42,7 @@
                 AND i.phone = #{phone}
             </if>
             <if test="name != null">
-                AND s.`name`  like concat('%',#{name},'%')
+                AND s.`name`   = #{name}
             </if>
             <if test="areaId != null">
                 AND  s.area_id = #{areaId}
@@ -65,7 +65,7 @@
                 AND i.phone = #{phone}
             </if>
             <if test="name != null">
-                AND s.`name`  like concat('%',#{name},'%')
+                AND s.`name`   = #{name}
             </if>
             <if test="areaId != null">
                 AND  s.area_id = #{areaId}

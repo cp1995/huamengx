@@ -106,12 +106,16 @@ public class SportServiceImpl extends ServiceImpl<SportMapper, Sport> implements
     @Override
     public List<Sport> getWechatList() {
         MemberVO memberVO = SessionCache.get();
-      /*  if(memberVO.getRole()==CommonConstant.Role.SUPER){
-            throw new ApiException("管理员不能录入数据");
-        }*/
-        return baseMapper.selectList(Wrappers.<Sport>lambdaQuery().eq(Sport::getState,CommonConstant.State.ENABLE)
-                .eq(Sport::getAreaId,memberVO.getAreaId())
-                .orderByDesc(Sport::getCreateTime));
+        List<Sport>  list=null;
+       if(memberVO.getRole()==CommonConstant.Role.SUPER){
+           list = baseMapper.selectList(Wrappers.<Sport>lambdaQuery().eq(Sport::getState,CommonConstant.State.ENABLE)
+                   .orderByDesc(Sport::getCreateTime));
+        }else{
+           list = baseMapper.selectList(Wrappers.<Sport>lambdaQuery().eq(Sport::getState,CommonConstant.State.ENABLE)
+                   .eq(Sport::getAreaId,memberVO.getAreaId())
+                   .orderByDesc(Sport::getCreateTime));
+       }
+        return list;
     }
 
     @Override
