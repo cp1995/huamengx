@@ -145,6 +145,7 @@ public class Item implements Serializable {
     @ApiModelProperty(value = "创建人")
     private String createBy;
 
-
+    @ApiModelProperty(value = "状态")
+    private Integer state;
 
 }

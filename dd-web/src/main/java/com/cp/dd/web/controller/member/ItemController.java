@@ -10,6 +10,7 @@ import com.cp.dd.common.vo.sport.AccessTokenFactory;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.member.sport.ItemForm;
+import com.cp.dd.web.form.member.sport.ItemUpdateForm;
 import com.cp.dd.web.service.sport.IItemService;
 import com.cp.dd.web.service.sport.ISportService;
 import io.swagger.annotations.Api;
@@ -60,7 +61,13 @@ public class ItemController {
     }
 
 
-
+    @AddOperLog(name = "修改报告信息")
+    @PostMapping("/update")
+    @ApiOperation(value = "修改报告信息", notes = "修改报告信息")
+    public Result update(@Valid ItemUpdateForm itemForm) {
+        itemService.update(itemForm);
+        return Result.success();
+    }
     @GetMapping("/getPage")
     @ApiOperation(value = "报告分页列表", notes = "用户分页列表")
     public Result<PageModel<ItemVO>> getPage(@Valid PageQuery pageQuery,
@@ -129,6 +136,7 @@ public class ItemController {
         return Result.success(sportService.getWechatList());
     }
 
+    @IgnoreLogin
     @GetMapping("/detail")
     @ApiOperation(value = "详情", notes = "详情")
     public Result<ItemVO> detail(
@@ -136,6 +144,15 @@ public class ItemController {
 
     ) {
         return Result.success(itemService.detail(id));
+    }
+
+    @GetMapping("/del")
+    @AddOperLog(name = "删除报告")
+    @ApiOperation(value = "删除报告", notes = "删除报告")
+    public Result del(
+            @ApiParam("id") @RequestParam(required = true) Long id) {
+        itemService.del(id);
+        return Result.success();
     }
 
     @IgnoreLogin

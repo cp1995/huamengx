@@ -19,6 +19,7 @@ import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.form.member.sport.ItemForm;
+import com.cp.dd.web.form.member.sport.ItemUpdateForm;
 import com.cp.dd.web.service.sport.IItemService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
@@ -99,6 +100,56 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         item.setShootScore(calculation.calShoot(item.getAge(),itemForm.getShoot()));
         item.setCreateBy(session.getUsername());
         baseMapper.insert(item);
+        return item;
+    }
+
+    @Override
+    public Item update(ItemUpdateForm itemForm) {
+        MemberVO session = SessionCache.get();
+        Integer role = session.getRole();
+        if(role == CommonConstant.Role.SUPER){
+            throw new ApiException("超级管理员不能修改数据");
+        }
+        Item item = baseMapper.selectById(itemForm.getId());
+        if(item == null){
+            throw new ApiException("该数据不存在!");
+        }
+        item.setName(itemForm.getName());
+        //身高得分
+        item.setHeight(itemForm.getHeight());
+        item.setHeightScore(calculation.calHeight(item.getAge(),itemForm.getHeight(),item.getSex()));
+        item.setIbm(calculation.getBMI(itemForm.getHeight(),itemForm.getWeight()));
+        //BMI得分
+        item.setIbmScore(calculation.calBmi(item.getAge(),itemForm.getHeight(),itemForm.getWeight(),item.getSex()));
+        //下肢得分
+        item.setLegs(itemForm.getLegs());
+        item.setLegsScore(calculation.calLeg(item.getAge(),itemForm.getLegs(),item.getSex()));
+        //上肢得分
+        item.setSzLimb(itemForm.getSzLimb());
+        item.setLimbScore(calculation.calLimb(item.getAge(),itemForm.getSzLimb(),item.getSex()));
+        //协调性成绩
+        item.setCoordinate(itemForm.getCoordinate());
+        item.setCoordinateScore(calculation.calCoordinate(item.getAge(),itemForm.getCoordinate(),item.getSex()));
+        //平衡性成绩
+        item.setBalance(itemForm.getBalance());
+        item.setBalanceScore(calculation.calBalance(item.getAge(),itemForm.getBalance(),item.getSex()));
+        //柔韧性成绩
+        item.setFlexibility(itemForm.getFlexibility());
+        item.setFlexibilityScore(calculation.calFlexibility(item.getAge(),itemForm.getFlexibility(),item.getSex()));
+        //灵敏性成绩
+        item.setSensitives(itemForm.getSensitives());
+        item.setSensitiveScore(calculation.calSensitives(item.getAge(),itemForm.getSensitives(),item.getSex()));
+        //拍球
+        item.setRacket(itemForm.getRacket());
+        item.setRacketScore(calculation.calRacket(item.getAge(),itemForm.getRacket()));
+        //传球
+        item.setPass(itemForm.getPass());
+        item.setPassScore(calculation.calPass(item.getAge(),itemForm.getPass()));
+        //投篮成绩
+        item.setShoot(itemForm.getShoot());
+        item.setShootScore(calculation.calShoot(item.getAge(),itemForm.getShoot()));
+        item.setCreateBy(session.getUsername());
+        baseMapper.updateById(item);
         return item;
     }
 
@@ -260,15 +311,22 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         if(sheet.getRow(1).getCell(0).getStringCellValue()!=null){
             sport.setName(sheet.getRow(1).getCell(0).getStringCellValue());
             sport.setAreaId(session.getAreaId());
-            LocalDate date = LocalDate.now();
-            DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            String dateStr = date.format(fmt);
-            LocalDateTime startTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"00:00:00"));
-            LocalDateTime endTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"23:59:59"));
-            sport.setStartTime(startTime);
-            sport.setEndTime(endTime);
-            sport.setState(CommonConstant.State.ENABLE);
-            sportMapper.insert(sport);
+            Sport vo = sportMapper.selectOne(Wrappers.<Sport>lambdaQuery().eq(Sport::getAreaId,sport.getAreaId()).
+                                                                eq(Sport::getName,sport.getName()).
+                                                                eq(Sport::getState,CommonConstant.State.ENABLE));
+            if(vo !=null){
+                BeanUtils.copyProperties(vo,sport);
+            }else{
+                LocalDate date = LocalDate.now();
+                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                String dateStr = date.format(fmt);
+                LocalDateTime startTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"00:00:00"));
+                LocalDateTime endTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"23:59:59"));
+                sport.setStartTime(startTime);
+                sport.setEndTime(endTime);
+                sport.setState(CommonConstant.State.ENABLE);
+                sportMapper.insert(sport);
+            }
         }
         for (Row row : sheet) {
             if (row.getRowNum() == 0) {
@@ -344,21 +402,46 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             item.setSensitiveScore(calculation.calSensitives(item.getAge(),item.getSensitives(),item.getSex()));
             //拍球
             Cell cell17 =row.getCell(17);
-            cell17.setCellType(CellType.STRING);
-            item.setRacket(Integer.valueOf(row.getCell(17).getStringCellValue()));
-            item.setRacketScore(calculation.calRacket(item.getAge(),item.getRacket()));
+            if (cell17 != null) {
+                cell17.setCellType(CellType.STRING);
+                item.setRacket(Integer.valueOf(row.getCell(17).getStringCellValue()));
+                item.setRacketScore(calculation.calRacket(item.getAge(),item.getRacket()));
+            }else{
+                item.setRacket(0);
+                item.setRacketScore(0);
+            }
+
             //传球
             Cell cell18 =row.getCell(18);
-            cell18.setCellType(CellType.STRING);
-            item.setPass(Integer.valueOf(row.getCell(18).getStringCellValue()));
-            item.setPassScore(calculation.calPass(item.getAge(),item.getPass()));
+            if (cell18 != null) {
+                cell18.setCellType(CellType.STRING);
+                item.setPass(Integer.valueOf(row.getCell(18).getStringCellValue()));
+                item.setPassScore(calculation.calPass(item.getAge(),item.getPass()));
+            }else{
+                item.setPass(0);
+                item.setPassScore(0);
+            }
+
             //投篮成绩
             Cell cell19 =row.getCell(19);
-            cell19.setCellType(CellType.STRING);
-            item.setShoot(Integer.valueOf(row.getCell(19).getStringCellValue()));
-            item.setShootScore(calculation.calShoot(item.getAge(),item.getShoot()));
+            if (cell19 != null) {
+                cell19.setCellType(CellType.STRING);
+                item.setShoot(Integer.valueOf(row.getCell(19).getStringCellValue()));
+                item.setShootScore(calculation.calShoot(item.getAge(),item.getShoot()));
+            }else{
+                item.setShoot(0);
+                item.setShootScore(0);
+            }
             item.setCreateBy(session.getUsername());
-            baseMapper.insert(item);
+            Item item1 = baseMapper.selectOne(Wrappers.<Item>lambdaQuery().eq(Item::getSportId,sport.getId())
+                                                             .eq(Item::getState,CommonConstant.State.ENABLE)
+                                                             .eq(Item::getName,item.getName()));
+            if(item1 != null){
+                item.setId(item1.getId());
+                baseMapper.updateById(item);
+            }else{
+                baseMapper.insert(item);
+            }
       /*      act.setName(row.getCell(0).getStringCellValue());
             act.setCategory(getCategoryId(row.getCell(1).getStringCellValue(),categoryMap));
             act.setBeginTime(row.getCell(2).getLocalDateTimeCellValue());
@@ -413,6 +496,16 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             vo.setBmiAvg(avg.getBmiAvg());
         }
         return vo;
+    }
+
+    @Override
+    public void del(Long id) {
+        Item item = baseMapper.selectById(id);
+        if(item == null){
+            throw new ApiException("该报告不存在");
+        }
+        item.setState(CommonConstant.State.DELETE);
+        baseMapper.updateById(item);
     }
 
 }

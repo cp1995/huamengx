@@ -24,6 +24,7 @@
             <if test="areaId != null">
                 AND  s.area_id = #{areaId}
             </if>
+            and i.state = 1
         </where>
         ORDER BY i.create_time DESC
     </select>
@@ -47,6 +48,7 @@
             <if test="areaId != null">
                 AND  s.area_id = #{areaId}
             </if>
+            and i.state = 1
         </where>
         ORDER BY ${orderBy}
     </select>
@@ -70,6 +72,7 @@
             <if test="areaId != null">
                 AND  s.area_id = #{areaId}
             </if>
+            and i.state = 1
         </where>
         ORDER BY ${orderBy}
     </select>
@@ -88,7 +91,7 @@
             <if test="sportId != null">
                 AND i.sport_id  = #{sportId}
             </if>
-
+            and i.state = 1
         </where>
         ORDER BY  i.create_time desc
     </select>
@@ -97,6 +100,7 @@
         SELECT i.*,s.`name` sportName FROM item i
         LEFT JOIN sport s on i.sport_id = s.id
       where i.id = #{id}
+       and i.state = 1
     </select>
 
 

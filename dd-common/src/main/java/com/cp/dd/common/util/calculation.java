@@ -1744,111 +1744,111 @@ public class calculation {
      * @return
      */
     public static int calRacket(String age,Integer legs){
-
-
         int score = 0;
-            if("3".equals(age)){
-                if(legs>25){
+        if(legs != null) {
+            if ("3".equals(age)) {
+                if (legs > 25) {
                     score = 5;
-                }else if(20<=legs && legs<= 25){
+                } else if (20 <= legs && legs <= 25) {
                     score = 4;
-                }else if(15<=legs && legs<= 19){
+                } else if (15 <= legs && legs <= 19) {
                     score = 3;
-                }else if(10<=legs && legs<= 14){
+                } else if (10 <= legs && legs <= 14) {
                     score = 2;
-                }else  if(70<=5 && legs<= 9){
+                } else if (70 <= 5 && legs <= 9) {
                     score = 1;
-                }else{
+                } else {
                     score = 0;
                 }
-            }else if("3.5".equals(age)){
-                if(legs>50){
+            } else if ("3.5".equals(age)) {
+                if (legs > 50) {
                     score = 5;
-                }else if(40<=legs && legs<= 49){
+                } else if (40 <= legs && legs <= 49) {
                     score = 4;
-                }else if(30<=legs && legs<= 39){
+                } else if (30 <= legs && legs <= 39) {
                     score = 3;
-                }else if(20<=legs && legs<= 29){
+                } else if (20 <= legs && legs <= 29) {
                     score = 2;
-                }else  if(10<=legs && legs<= 19){
+                } else if (10 <= legs && legs <= 19) {
                     score = 1;
-                }else{
-                    score = 0;
-                }
-
-            }else if("4".equals(age)){
-                if(legs>65){
-                    score = 5;
-                }else if(55<=legs && legs<= 64){
-                    score = 4;
-                }else if(45<=legs && legs<= 54){
-                    score = 3;
-                }else if(35<=legs && legs<= 44){
-                    score = 2;
-                }else  if(25<=legs && legs<= 34){
-                    score = 1;
-                }else{
+                } else {
                     score = 0;
                 }
 
-            }else if("4.5".equals(age)){
-                if(legs>85){
+            } else if ("4".equals(age)) {
+                if (legs > 65) {
                     score = 5;
-                }else if(75 <=legs && legs<= 84){
+                } else if (55 <= legs && legs <= 64) {
                     score = 4;
-                }else if(65<=legs && legs<= 74){
+                } else if (45 <= legs && legs <= 54) {
                     score = 3;
-                }else if(55<=legs && legs<= 64){
+                } else if (35 <= legs && legs <= 44) {
                     score = 2;
-                }else  if(45<=legs && legs<= 54){
+                } else if (25 <= legs && legs <= 34) {
                     score = 1;
-                }else{
-                    score = 0;
-                }
-            }else if("5".equals(age)){
-                if(legs>90){
-                    score = 5;
-                }else if(80<=legs && legs<= 89){
-                    score = 4;
-                }else if(70<=legs && legs<= 79){
-                    score = 3;
-                }else if(60<=legs && legs<= 68){
-                    score = 2;
-                }else  if(50<=legs && legs<= 59){
-                    score = 1;
-                }else{
+                } else {
                     score = 0;
                 }
 
-            }else if("5.5".equals(age)){
-                if(legs>109){
+            } else if ("4.5".equals(age)) {
+                if (legs > 85) {
                     score = 5;
-                }else if(100<=legs && legs<= 109){
+                } else if (75 <= legs && legs <= 84) {
                     score = 4;
-                }else if(90<=legs && legs<= 99){
+                } else if (65 <= legs && legs <= 74) {
                     score = 3;
-                }else if(80<=legs && legs<= 89){
+                } else if (55 <= legs && legs <= 64) {
                     score = 2;
-                }else  if(70<=legs && legs<= 79){
+                } else if (45 <= legs && legs <= 54) {
                     score = 1;
-                }else{
+                } else {
                     score = 0;
                 }
-            }else{
-                if(legs>124){
+            } else if ("5".equals(age)) {
+                if (legs > 90) {
                     score = 5;
-                }else if(115<=legs && legs<= 124){
+                } else if (80 <= legs && legs <= 89) {
                     score = 4;
-                }else if(105<=legs && legs<= 114){
+                } else if (70 <= legs && legs <= 79) {
                     score = 3;
-                }else if(95<=legs && legs<= 104){
+                } else if (60 <= legs && legs <= 68) {
                     score = 2;
-                }else  if(95<=legs && legs<= 94){
+                } else if (50 <= legs && legs <= 59) {
                     score = 1;
-                }else{
+                } else {
+                    score = 0;
+                }
+
+            } else if ("5.5".equals(age)) {
+                if (legs > 109) {
+                    score = 5;
+                } else if (100 <= legs && legs <= 109) {
+                    score = 4;
+                } else if (90 <= legs && legs <= 99) {
+                    score = 3;
+                } else if (80 <= legs && legs <= 89) {
+                    score = 2;
+                } else if (70 <= legs && legs <= 79) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+            } else {
+                if (legs > 124) {
+                    score = 5;
+                } else if (115 <= legs && legs <= 124) {
+                    score = 4;
+                } else if (105 <= legs && legs <= 114) {
+                    score = 3;
+                } else if (95 <= legs && legs <= 104) {
+                    score = 2;
+                } else if (95 <= legs && legs <= 94) {
+                    score = 1;
+                } else {
                     score = 0;
                 }
             }
+        }
         log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score);
         return score;
     }
@@ -1860,109 +1860,109 @@ public class calculation {
      * @return
      */
     public static int calPass(String age,Integer legs){
-
-
         int score = 0;
-        if("3".equals(age)){
-            if(legs>4){
-                score = 5;
-            }else if(legs==4 ){
-                score = 4;
-            }else if(legs==3 ){
-                score = 3;
-            }else if(legs==2) {
-                score = 2;
-            }else  if(legs==1 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
-        }else if("3.5".equals(age)){
-            if(legs>5){
-                score = 5;
-            }else if(legs==5 ){
-                score = 4;
-            }else if(legs==4){
-                score = 3;
-            }else if(legs==3) {
-                score = 2;
-            }else  if(legs==2 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
+        if(legs !=null) {
+            if ("3".equals(age)) {
+                if (legs > 4) {
+                    score = 5;
+                } else if (legs == 4) {
+                    score = 4;
+                } else if (legs == 3) {
+                    score = 3;
+                } else if (legs == 2) {
+                    score = 2;
+                } else if (legs == 1) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+            } else if ("3.5".equals(age)) {
+                if (legs > 5) {
+                    score = 5;
+                } else if (legs == 5) {
+                    score = 4;
+                } else if (legs == 4) {
+                    score = 3;
+                } else if (legs == 3) {
+                    score = 2;
+                } else if (legs == 2) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
 
-        }else if("4".equals(age)){
-            if(legs>4){
-                score = 5;
-            }else if(legs==4 ){
-                score = 4;
-            }else if(legs==3 ){
-                score = 3;
-            }else if(legs==2) {
-                score = 2;
-            }else  if(legs==1 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
+            } else if ("4".equals(age)) {
+                if (legs > 4) {
+                    score = 5;
+                } else if (legs == 4) {
+                    score = 4;
+                } else if (legs == 3) {
+                    score = 3;
+                } else if (legs == 2) {
+                    score = 2;
+                } else if (legs == 1) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
 
-        }else if("4.5".equals(age)){
-            if(legs>5){
-                score = 5;
-            }else if(legs==5){
-                score = 4;
-            }else if(legs==4 ){
-                score = 3;
-            }else if(legs==3) {
-                score = 2;
-            }else  if(legs==2 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
-        }else if("5".equals(age)){
-            if(legs>5){
-                score = 5;
-            }else if(legs==5){
-                score = 4;
-            }else if(legs==4 ){
-                score = 3;
-            }else if(legs==3) {
-                score = 2;
-            }else  if(legs==2 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
+            } else if ("4.5".equals(age)) {
+                if (legs > 5) {
+                    score = 5;
+                } else if (legs == 5) {
+                    score = 4;
+                } else if (legs == 4) {
+                    score = 3;
+                } else if (legs == 3) {
+                    score = 2;
+                } else if (legs == 2) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+            } else if ("5".equals(age)) {
+                if (legs > 5) {
+                    score = 5;
+                } else if (legs == 5) {
+                    score = 4;
+                } else if (legs == 4) {
+                    score = 3;
+                } else if (legs == 3) {
+                    score = 2;
+                } else if (legs == 2) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
 
-        }else if("5.5".equals(age)){
-            if(legs>6){
-                score = 5;
-            }else if(legs==6){
-                score = 4;
-            }else if(legs==5 ){
-                score = 3;
-            }else if(legs==4) {
-                score = 2;
-            }else  if(legs==3){
-                score = 1;
-            }else{
-                score = 0;
-            }
-        }else{
-            if(legs>5){
-                score = 5;
-            }else if(legs==5){
-                score = 4;
-            }else if(legs==4 ){
-                score = 3;
-            }else if(legs==3) {
-                score = 2;
-            }else  if(legs==2 ){
-                score = 1;
-            }else{
-                score = 0;
+            } else if ("5.5".equals(age)) {
+                if (legs > 6) {
+                    score = 5;
+                } else if (legs == 6) {
+                    score = 4;
+                } else if (legs == 5) {
+                    score = 3;
+                } else if (legs == 4) {
+                    score = 2;
+                } else if (legs == 3) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+            } else {
+                if (legs > 5) {
+                    score = 5;
+                } else if (legs == 5) {
+                    score = 4;
+                } else if (legs == 4) {
+                    score = 3;
+                } else if (legs == 3) {
+                    score = 2;
+                } else if (legs == 2) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
             }
         }
         log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score);
@@ -1977,106 +1977,108 @@ public class calculation {
      */
     public static int calShoot(String age,Integer legs){
         int score = 0;
-        if("3".equals(age)){
-            if(legs>4){
-                score = 5;
-            }else if(legs==4 ){
-                score = 4;
-            }else if(legs==3 ){
-                score = 3;
-            }else if(legs==2) {
-                score = 2;
-            }else  if(legs==1 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
-        }else if("3.5".equals(age)){
-            if(legs>6){
-                score = 5;
-            }else if(legs==6 ){
-                score = 4;
-            }else if(legs==5){
-                score = 3;
-            }else if(legs==4) {
-                score = 2;
-            }else  if(legs==3 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
+        if(legs !=null) {
+            if ("3".equals(age)) {
+                if (legs > 4) {
+                    score = 5;
+                } else if (legs == 4) {
+                    score = 4;
+                } else if (legs == 3) {
+                    score = 3;
+                } else if (legs == 2) {
+                    score = 2;
+                } else if (legs == 1) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+            } else if ("3.5".equals(age)) {
+                if (legs > 6) {
+                    score = 5;
+                } else if (legs == 6) {
+                    score = 4;
+                } else if (legs == 5) {
+                    score = 3;
+                } else if (legs == 4) {
+                    score = 2;
+                } else if (legs == 3) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
 
-        }else if("4".equals(age)){
-            if(legs>4){
-                score = 5;
-            }else if(legs==4 ){
-                score = 4;
-            }else if(legs==3 ){
-                score = 3;
-            }else if(legs==2) {
-                score = 2;
-            }else  if(legs==1 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
+            } else if ("4".equals(age)) {
+                if (legs > 4) {
+                    score = 5;
+                } else if (legs == 4) {
+                    score = 4;
+                } else if (legs == 3) {
+                    score = 3;
+                } else if (legs == 2) {
+                    score = 2;
+                } else if (legs == 1) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
 
-        }else if("4.5".equals(age)){
-            if(legs>6){
-                score = 5;
-            }else if(legs==6){
-                score = 4;
-            }else if(legs==5 ){
-                score = 3;
-            }else if(legs==4) {
-                score = 2;
-            }else  if(legs==3 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
-        }else if("5".equals(age)){
-            if(legs>4){
-                score = 5;
-            }else if(legs==4 ){
-                score = 4;
-            }else if(legs==3 ){
-                score = 3;
-            }else if(legs==2) {
-                score = 2;
-            }else  if(legs==1 ){
-                score = 1;
-            }else{
-                score = 0;
-            }
+            } else if ("4.5".equals(age)) {
+                if (legs > 6) {
+                    score = 5;
+                } else if (legs == 6) {
+                    score = 4;
+                } else if (legs == 5) {
+                    score = 3;
+                } else if (legs == 4) {
+                    score = 2;
+                } else if (legs == 3) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+            } else if ("5".equals(age)) {
+                if (legs > 4) {
+                    score = 5;
+                } else if (legs == 4) {
+                    score = 4;
+                } else if (legs == 3) {
+                    score = 3;
+                } else if (legs == 2) {
+                    score = 2;
+                } else if (legs == 1) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
 
-        }else if("5.5".equals(age)){
-            if(legs>5){
-                score = 5;
-            }else if(legs==5){
-                score = 4;
-            }else if(legs==4 ){
-                score = 3;
-            }else if(legs==3) {
-                score = 2;
-            }else  if(legs==2){
-                score = 1;
-            }else{
-                score = 0;
-            }
-        }else{
-            if(legs>5){
-                score = 5;
-            }else if(legs==5){
-                score = 4;
-            }else if(legs==4 ){
-                score = 3;
-            }else if(legs==3) {
-                score = 2;
-            }else  if(legs==2){
-                score = 1;
-            }else{
-                score = 0;
+            } else if ("5.5".equals(age)) {
+                if (legs > 5) {
+                    score = 5;
+                } else if (legs == 5) {
+                    score = 4;
+                } else if (legs == 4) {
+                    score = 3;
+                } else if (legs == 3) {
+                    score = 2;
+                } else if (legs == 2) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
+            } else {
+                if (legs > 5) {
+                    score = 5;
+                } else if (legs == 5) {
+                    score = 4;
+                } else if (legs == 4) {
+                    score = 3;
+                } else if (legs == 3) {
+                    score = 2;
+                } else if (legs == 2) {
+                    score = 1;
+                } else {
+                    score = 0;
+                }
             }
         }
         log.info("年龄:"+age+"投篮:"+legs+""+"得分:"+score);

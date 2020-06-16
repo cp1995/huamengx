@@ -8,6 +8,7 @@ import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.form.member.sport.ItemForm;
+import com.cp.dd.web.form.member.sport.ItemUpdateForm;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,8 @@ public interface IItemService extends IService<Item> {
 
     Item save (ItemForm itemForm);
 
+    Item update (ItemUpdateForm itemForm);
+
     IPage getPage(PageQuery pageQuery, String childName, String phone, String name,String createBy,String parentName, Long areaId);
 
     IPage getDataPage(PageQuery pageQuery, String childName, String phone, String name,String createBy,Long areaId,Integer sort,String ascOrDesc);
@@ -38,6 +41,8 @@ public interface IItemService extends IService<Item> {
     List<ItemVO> getData(String childName, String phone, Long sportId);
 
     ItemVO detail( Long id);
+
+    void del(Long id);
 
 }
 
