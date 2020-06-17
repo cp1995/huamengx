@@ -201,7 +201,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"身高:"+height+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"身高:"+height+"性别:"+sex+"得分:"+score*4);
         return score*4;
     }
 
@@ -399,6 +399,7 @@ public class calculation {
                 }
             }
         }
+        log.info("年龄:"+age+"BMI:"+bmi+"性别:"+sex+"得分:"+score*4);
         return score*4;
     }
 
@@ -577,7 +578,7 @@ public class calculation {
                 }
 
             }else if("5".equals(age)){
-                if(legs>109){
+                if(legs>102){
                     score = 5;
                 }else if(89<=legs && legs<= 102){
                     score = 4;
@@ -621,7 +622,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"跳远:"+legs+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"跳远:"+legs+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
 
@@ -848,7 +849,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"投掷:"+limb+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"投掷:"+limb+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
 
@@ -1070,7 +1071,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"双脚连续跳:"+coordinate+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"双脚连续跳:"+coordinate+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
 
@@ -1292,7 +1293,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"双脚连续跳:"+coordinate+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"双脚连续跳:"+coordinate+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
 
@@ -1514,7 +1515,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"柔韧性:"+coordinate+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"柔韧性:"+coordinate+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
 
@@ -1735,7 +1736,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"灵敏性:"+coordinate+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"灵敏性:"+coordinate+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
 
@@ -1851,7 +1852,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score);
+        log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score*8);
         return score*8;
     }
 
@@ -1967,7 +1968,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score);
+        log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score*6);
         return score*6;
     }
 
@@ -2083,7 +2084,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"投篮:"+legs+""+"得分:"+score);
+        log.info("年龄:"+age+"投篮:"+legs+""+"得分:"+score*6);
         return score*6;
     }
 

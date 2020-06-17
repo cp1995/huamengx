@@ -63,6 +63,12 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         if(role == CommonConstant.Role.SUPER){
             throw new ApiException("超级管理员不能录入");
         }
+        Item item1 = baseMapper.selectOne(Wrappers.<Item>lambdaQuery().eq(Item::getSportId,itemForm.getSportId())
+                .eq(Item::getState,CommonConstant.State.ENABLE)
+                .eq(Item::getName,itemForm.getName()));
+        if(item1 != null){
+            throw new ApiException("已存在该小孩信息,不能进行重复录入!");
+        }
         Item item = new Item();
         BeanUtils.copyProperties(itemForm,item);
         LocalDate today = LocalDate.now();
