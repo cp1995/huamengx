@@ -116,11 +116,11 @@ public class calculation {
                     score = 5;
                 }else if(98.1<=height && height<= 103){
                     score = 4;
-                }else if(94.7<=height && height<= 98){
+                }else if(94.7<=height && height<= 98.0){
                     score = 3;
-                }else if(90<=height && height<= 94.6){
+                }else if(90.0<=height && height<= 94.6){
                     score = 2;
-                }else  if(height < 90){
+                }else  if(height < 90.0){
                     score = 1;
                 }
             }else if("3.5".equals(age)){
@@ -130,9 +130,9 @@ public class calculation {
                     score = 4;
                 }else if(97.6<=height && height<= 101.1){
                     score = 3;
-                }else if(93<=height && height<= 97.5){
+                }else if(93.0<=height && height<= 97.5){
                     score = 2;
-                }else  if(height < 93){
+                }else  if(height < 93.0){
                     score = 1;
                 }
 
@@ -302,7 +302,7 @@ public class calculation {
                     score = 3;
                 }else if(14.95<=bmi && bmi<= 15.85){
                     score = 5;
-                }else if(14.11<=bmi && bmi<= 14.95){
+                }else if(14.11<=bmi && bmi<= 14.94){
                     score = 3;
                 }else  if(bmi <14.11){
                     score = 1;
@@ -476,7 +476,7 @@ public class calculation {
             }else if("5".equals(age)){
                 if(legs>110){
                     score = 5;
-                }else if(86<=legs && legs<= 110){
+                }else if(96<=legs && legs<= 110){
                     score = 4;
                 }else if(80<=legs && legs<= 95){
                     score = 3;
@@ -601,7 +601,7 @@ public class calculation {
                     score = 3;
                 }else if(66<=legs && legs<= 81){
                     score = 2;
-                }else  if(64<=legs && legs<= 65){
+                }else  if(54<=legs && legs<= 65){
                     score = 1;
                 }else{
                     score = 0;
@@ -625,6 +625,8 @@ public class calculation {
         log.info("年龄:"+age+"跳远:"+legs+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
+
+
 
     /**
      *    上肢计算
@@ -672,7 +674,7 @@ public class calculation {
                 }
 
             }else if("4".equals(age)){
-                if(limb>6){
+                if(limb>6.0){
                     score = 5;
                 }else if(5.0<=limb && limb<= 6.0){
                     score = 4;
@@ -852,6 +854,8 @@ public class calculation {
         log.info("年龄:"+age+"投掷:"+limb+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
+
+
 
     /**
      *    协调性计算
@@ -1190,20 +1194,6 @@ public class calculation {
             }
         }else{
             if("3".equals(age)){
-                if(coordinate<7.1){
-                    score = 5;
-                }else if(7.1<=coordinate && coordinate<= 9.7){
-                    score = 4;
-                }else if(9.8<=coordinate && coordinate<= 13.4){
-                    score = 3;
-                }else if(13.5<=coordinate && coordinate<= 20.0){
-                    score = 2;
-                }else  if(20.1<=coordinate && coordinate<= 25.9){
-                    score = 1;
-                }else{
-                    score = 0;
-                }
-            }else if("3.5".equals(age)){
                 if(coordinate<6.9){
                     score = 5;
                 }else if(6.9<=coordinate && coordinate<= 10.7){
@@ -1217,13 +1207,27 @@ public class calculation {
                 }else{
                     score = 0;
                 }
+            }else if("3.5".equals(age)){
+                if(coordinate<6.1){
+                    score = 5;
+                }else if(6.1<=coordinate && coordinate<= 9.6){
+                    score = 4;
+                }else if(9.7<=coordinate && coordinate<= 15.0){
+                    score = 3;
+                }else if(15.1<=coordinate && coordinate<= 27.4){
+                    score = 2;
+                }else  if(27.5<=coordinate && coordinate<= 40.4){
+                    score = 1;
+                }else{
+                    score = 0;
+                }
 
             }else if("4".equals(age)){
                 if(coordinate<5.3){
                     score = 5;
                 }else if(5.3<=coordinate && coordinate<= 8.1){
                     score = 4;
-                }else if(8.1<=coordinate && coordinate<= 12.2){
+                }else if(8.2<=coordinate && coordinate<= 12.2){
                     score = 3;
                 }else if(12.3<=coordinate && coordinate<= 22.5){
                     score = 2;
@@ -1331,7 +1335,7 @@ public class calculation {
                     score = 3;
                 }else if(4.7<=coordinate && coordinate<= 8.4){
                     score = 2;
-                }else  if(2.7<=coordinate && coordinate<= 4.64){
+                }else  if(2.7<=coordinate && coordinate<= 4.6){
                     score = 1;
                 }else{
                     score = 0;
@@ -1420,7 +1424,7 @@ public class calculation {
                     score = 3;
                 }else if(6.3<=coordinate && coordinate<= 9.9){
                     score = 2;
-                }else  if(3.2<=coordinate && coordinate<= 6.29){
+                }else  if(3.2<=coordinate && coordinate<= 6.2){
                     score = 1;
                 }else{
                     score = 0;
@@ -1519,6 +1523,8 @@ public class calculation {
         return score*2;
     }
 
+
+
     /**
      *    灵敏性计算
      * @param age 年龄
@@ -1538,7 +1544,7 @@ public class calculation {
                     score = 3;
                 }else if(10.3<=coordinate && coordinate<= 12.8){
                     score = 2;
-                }else  if(12.91<=coordinate && coordinate<= 15.8){
+                }else  if(12.9<=coordinate && coordinate<= 15.8){
                     score = 1;
                 }else{
                     score = 0;
@@ -1758,13 +1764,13 @@ public class calculation {
                     score = 3;
                 } else if (10 <= legs && legs <= 14) {
                     score = 2;
-                } else if (70 <= 5 && legs <= 9) {
+                } else if (5 <= legs && legs <= 9) {
                     score = 1;
                 } else {
                     score = 0;
                 }
             } else if ("3.5".equals(age)) {
-                if (legs > 50) {
+                if (legs > 49) {
                     score = 5;
                 } else if (40 <= legs && legs <= 49) {
                     score = 4;
@@ -1779,7 +1785,7 @@ public class calculation {
                 }
 
             } else if ("4".equals(age)) {
-                if (legs > 65) {
+                if (legs > 64) {
                     score = 5;
                 } else if (55 <= legs && legs <= 64) {
                     score = 4;
@@ -1794,7 +1800,7 @@ public class calculation {
                 }
 
             } else if ("4.5".equals(age)) {
-                if (legs > 85) {
+                if (legs > 84) {
                     score = 5;
                 } else if (75 <= legs && legs <= 84) {
                     score = 4;
@@ -1808,7 +1814,7 @@ public class calculation {
                     score = 0;
                 }
             } else if ("5".equals(age)) {
-                if (legs > 90) {
+                if (legs > 89) {
                     score = 5;
                 } else if (80 <= legs && legs <= 89) {
                     score = 4;
@@ -1845,7 +1851,7 @@ public class calculation {
                     score = 3;
                 } else if (95 <= legs && legs <= 104) {
                     score = 2;
-                } else if (95 <= legs && legs <= 94) {
+                } else if (85 <= legs && legs <= 94) {
                     score = 1;
                 } else {
                     score = 0;
@@ -1855,6 +1861,8 @@ public class calculation {
         log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score*8);
         return score*8;
     }
+
+
 
     /**
      *    传球计算
@@ -1968,7 +1976,7 @@ public class calculation {
                 }
             }
         }
-        log.info("年龄:"+age+"拍球:"+legs+""+"得分:"+score*6);
+        log.info("年龄:"+age+"传球:"+legs+""+"得分:"+score*6);
         return score*6;
     }
 
