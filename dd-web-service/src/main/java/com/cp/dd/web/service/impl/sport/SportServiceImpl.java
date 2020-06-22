@@ -72,7 +72,8 @@ public class SportServiceImpl extends ServiceImpl<SportMapper, Sport> implements
         if(sport == null){
             throw new ApiException("该场次不存在");
         }
-        List<Item> list = itemMapper.selectList(Wrappers.<Item>lambdaQuery().eq(Item::getSportId,id));
+        List<Item> list = itemMapper.selectList(Wrappers.<Item>lambdaQuery().eq(Item::getSportId,id)
+                                                                         .eq(Item::getState,CommonConstant.State.ENABLE));
         if(list.size()>0){
             throw new ApiException("该场次下有数据,不能删除");
         }
