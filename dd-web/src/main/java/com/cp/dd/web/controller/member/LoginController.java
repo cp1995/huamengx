@@ -72,6 +72,13 @@ public class LoginController {
         memberService.update(memberForm);
         return Result.success("修改资料成功");
     }
+    @AddOperLog(name = "删除用户")
+    @GetMapping("/delete")
+    @ApiOperation(value = "删除用户", notes = "删除用户")
+    public Result delete(@RequestParam @ApiParam(value = "name", required = true) Long id) {
+        memberService.delete(id);
+        return Result.success();
+    }
 
     @AddOperLog(name = "修改密码")
     @GetMapping("/updatePassWord")

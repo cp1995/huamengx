@@ -335,7 +335,7 @@ public class calculation {
                 }
 
             }else if("4".equals(age)){
-                if(height>16.55){
+                if(bmi>16.55){
                     score = 1;
                 }else if(15.62<=bmi && bmi<= 16.55){
                     score = 3;
@@ -401,6 +401,10 @@ public class calculation {
         }
         log.info("年龄:"+age+"BMI:"+bmi+"性别:"+sex+"得分:"+score*4);
         return score*4;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(calBmi("4",114,18.7,2));
     }
 
 
@@ -854,6 +858,7 @@ public class calculation {
         log.info("年龄:"+age+"投掷:"+limb+"性别:"+sex+"得分:"+score*2);
         return score*2;
     }
+
 
 
 

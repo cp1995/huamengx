@@ -54,9 +54,10 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
     }
 
     @Override
-    public void delete(Long id) {
+    public void  delete(Long id) {
         Area area = baseMapper.selectById(id);
-        List<Member> list = memberMapper.selectList(Wrappers.<Member>lambdaQuery().eq(Member::getAreaId,area.getId()));
+        List<Member> list = memberMapper.selectList(Wrappers.<Member>lambdaQuery().eq(Member::getAreaId,area.getId())
+                                                                            .eq(Member::getState,CommonConstant.State.ENABLE));
         if(list.size()>0){
             throw new ApiException("该园区下有数据,不能删除");
         }
