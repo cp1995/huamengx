@@ -14,7 +14,7 @@ import java.lang.annotation.Target;
 public @interface AddOperLog {
 
     /**
-     * 业务名称
+     * 模块名称
      */
     String name() default "";
 
