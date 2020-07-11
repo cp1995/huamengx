@@ -403,9 +403,7 @@ public class calculation {
         return score*4;
     }
 
-    public static void main(String[] args) {
-        System.out.println(calBmi("4",114,18.7,2));
-    }
+
 
 
     /**
@@ -2124,6 +2122,9 @@ public class calculation {
      */
     public static double calResultHeight (double fHeight,double mHeight,int sex){
         double resultHeight = 0.0;
+        if(fHeight <100 || mHeight<100){
+            throw new ApiException("请输入合理数据");
+        }
         if(sex ==1){
             resultHeight = 59.699+0.419*fHeight + 0.265*mHeight;
         } else{

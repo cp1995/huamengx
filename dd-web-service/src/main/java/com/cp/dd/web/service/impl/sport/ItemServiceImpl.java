@@ -291,8 +291,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             areaId = session.getAreaId();
         }
        List<ItemVO> list = baseMapper.getDataList(childName,phone,name,createBy,areaId,orderBy);
-        String[] titles = new String[]{"姓名", "BMI", "下肢力量", "上肢力量","协调性","平衡性","柔韧性","灵敏性","拍球","传球","投篮"};
-        String[] fields = {"name", "ibm", "legs", "szLimb","coordinate","balance","flexibility","sensitives","racket","pass","shoot"};
+        String[] titles = new String[]{"姓名","场次名","身高","预测身高", "BMI", "下肢力量", "上肢力量","协调性","平衡性","柔韧性","灵敏性","拍球","传球","投篮"};
+        String[] fields = {"name","sportName","height","resultHeight","ibm", "legs", "szLimb","coordinate","balance","flexibility","sensitives","racket","pass","shoot"};
         // 转化器
         Map<String, ExcelUtil.Converter> converters = new HashMap<>(16);
      //   converters.put("createTime", (ExcelUtil.Converter<LocalDateTime>) createTime -> createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));

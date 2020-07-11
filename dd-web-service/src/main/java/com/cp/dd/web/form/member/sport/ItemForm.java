@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.time.LocalDate;
 
@@ -42,6 +43,7 @@ public class ItemForm implements Serializable {
     private String parentName;
 
     @ApiModelProperty(value = "手机号", required = true)
+    @Pattern(regexp = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$", message = "手机格式错误")
     @NotNull(message = "手机号姓名不能为空")
     private String phone;
 
