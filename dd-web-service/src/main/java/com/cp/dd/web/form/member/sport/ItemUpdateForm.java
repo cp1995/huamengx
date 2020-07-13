@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -23,6 +24,25 @@ public class ItemUpdateForm implements Serializable {
     @ApiModelProperty(value = "小孩姓名", required = true)
     @NotNull(message = "小孩姓名不能为空")
     private String name;
+
+    @ApiModelProperty(value = "出生年月yyyy-MM-dd", required = true)
+    @NotNull(message = "出生年月日不能为空")
+    private String birth;
+
+    @ApiModelProperty(value = "家长姓名", required = true)
+    @NotNull(message = "家长姓名不能为空")
+    private String parentName;
+
+    @ApiModelProperty(value = "手机号", required = true)
+    @Pattern(regexp = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$", message = "手机格式错误")
+    @NotNull(message = "手机号姓名不能为空")
+    private String phone;
+
+    @ApiModelProperty(value = "父亲身高", required = true)
+    private double fHeight;
+
+    @ApiModelProperty(value = "母亲身高", required = true)
+    private double mHeight;
 
     @ApiModelProperty(value = "身高", required = true)
     private double height;

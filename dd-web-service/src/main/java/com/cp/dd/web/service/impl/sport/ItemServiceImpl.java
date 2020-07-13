@@ -121,6 +121,16 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             throw new ApiException("该数据不存在!");
         }
         item.setName(itemForm.getName());
+        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(itemForm.getBirth()));
+        item.setBirthday(playerDate);
+        item.setAge(geAge(itemForm.getBirth()));
+        if(Double.valueOf(item.getAge()) <3 || Double.valueOf(item.getAge()) >6){
+            throw new ApiException("测试年龄不符合");
+        }
+        item.setFHeight(itemForm.getFHeight());
+        item.setMHeight(itemForm.getMHeight());
+        //身高预测
+        item.setResultHeight(calculation.calResultHeight(itemForm.getFHeight(),itemForm.getMHeight(),item.getSex()));
         //身高得分
         item.setHeight(itemForm.getHeight());
         item.setHeightScore(calculation.calHeight(item.getAge(),itemForm.getHeight(),item.getSex()));
