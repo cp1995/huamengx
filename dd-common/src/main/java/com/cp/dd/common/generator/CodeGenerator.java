@@ -113,7 +113,7 @@ public class CodeGenerator {
         // 工程路径设置
         String commonProjectPath = projectRootPath + "/dd-common";
         String serviceProjectPath = projectRootPath + "/dd-web-service" ;
-        String controllerProjectPath = projectRootPath + "/dd-web-war" ;
+        String controllerProjectPath = projectRootPath + "/dd-web" ;
 
         /*
          * 自定义配置

@@ -57,6 +57,17 @@ public class Swagger2Config {
                 .paths(PathSelectors.any())
                 .build();
     }
+    @Bean
+    public Docket sportApi() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .enable(swaggerEnable)
+                .apiInfo(apiInfo("证书相关", "证书相关"))
+                .groupName("证书相关")
+                .select()
+                .apis(RequestHandlerSelectors.basePackage("com.cp.dd.web.controller.sport"))
+                .paths(PathSelectors.any())
+                .build();
+    }
 
 
 
