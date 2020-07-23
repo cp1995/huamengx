@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.support.PageQuery;
-import com.cp.dd.web.form.member.sport.SportForm;
+import com.cp.dd.web.form.sport.SportForm;
 
 import java.util.List;
 

@@ -6,7 +6,7 @@ import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.aop.AddOperLog;
-import com.cp.dd.web.form.member.sport.SportForm;
+import com.cp.dd.web.form.sport.SportForm;
 import com.cp.dd.web.service.sport.ISportService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

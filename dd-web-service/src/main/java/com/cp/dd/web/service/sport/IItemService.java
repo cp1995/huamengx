@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.sport.ItemVO;
-import com.cp.dd.web.form.member.sport.ItemForm;
-import com.cp.dd.web.form.member.sport.ItemUpdateForm;
+import com.cp.dd.web.form.sport.ItemForm;
+import com.cp.dd.web.form.sport.ItemUpdateForm;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;

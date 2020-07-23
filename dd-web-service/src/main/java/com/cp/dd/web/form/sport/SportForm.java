@@ -1,12 +1,10 @@
-package com.cp.dd.web.form.member.sport;
+package com.cp.dd.web.form.sport;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * jwt登录参数

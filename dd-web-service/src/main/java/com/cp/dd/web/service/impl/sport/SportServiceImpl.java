@@ -15,7 +15,7 @@ import com.cp.dd.common.mapper.sport.SportMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
-import com.cp.dd.web.form.member.sport.SportForm;
+import com.cp.dd.web.form.sport.SportForm;
 import com.cp.dd.web.service.sport.ISportService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
