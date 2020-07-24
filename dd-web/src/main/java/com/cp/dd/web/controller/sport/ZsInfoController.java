@@ -3,6 +3,7 @@ package com.cp.dd.web.controller.sport;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.member.ZsCategory;
+import com.cp.dd.common.entity.sport.ZsInfo;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
@@ -62,6 +63,19 @@ public class ZsInfoController {
                               List<Long> ids) {
         zsInfoService.del(ids);
         return Result.success();
+    }
+
+    @GetMapping("/page")
+    @ApiOperation(value = "分页列表", notes = "分页列表")
+    public Result<PageModel<ZsInfo>> page(@Valid PageQuery pageQuery,
+                                          @RequestParam(required = false) @ApiParam("证书") String name,
+                                          @RequestParam(required = false) @ApiParam("证书编号") String code,
+                                          @RequestParam(required = false) @ApiParam("地址") String address,
+                                          @RequestParam(required = false) @ApiParam("区域") String areaCode,
+                                          @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType,
+                                          @RequestParam(required = false) @ApiParam("手机号") String mobile
+    ) {
+        return Result.success(zsInfoService.getPage(pageQuery,name,code,address,areaCode,categoryType,mobile));
     }
 
 

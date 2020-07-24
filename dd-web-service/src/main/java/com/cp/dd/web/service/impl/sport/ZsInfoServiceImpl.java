@@ -1,13 +1,19 @@
 package com.cp.dd.web.service.impl.sport;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.sport.ZsInfo;
+import com.cp.dd.common.entity.sys.SysArea;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sport.ZsInfoMapper;
+import com.cp.dd.common.mapper.sys.SysAreaMapper;
+import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.sport.IZsInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +33,16 @@ import java.util.Objects;
 @Service
 public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> implements IZsInfoService {
 
+    private SysAreaMapper sysAreaMapper;
+
+
     @Override
     public void save(ZsInfoForm zsInfoForm) {
         ZsInfo zsInfo = new ZsInfo();
         BeanUtils.copyProperties(zsInfoForm, zsInfo);
+        SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                .eq(SysArea::getCode,zsInfoForm.getCode()));
+        zsInfo.setShortCode(sysArea.getShortCode());
         this.baseMapper.insert(zsInfo);
     }
 
@@ -41,6 +53,9 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
             throw new ApiException("该证书不存在");
         }
         BeanUtils.copyProperties(zsInfoForm, zsInfo);
+        SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                .eq(SysArea::getCode,zsInfoForm.getCode()));
+        zsInfo.setShortCode(sysArea.getShortCode());
         this.baseMapper.updateById(zsInfo);
 
     }
@@ -49,6 +64,16 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     @Override
     public void del(List<Long> ids) {
         ids.forEach(this::delete);
+    }
+
+    @Override
+    public IPage<ZsInfo> getPage(PageQuery query, String name, String code, String address, String areaCode, String categoryType, String mobile) {
+        if(StringUtils.isNotBlank(areaCode)){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,areaCode));
+            areaCode = sysArea.getShortCode();
+        }
+        return this.baseMapper.getPage(query.loadPage(),name,code,address,areaCode,categoryType,mobile);
     }
 
     public void delete(Long actId) {
@@ -60,4 +85,6 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
         entity.setStatus(Constants.Status.delete);
         this.updateById(entity);
     }
+
+
 }

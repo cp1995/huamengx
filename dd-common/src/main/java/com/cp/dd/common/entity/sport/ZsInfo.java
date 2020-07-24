@@ -39,10 +39,16 @@ public class ZsInfo implements Serializable {
     @ApiModelProperty(value = "地址")
     private String address;
 
+    @ApiModelProperty(value = "手机号")
+    private String mobile;
+
     @ApiModelProperty(value = "区域编码")
     private String areaCode;
 
     private String shortCode;
+
+    @ApiModelProperty(value = "机构证书、个人证书  ")
+    private String categoryType;
 
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;

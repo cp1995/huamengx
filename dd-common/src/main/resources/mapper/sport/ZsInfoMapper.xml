@@ -2,4 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cp.dd.common.mapper.sport.ZsInfoMapper">
 
+    <select id="getPage" resultType="com.cp.dd.common.entity.sport.ZsInfo">
+
+        SELECT zi.* FROM zs_info zi
+
+        <where>
+            <if test="name != null and name !='' ">
+                AND zi.`name` like concat('%' ,#{name},'%')
+            </if>
+            <if test="code != null and code !='' ">
+                AND zi.code = #{code}
+            </if>
+            <if test="address != null and address !='' ">
+                AND zi.address like concat('%' ,#{address},'%')
+            </if>
+            <if test="shortCode != null and shortCode !='' ">
+                AND zi.short_code like concat('' ,#{shortCode},'%')
+            </if>
+            <if test="mobile != null and mobile !='' ">
+                AND zi.mobile like concat('%' ,#{mobile},'%')
+            </if>
+            <if test="categoryType != null and categoryType !='' ">
+                AND zi.category_type = #{categoryType}
+            </if>
+
+            AND zi.status =1
+        </where>
+            order by zi.create_time desc
+
+    </select>
+
 </mapper>

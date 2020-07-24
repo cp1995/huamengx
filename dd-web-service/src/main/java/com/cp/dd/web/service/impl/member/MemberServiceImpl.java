@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 
 import com.cp.dd.common.constant.CommonConstant;
+import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.member.Area;
 import com.cp.dd.common.exception.ApiException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -58,7 +59,8 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     public MemberVO login(MemberLoginForm memberForm) {
         Member member;
         // 根据用户名获取
-        member = baseMapper.selectOne(Wrappers.<Member>lambdaQuery().eq(Member::getUsername, memberForm.getUsername()));
+        member = baseMapper.selectOne(Wrappers.<Member>lambdaQuery().eq(Member::getUsername, memberForm.getUsername())
+                                                                .eq(Member::getState, Constants.Status.enable));
         if (Objects.isNull(member)) {
             throw new ApiException("该账号不存在");
         }

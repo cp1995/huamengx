@@ -1,7 +1,5 @@
 package com.cp.dd.web.form.sport;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,8 +33,14 @@ public class ZsInfoForm implements Serializable {
 
     private String icon;
 
+    @ApiModelProperty(value = "手机号")
+    private String mobile;
+
     @ApiModelProperty(value = "地址")
     private String address;
+
+    @ApiModelProperty(value = "机构证书、个人证书  ")
+    private String categoryType;
 
     @ApiModelProperty(value = "区域编码")
     @NotBlank(message = "区域编码不能为空")

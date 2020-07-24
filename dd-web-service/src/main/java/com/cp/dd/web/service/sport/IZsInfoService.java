@@ -1,7 +1,9 @@
 package com.cp.dd.web.service.sport;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cp.dd.common.entity.sport.ZsInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 
 import java.util.List;
@@ -21,6 +23,9 @@ public interface IZsInfoService extends IService<ZsInfo> {
     void update (ZsInfoForm zsInfoForm);
 
     void del(List<Long> ids);
+
+    IPage<ZsInfo> getPage(PageQuery query,String name,String code,String address,String areaCode,
+                          String categoryType,String mobile);
 
 
 }
