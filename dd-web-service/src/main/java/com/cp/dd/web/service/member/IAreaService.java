@@ -28,7 +28,7 @@ public interface IAreaService extends IService<Area> {
 
     void delete(Long id);
 
-    void save(String name);
+    void save(String name,String areaCode,String type);
 
     IPage getPage(PageQuery pageQuery, String name);
 

@@ -10,11 +10,13 @@ import com.cp.dd.common.entity.member.Area;
 import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.exception.ApiException;
+import com.cp.dd.common.mapper.member.AreaMapper;
 import com.cp.dd.common.mapper.sport.ItemMapper;
 import com.cp.dd.common.mapper.sport.SportMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
+import com.cp.dd.common.vo.sport.SportVO;
 import com.cp.dd.web.form.sport.SportForm;
 import com.cp.dd.web.service.sport.ISportService;
 import lombok.AllArgsConstructor;
@@ -22,7 +24,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -41,6 +42,7 @@ import java.util.List;
 public class SportServiceImpl extends ServiceImpl<SportMapper, Sport> implements ISportService {
 
     private ItemMapper itemMapper;
+    private AreaMapper areaMapper;
 
     @Override
     public void save(SportForm sportForm) {
@@ -120,7 +122,7 @@ public class SportServiceImpl extends ServiceImpl<SportMapper, Sport> implements
     }
 
     @Override
-    public IPage getPage(PageQuery pageQuery, String name) {
+    public IPage<SportVO> getPage(PageQuery pageQuery, String name) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
         LambdaQueryWrapper<Sport> wrapper;
@@ -136,7 +138,13 @@ public class SportServiceImpl extends ServiceImpl<SportMapper, Sport> implements
         }
 
         IPage<Sport> page = baseMapper.selectPage(pageQuery.loadPage(), wrapper);
-        return page;
+        return page.convert(sport -> {
+            SportVO sportVO = new SportVO();
+            BeanUtils.copyProperties(sport, sportVO);
+            Area area =areaMapper.selectById(sport.getAreaId());
+            sportVO.setAreaName(area.getName());
+            return sportVO;
+        });
     }
 
 

@@ -42,6 +42,13 @@ public class Area implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
+    @ApiModelProperty(value = "区域code")
+    private String areaCode;
+
+    private String shortCode;
+
+    @ApiModelProperty(value = "type 幼儿园/场馆")
+    private String type;
 
 
 

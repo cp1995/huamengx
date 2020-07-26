@@ -8,9 +8,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cp.dd.common.constant.CommonConstant;
 import com.cp.dd.common.entity.member.Area;
 import com.cp.dd.common.entity.member.Member;
+import com.cp.dd.common.entity.sys.SysArea;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.member.AreaMapper;
 import com.cp.dd.common.mapper.member.MemberMapper;
+import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
@@ -34,6 +36,7 @@ import java.util.List;
 public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IAreaService {
 
     private  MemberMapper memberMapper;
+    private SysAreaMapper sysAreaMapper;
 
     @Override
     public List<Area> findList() {
@@ -66,14 +69,19 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
     }
 
     @Override
-    public void save(String name) {
+    public void save(String name,String areaCode,String type) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
         if(role != CommonConstant.Role.SUPER){
             throw new ApiException("暂无权限");
         }
+        SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                .eq(SysArea::getCode,areaCode));
         Area area = new Area();
         area.setName(name);
+        area.setAreaCode(areaCode);
+        area.setType(type);
+        area.setShortCode(sysArea.getShortCode());
         area.setState(CommonConstant.State.ENABLE);
         this.baseMapper.insert(area);
     }

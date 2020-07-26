@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cp.dd.common.mapper.sport.XxItemMapper">
+
+    <select id="getPage" resultType="com.cp.dd.common.vo.sport.XxItemVO">
+        SELECT i.*,s.`name` sportName FROM xx_item i
+        LEFT JOIN sport s on i.sport_id = s.id
+        <where>
+            <if test="childName != null">
+                AND i.`name` like concat('%',#{childName},'%')
+            </if>
+            <if test="parentName != null">
+                AND i.parent_name like concat('%',#{parentName},'%')
+            </if>
+            <if test="createBy != null">
+                AND i.create_by  like concat('%',#{createBy},'%')
+            </if>
+            <if test="phone != null">
+                AND i.phone = #{phone}
+            </if>
+            <if test="name != null">
+                AND s.`name`   = #{name}
+            </if>
+            <if test="areaId != null">
+                AND  s.area_id = #{areaId}
+            </if>
+            and i.state = 1
+        </where>
+        ORDER BY i.create_time DESC
+    </select>
+
+    <select id="getDataPage" resultType="com.cp.dd.common.vo.sport.XxItemVO">
+        SELECT i.*,s.`name` sportName FROM xx_item i
+        LEFT JOIN sport s on i.sport_id = s.id
+        <where>
+            <if test="childName != null">
+                AND i.`name` like concat('%',#{childName},'%')
+            </if>
+            <if test="createBy != null">
+                AND i.create_by  like concat('%',#{createBy},'%')
+            </if>
+            <if test="phone != null">
+                AND i.phone = #{phone}
+            </if>
+            <if test="name != null">
+                AND s.`name`   = #{name}
+            </if>
+            <if test="areaId != null">
+                AND  s.area_id = #{areaId}
+            </if>
+            and i.state = 1
+        </where>
+        ORDER BY ${orderBy}
+    </select>
+
+    <select id="getDataList" resultType="com.cp.dd.common.vo.sport.XxItemVO">
+        SELECT i.*,s.`name` sportName FROM xx_item i
+        LEFT JOIN sport s on i.sport_id = s.id
+        <where>
+            <if test="childName != null">
+                AND i.`name` like concat('%',#{childName},'%')
+            </if>
+            <if test="createBy != null">
+                AND i.create_by  like concat('%',#{createBy},'%')
+            </if>
+            <if test="phone != null">
+                AND i.phone = #{phone}
+            </if>
+            <if test="name != null">
+                AND s.`name`   = #{name}
+            </if>
+            <if test="areaId != null">
+                AND  s.area_id = #{areaId}
+            </if>
+            and i.state = 1
+        </where>
+        ORDER BY ${orderBy}
+    </select>
+
+    <select id="getData" resultType="com.cp.dd.common.vo.sport.XxItemVO">
+        SELECT i.*,s.`name` sportName FROM xx_item i
+        LEFT JOIN sport s on i.sport_id = s.id
+        <where>
+            <if test="childName != null">
+                AND i.`name` like concat('%',#{childName},'%')
+            </if>
+
+            <if test="phone != null">
+                AND i.phone = #{phone}
+            </if>
+            <if test="sportId != null">
+                AND i.sport_id  = #{sportId}
+            </if>
+            and i.state = 1
+        </where>
+        ORDER BY  i.create_time desc
+    </select>
+
+    <select id="detail" resultType="com.cp.dd.common.vo.sport.XxItemVO">
+        SELECT i.*,s.`name` sportName FROM xx_item i
+        LEFT JOIN sport s on i.sport_id = s.id
+      where i.id = #{id}
+       and i.state = 1
+    </select>
+
+
+
+</mapper>

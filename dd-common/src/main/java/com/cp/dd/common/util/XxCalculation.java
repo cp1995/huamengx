@@ -4,6 +4,9 @@ import com.cp.dd.common.exception.ApiException;
 import lombok.extern.slf4j.Slf4j;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 @Slf4j
 public class XxCalculation {
@@ -254,7 +257,7 @@ public class XxCalculation {
     /**
      *    小学肺活量计算
      * @param age 年龄
-     * @param height  身高
+     * @param height  肺活量
      * @param sex  性别  1男 2 女
      * @return
      */
@@ -758,132 +761,137 @@ public class XxCalculation {
      * @param sex  性别  1男 2 女
      * @return
      */
-    public static int calYd(String age,double coordinate,int sex){
+    public static int calYd(String age,Double coordinate,int sex){
         int score = 0;
-        if(sex ==1){
-            if("7".equals(age)){
-                if(coordinate<16.52){
-                    score = 20;
-                }else if(16.52<=coordinate && coordinate<= 18.78){
-                    score = 16;
-                }else if(18.79<=coordinate && coordinate<= 24.62){
-                    score = 12;
-                }else if(24.63<=coordinate && coordinate<= 27.35){
-                    score = 8;
-                }else  if(27.35<coordinate ){
-                    score = 4;
-                }else{
-                    score = 0;
-                }
-            }else if("8".equals(age)){
-                if(coordinate<15.74){
-                    score = 20;
-                }else if(15.74<=coordinate && coordinate<= 16.84){
-                    score = 16;
-                }else if(16.85<=coordinate && coordinate<= 18.44){
-                    score = 12;
-                }else if(18.45<=coordinate && coordinate<= 21.56){
-                    score = 8;
-                }else  if(21.56<coordinate ){
-                    score = 4;
-                }else{
-                    score = 0;
-                }
 
-            }else if("9".equals(age)){
-                if(coordinate<13.28){
-                    score = 20;
-                }else if(13.28<=coordinate && coordinate<= 15.14){
-                    score = 16;
-                }else if(15.15<=coordinate && coordinate<= 17.93){
-                    score = 12;
-                }else if(17.94<=coordinate && coordinate<= 20.77){
-                    score = 8;
-                }else  if(20.77<coordinate ){
-                    score = 4;
-                }else{
-                    score = 0;
-                }
+        if(coordinate != null){
+            if(sex ==1){
+                if("7".equals(age)){
+                    if(coordinate<16.52){
+                        score = 20;
+                    }else if(16.52<=coordinate && coordinate<= 18.78){
+                        score = 16;
+                    }else if(18.79<=coordinate && coordinate<= 24.62){
+                        score = 12;
+                    }else if(24.63<=coordinate && coordinate<= 27.35){
+                        score = 8;
+                    }else  if(27.35<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
+                }else if("8".equals(age)){
+                    if(coordinate<15.74){
+                        score = 20;
+                    }else if(15.74<=coordinate && coordinate<= 16.84){
+                        score = 16;
+                    }else if(16.85<=coordinate && coordinate<= 18.44){
+                        score = 12;
+                    }else if(18.45<=coordinate && coordinate<= 21.56){
+                        score = 8;
+                    }else  if(21.56<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
 
+                }else if("9".equals(age)){
+                    if(coordinate<13.28){
+                        score = 20;
+                    }else if(13.28<=coordinate && coordinate<= 15.14){
+                        score = 16;
+                    }else if(15.15<=coordinate && coordinate<= 17.93){
+                        score = 12;
+                    }else if(17.94<=coordinate && coordinate<= 20.77){
+                        score = 8;
+                    }else  if(20.77<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
+
+                }else{
+                    if(coordinate<12.36){
+                        score = 20;
+                    }else if(12.36<=coordinate && coordinate<= 14.04){
+                        score = 16;
+                    }else if(14.05<=coordinate && coordinate<= 16.63){
+                        score = 12;
+                    }else if(16.64<=coordinate && coordinate<= 19.12){
+                        score = 8;
+                    }else  if(19.12<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
+                }
             }else{
-                if(coordinate<12.36){
-                    score = 20;
-                }else if(12.36<=coordinate && coordinate<= 14.04){
-                    score = 16;
-                }else if(14.05<=coordinate && coordinate<= 16.63){
-                    score = 12;
-                }else if(16.64<=coordinate && coordinate<= 19.12){
-                    score = 8;
-                }else  if(19.12<coordinate ){
-                    score = 4;
-                }else{
-                    score = 0;
-                }
-            }
-        }else{
-            if("7".equals(age)){
-                if(coordinate<17.53){
-                    score = 20;
-                }else if(17.53<=coordinate && coordinate<= 20.34){
-                    score = 16;
-                }else if(20.35<=coordinate && coordinate<= 23.55){
-                    score = 12;
-                }else if(23.56<=coordinate && coordinate<= 28.88){
-                    score = 8;
-                }else  if(28.88<coordinate ){
-                    score = 4;
-                }else{
-                    score = 0;
-                }
-            }else if("8".equals(age)){
-                if(coordinate<16.84){
-                    score = 20;
-                }else if(16.84<=coordinate && coordinate<= 18.33){
-                    score = 16;
-                }else if(18.34<=coordinate && coordinate<= 21.37){
-                    score = 12;
-                }else if(21.38<=coordinate && coordinate<= 23.43){
-                    score = 8;
-                }else  if(23.43<coordinate ){
-                    score = 4;
-                }else{
-                    score = 0;
-                }
+                if("7".equals(age)){
+                    if(coordinate<17.53){
+                        score = 20;
+                    }else if(17.53<=coordinate && coordinate<= 20.34){
+                        score = 16;
+                    }else if(20.35<=coordinate && coordinate<= 23.55){
+                        score = 12;
+                    }else if(23.56<=coordinate && coordinate<= 28.88){
+                        score = 8;
+                    }else  if(28.88<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
+                }else if("8".equals(age)){
+                    if(coordinate<16.84){
+                        score = 20;
+                    }else if(16.84<=coordinate && coordinate<= 18.33){
+                        score = 16;
+                    }else if(18.34<=coordinate && coordinate<= 21.37){
+                        score = 12;
+                    }else if(21.38<=coordinate && coordinate<= 23.43){
+                        score = 8;
+                    }else  if(23.43<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
 
-            }else if("9".equals(age)){
-                if(coordinate<15.84){
-                    score = 20;
-                }else if(15.84<=coordinate && coordinate<= 17.53){
-                    score = 16;
-                }else if(17.54<=coordinate && coordinate<= 20.26){
-                    score = 12;
-                }else if(20.27<=coordinate && coordinate<= 22.66){
-                    score = 8;
-                }else  if(22.66<coordinate ){
-                    score = 4;
-                }else{
-                    score = 0;
-                }
+                }else if("9".equals(age)){
+                    if(coordinate<15.84){
+                        score = 20;
+                    }else if(15.84<=coordinate && coordinate<= 17.53){
+                        score = 16;
+                    }else if(17.54<=coordinate && coordinate<= 20.26){
+                        score = 12;
+                    }else if(20.27<=coordinate && coordinate<= 22.66){
+                        score = 8;
+                    }else  if(22.66<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
 
-            }else{
-                if(coordinate<14.96){
-                    score = 20;
-                }else if(14.96<=coordinate && coordinate<= 16.47){
-                    score = 16;
-                }else if(16.48<=coordinate && coordinate<= 19.57){
-                    score = 12;
-                }else if(19.58<=coordinate && coordinate<= 21.34){
-                    score = 8;
-                }else  if(21.34<coordinate ){
-                    score = 4;
                 }else{
-                    score = 0;
+                    if(coordinate<14.96){
+                        score = 20;
+                    }else if(14.96<=coordinate && coordinate<= 16.47){
+                        score = 16;
+                    }else if(16.48<=coordinate && coordinate<= 19.57){
+                        score = 12;
+                    }else if(19.58<=coordinate && coordinate<= 21.34){
+                        score = 8;
+                    }else  if(21.34<coordinate ){
+                        score = 4;
+                    }else{
+                        score = 0;
+                    }
                 }
             }
         }
+
         log.info("年龄:"+age+"灵敏性:"+coordinate+"性别:"+sex+"得分:"+score);
         return score;
     }
+
 
 
 
@@ -895,111 +903,114 @@ public class XxCalculation {
      */
     public static int calPass(String age,Integer legs,int sex){
         int score = 0;
-        if(sex == 1) {
-            if ("7".equals(age)) {
-                if (legs > 19) {
-                    score = 40;
-                } else if (16 <= legs && legs <= 19) {
-                    score = 32;
-                } else if (11 <= legs && legs <= 15) {
-                    score = 24;
-                } else if (7 <= legs && legs <= 10) {
-                    score = 16;
-                } else if ( legs < 7) {
-                    score = 8;
-                }
-            } else if ("8".equals(age)) {
-                if (legs > 24) {
-                    score = 40;
-                } else if (21 <= legs && legs <= 24) {
-                    score = 32;
-                } else if (16 <= legs && legs <= 20) {
-                    score = 24;
-                } else if (9 <= legs && legs <= 15) {
-                    score = 16;
-                } else if ( legs < 9) {
-                    score = 8;
-                }
+        if(legs != null){
+            if(sex == 1) {
+                if ("7".equals(age)) {
+                    if (legs > 19) {
+                        score = 40;
+                    } else if (16 <= legs && legs <= 19) {
+                        score = 32;
+                    } else if (11 <= legs && legs <= 15) {
+                        score = 24;
+                    } else if (7 <= legs && legs <= 10) {
+                        score = 16;
+                    } else if ( legs < 7) {
+                        score = 8;
+                    }
+                } else if ("8".equals(age)) {
+                    if (legs > 24) {
+                        score = 40;
+                    } else if (21 <= legs && legs <= 24) {
+                        score = 32;
+                    } else if (16 <= legs && legs <= 20) {
+                        score = 24;
+                    } else if (9 <= legs && legs <= 15) {
+                        score = 16;
+                    } else if ( legs < 9) {
+                        score = 8;
+                    }
 
-            } else if ("9".equals(age)) {
-                if (legs > 27) {
-                    score = 40;
-                } else if (24 <= legs && legs <= 27) {
-                    score = 32;
-                } else if (19 <= legs && legs <= 23) {
-                    score = 24;
-                } else if (12 <= legs && legs <= 18) {
-                    score = 16;
-                } else if ( legs < 12) {
-                    score = 8;
-                }
+                } else if ("9".equals(age)) {
+                    if (legs > 27) {
+                        score = 40;
+                    } else if (24 <= legs && legs <= 27) {
+                        score = 32;
+                    } else if (19 <= legs && legs <= 23) {
+                        score = 24;
+                    } else if (12 <= legs && legs <= 18) {
+                        score = 16;
+                    } else if ( legs < 12) {
+                        score = 8;
+                    }
 
-            } else {
-                if (legs > 27) {
-                    score = 40;
-                } else if (25 <= legs && legs <= 27) {
-                    score = 32;
-                } else if (21 <= legs && legs <= 24) {
-                    score = 24;
-                } else if (13 <= legs && legs <= 20) {
-                    score = 16;
-                } else if ( legs < 13) {
-                    score = 8;
+                } else {
+                    if (legs > 27) {
+                        score = 40;
+                    } else if (25 <= legs && legs <= 27) {
+                        score = 32;
+                    } else if (21 <= legs && legs <= 24) {
+                        score = 24;
+                    } else if (13 <= legs && legs <= 20) {
+                        score = 16;
+                    } else if ( legs < 13) {
+                        score = 8;
+                    }
                 }
-            }
-        }else{
-            if ("7".equals(age)) {
-                if (legs > 18) {
-                    score = 40;
-                } else if (15 <= legs && legs <= 18) {
-                    score = 32;
-                } else if (11 <= legs && legs <= 14) {
-                    score = 24;
-                } else if (7 <= legs && legs <= 10) {
-                    score = 16;
-                } else if ( legs < 7) {
-                    score = 8;
-                }
-            } else if ("8".equals(age)) {
-                if (legs > 20) {
-                    score = 40;
-                } else if (17 <= legs && legs <= 20) {
-                    score = 32;
-                } else if (13 <= legs && legs <= 16) {
-                    score = 24;
-                } else if (8 <= legs && legs <= 12) {
-                    score = 16;
-                } else if ( legs < 8) {
-                    score = 8;
-                }
+            }else{
+                if ("7".equals(age)) {
+                    if (legs > 18) {
+                        score = 40;
+                    } else if (15 <= legs && legs <= 18) {
+                        score = 32;
+                    } else if (11 <= legs && legs <= 14) {
+                        score = 24;
+                    } else if (7 <= legs && legs <= 10) {
+                        score = 16;
+                    } else if ( legs < 7) {
+                        score = 8;
+                    }
+                } else if ("8".equals(age)) {
+                    if (legs > 20) {
+                        score = 40;
+                    } else if (17 <= legs && legs <= 20) {
+                        score = 32;
+                    } else if (13 <= legs && legs <= 16) {
+                        score = 24;
+                    } else if (8 <= legs && legs <= 12) {
+                        score = 16;
+                    } else if ( legs < 8) {
+                        score = 8;
+                    }
 
-            } else if ("9".equals(age)) {
-                if (legs > 23) {
-                    score = 40;
-                } else if (20 <= legs && legs <= 23) {
-                    score = 32;
-                } else if (16 <= legs && legs <= 19) {
-                    score = 24;
-                } else if (10 <= legs && legs <= 15) {
-                    score = 16;
-                } else if ( legs < 10) {
-                    score = 8;
-                }
+                } else if ("9".equals(age)) {
+                    if (legs > 23) {
+                        score = 40;
+                    } else if (20 <= legs && legs <= 23) {
+                        score = 32;
+                    } else if (16 <= legs && legs <= 19) {
+                        score = 24;
+                    } else if (10 <= legs && legs <= 15) {
+                        score = 16;
+                    } else if ( legs < 10) {
+                        score = 8;
+                    }
 
-            } else {
-                if (legs > 26) {
-                    score = 40;
-                } else if (22 <= legs && legs <= 26) {
-                    score = 32;
-                } else if (17 <= legs && legs <= 21) {
-                    score = 24;
-                } else if (11 <= legs && legs <= 16) {
-                    score = 16;
-                } else if ( legs < 11) {
-                    score = 8;
+                } else {
+                    if (legs > 26) {
+                        score = 40;
+                    } else if (22 <= legs && legs <= 26) {
+                        score = 32;
+                    } else if (17 <= legs && legs <= 21) {
+                        score = 24;
+                    } else if (11 <= legs && legs <= 16) {
+                        score = 16;
+                    } else if ( legs < 11) {
+                        score = 8;
+                    }
                 }
             }
         }
+
         log.info("年龄:"+age+"传球:"+legs+""+"得分:"+score);
         return score;
     }
@@ -1014,108 +1025,110 @@ public class XxCalculation {
      */
     public static int calShoot(String age,Integer legs,int sex){
         int score = 0;
-        if(sex == 1) {
-            if ("7".equals(age)) {
-                if (legs > 6) {
-                    score = 40;
-                } else if (5 <= legs && legs <= 6) {
-                    score = 32;
-                } else if (3 <= legs && legs <= 4) {
-                    score = 24;
-                } else if ( legs == 2) {
-                    score = 16;
-                } else if ( legs == 1) {
-                    score = 8;
-                }
-            } else if ("8".equals(age)) {
-                if (legs > 7) {
-                    score = 40;
-                } else if (5 <= legs && legs <= 7) {
-                    score = 32;
-                } else if ( legs == 4) {
-                    score = 24;
-                } else if (legs == 3) {
-                    score = 16;
-                } else if ( legs < 3) {
-                    score = 8;
-                }
+        if(legs != null){
+            if(sex == 1) {
+                if ("7".equals(age)) {
+                    if (legs > 6) {
+                        score = 40;
+                    } else if (5 <= legs && legs <= 6) {
+                        score = 32;
+                    } else if (3 <= legs && legs <= 4) {
+                        score = 24;
+                    } else if ( legs == 2) {
+                        score = 16;
+                    } else if ( legs == 1) {
+                        score = 8;
+                    }
+                } else if ("8".equals(age)) {
+                    if (legs > 7) {
+                        score = 40;
+                    } else if (5 <= legs && legs <= 7) {
+                        score = 32;
+                    } else if ( legs == 4) {
+                        score = 24;
+                    } else if (legs == 3) {
+                        score = 16;
+                    } else if ( legs < 3) {
+                        score = 8;
+                    }
 
-            } else if ("9".equals(age)) {
-                if (legs > 6) {
-                    score = 40;
-                } else if (5 <= legs && legs <= 6) {
-                    score = 32;
-                } else if (3 <= legs && legs <= 4) {
-                    score = 24;
-                } else if ( legs == 2) {
-                    score = 16;
-                } else if ( legs == 1) {
-                    score = 8;
-                }
+                } else if ("9".equals(age)) {
+                    if (legs > 6) {
+                        score = 40;
+                    } else if (5 <= legs && legs <= 6) {
+                        score = 32;
+                    } else if (3 <= legs && legs <= 4) {
+                        score = 24;
+                    } else if ( legs == 2) {
+                        score = 16;
+                    } else if ( legs == 1) {
+                        score = 8;
+                    }
 
-            } else {
-                if (legs > 8) {
-                    score = 40;
-                } else if (7 <= legs && legs <= 8) {
-                    score = 32;
-                } else if (5 <= legs && legs <= 6) {
-                    score = 24;
-                } else if (3 <= legs && legs <= 4) {
-                    score = 16;
-                } else if ( legs < 3) {
-                    score = 8;
+                } else {
+                    if (legs > 8) {
+                        score = 40;
+                    } else if (7 <= legs && legs <= 8) {
+                        score = 32;
+                    } else if (5 <= legs && legs <= 6) {
+                        score = 24;
+                    } else if (3 <= legs && legs <= 4) {
+                        score = 16;
+                    } else if ( legs < 3) {
+                        score = 8;
+                    }
                 }
-            }
-        }else{
-            if ("7".equals(age)) {
-                if (legs > 6) {
-                    score = 40;
-                } else if (5 <= legs && legs <= 6) {
-                    score = 32;
-                } else if (3 <= legs && legs <= 4) {
-                    score = 24;
-                } else if ( legs == 2) {
-                    score = 16;
-                } else if ( legs == 1) {
-                    score = 8;
-                }
-            } else if ("8".equals(age)) {
-                if (legs > 7) {
-                    score = 40;
-                } else if (5 <= legs && legs <= 7) {
-                    score = 32;
-                } else if ( legs == 4) {
-                    score = 24;
-                } else if ( legs == 3) {
-                    score = 16;
-                } else if ( legs < 3) {
-                    score = 8;
-                }
+            }else{
+                if ("7".equals(age)) {
+                    if (legs > 6) {
+                        score = 40;
+                    } else if (5 <= legs && legs <= 6) {
+                        score = 32;
+                    } else if (3 <= legs && legs <= 4) {
+                        score = 24;
+                    } else if ( legs == 2) {
+                        score = 16;
+                    } else if ( legs == 1) {
+                        score = 8;
+                    }
+                } else if ("8".equals(age)) {
+                    if (legs > 7) {
+                        score = 40;
+                    } else if (5 <= legs && legs <= 7) {
+                        score = 32;
+                    } else if ( legs == 4) {
+                        score = 24;
+                    } else if ( legs == 3) {
+                        score = 16;
+                    } else if ( legs < 3) {
+                        score = 8;
+                    }
 
-            } else if ("9".equals(age)) {
-                if (legs > 6) {
-                    score = 40;
-                } else if (5 <= legs && legs <= 6) {
-                    score = 32;
-                } else if (3 <= legs && legs <= 4) {
-                    score = 24;
-                } else if (legs == 2) {
-                    score = 16;
-                } else if ( legs == 1) {
-                    score = 8;
-                }
+                } else if ("9".equals(age)) {
+                    if (legs > 6) {
+                        score = 40;
+                    } else if (5 <= legs && legs <= 6) {
+                        score = 32;
+                    } else if (3 <= legs && legs <= 4) {
+                        score = 24;
+                    } else if (legs == 2) {
+                        score = 16;
+                    } else if ( legs == 1) {
+                        score = 8;
+                    }
 
-            } else {
-                if (legs > 7) {
-                    score = 40;
-                } else if (5 <= legs && legs <= 7) {
-                    score = 32;
-                } else if (legs == 4) {
-                    score = 24;
-                } else if ( legs == 3) {
-                    score = 16;
-                } else if ( legs < 3) {
-                    score = 8;
+                } else {
+                    if (legs > 7) {
+                        score = 40;
+                    } else if (5 <= legs && legs <= 7) {
+                        score = 32;
+                    } else if (legs == 4) {
+                        score = 24;
+                    } else if ( legs == 3) {
+                        score = 16;
+                    } else if ( legs < 3) {
+                        score = 8;
+                    }
                 }
             }
         }
@@ -1160,6 +1173,30 @@ public class XxCalculation {
         double bmi = bigDecimalDouble(height,tz);
         return  bmi;
     }
+
+    /**
+     * 小学生年龄
+     * @param birth
+     * @return
+     */
+    public  static String getXxAge(String birth){
+        LocalDate today = LocalDate.now();
+        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(birth));
+        long years = ChronoUnit.YEARS.between(playerDate, today);
+        long month = ChronoUnit.MONTHS.between(playerDate, today);
+        String age = String.valueOf(years);
+        if(month - years*12 >= 6 ){
+            if(years <= 1){
+                age = "0.5";
+            }else{
+                age = Integer.valueOf(age)+1 +"";
+            }
+        }
+        return  age;
+    }
+
+
+
 
 
 

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.support.PageQuery;
+import com.cp.dd.common.vo.sport.SportVO;
 import com.cp.dd.web.form.sport.SportForm;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public interface ISportService extends IService<Sport> {
 
     List<Sport> getWechatList();
 
-    IPage getPage(PageQuery pageQuery, String name);
+    IPage<SportVO> getPage(PageQuery pageQuery, String name);
 
 }
 

@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 场次信息
+ * 小学生成绩对象
  * </p>
  *
  * @author CodeGenerator
@@ -25,8 +25,8 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@ApiModel(value = "sport对象", description = "会员信息")
-public class Item implements Serializable {
+@ApiModel(value = "小学生成绩对象", description = "会员信息")
+public class XxItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -88,52 +88,40 @@ public class Item implements Serializable {
     @ApiModelProperty(value = "预测身高")
     private double resultHeight;
 
-    @ApiModelProperty(value = "下肢")
-    private Integer legs;
+    @ApiModelProperty(value = "肺活量")
+    private Integer feiHl;
 
-    @ApiModelProperty(value = "下肢成绩")
-    private Integer legsScore;
+    @ApiModelProperty(value = "肺活量成绩")
+    private Integer feiHlScore;
 
-    @ApiModelProperty(value = "上肢")
-    private double szLimb;
+    @ApiModelProperty(value = "跳绳")
+    private Integer tiaos;
 
-    @ApiModelProperty(value = "上肢成绩")
-    private Integer limbScore;
+    @ApiModelProperty(value = "跳绳成绩")
+    private Integer tiaosScore;
 
-    @ApiModelProperty(value = "协调性")
-    private double coordinate;
-
-    @ApiModelProperty(value = "协调性成绩")
-    private Integer coordinateScore;
-
-    @ApiModelProperty(value = "平衡性")
-    private double balance;
-
-    @ApiModelProperty(value = "平衡性成绩")
-    private Integer balanceScore;
-
-    @ApiModelProperty(value = "柔韧性")
+    @ApiModelProperty(value = "柔韧性（坐位体前屈）")
     private double flexibility;
 
     @ApiModelProperty(value = "柔韧性成绩")
     private Integer flexibilityScore;
 
-    @ApiModelProperty(value = "灵敏性")
+    @ApiModelProperty(value = "灵敏性(折返跑)")
     private double sensitives;
 
     @ApiModelProperty(value = "灵敏性成绩")
     private Integer sensitiveScore;
 
-    @ApiModelProperty(value = "拍球")
-    private Integer racket;
+    @ApiModelProperty(value = "移动")
+    private double remove;
 
-    @ApiModelProperty(value = "拍球成绩")
-    private Integer racketScore;
+    @ApiModelProperty(value = "移动成绩")
+    private Integer removeScore;
 
-    @ApiModelProperty(value = "传球")
+    @ApiModelProperty(value = "接球")
     private Integer pass;
 
-    @ApiModelProperty(value = "传球成绩")
+    @ApiModelProperty(value = "接球成绩")
     private Integer passScore;
 
     @ApiModelProperty(value = "投篮")

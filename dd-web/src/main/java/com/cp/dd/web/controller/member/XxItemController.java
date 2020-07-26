@@ -1,18 +1,17 @@
 package com.cp.dd.web.controller.member;
 
 import com.cp.dd.common.annotation.IgnoreLogin;
-import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
 import com.cp.dd.common.util.SignUtil;
 import com.cp.dd.common.vo.sport.AccessTokenFactory;
-import com.cp.dd.common.vo.sport.ItemVO;
+import com.cp.dd.common.vo.sport.XxItemVO;
 import com.cp.dd.web.aop.AddOperLog;
-import com.cp.dd.web.form.sport.ItemForm;
-import com.cp.dd.web.form.sport.ItemUpdateForm;
-import com.cp.dd.web.service.sport.IItemService;
+import com.cp.dd.web.form.sport.XxItemForm;
+import com.cp.dd.web.form.sport.XxItemUpdateForm;
 import com.cp.dd.web.service.sport.ISportService;
+import com.cp.dd.web.service.sport.IXxItemService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -43,34 +42,34 @@ import java.util.UUID;
 @Validated
 @AllArgsConstructor
 @RestController
-@RequestMapping("/api/item")
-@Api(value = "/item", tags = "幼儿园信息录入接口")
+@RequestMapping("/api/xxItem")
+@Api(value = "/item", tags = "小学信息录入接口")
 @Slf4j
-public class ItemController {
+public class XxItemController {
 
-    private IItemService  itemService;
+    private IXxItemService xxItemService;
 
     private ISportService sportService;
 
-    @AddOperLog(name = "新增报告信息")
+    @AddOperLog(name = "新增小学生报告信息")
     @PostMapping("/save")
-    @ApiOperation(value = "保存", notes = "保存")
-    public Result save(@Valid ItemForm itemForm) {
-        itemService.save(itemForm);
+    @ApiOperation(value = "新增小学生报告信息", notes = "新增小学生报告信息")
+    public Result save(@Valid XxItemForm xxItemForm) {
+        xxItemService.save(xxItemForm);
         return Result.success();
     }
 
 
-    @AddOperLog(name = "修改报告信息")
+    @AddOperLog(name = "修改小学生报告信息")
     @PostMapping("/update")
-    @ApiOperation(value = "修改报告信息", notes = "修改报告信息")
-    public Result update(@Valid ItemUpdateForm itemForm) {
-        itemService.update(itemForm);
+    @ApiOperation(value = "修改小学生报告信息", notes = "修改小学生报告信息")
+    public Result update(@Valid XxItemUpdateForm xxItemUpdateForm) {
+        xxItemService.update(xxItemUpdateForm);
         return Result.success();
     }
     @GetMapping("/getPage")
     @ApiOperation(value = "报告分页列表", notes = "用户分页列表")
-    public Result<PageModel<ItemVO>> getPage(@Valid PageQuery pageQuery,
+    public Result<PageModel<XxItemVO>> getPage(@Valid PageQuery pageQuery,
                                              @ApiParam("小朋友姓名") @RequestParam(required = false) String childName,
                                              @ApiParam("家长手机号") @RequestParam(required = false) String phone,
                                              @ApiParam("场次名称") @RequestParam(required = false) String name,
@@ -80,12 +79,12 @@ public class ItemController {
     ) {
 
 
-        return Result.success(itemService.getPage(pageQuery,childName,phone,name,createBy,parentName,areaId));
+        return Result.success(xxItemService.getPage(pageQuery,childName,phone,name,createBy,parentName,areaId));
     }
 
     @GetMapping("/getDataPage")
     @ApiOperation(value = "数据报告分页列表", notes = "数据报告分页列表")
-    public Result<PageModel<ItemVO>> getDataPage(@Valid PageQuery pageQuery,
+    public Result<PageModel<XxItemVO>> getDataPage(@Valid PageQuery pageQuery,
                                              @ApiParam("小朋友姓名") @RequestParam(required = false) String childName,
                                              @ApiParam("家长手机号") @RequestParam(required = false) String phone,
                                              @ApiParam("场次名称") @RequestParam(required = false) String name,
@@ -94,7 +93,7 @@ public class ItemController {
                                              @ApiParam("排序(1、身高得分 2、bmi 3、下肢 4、上肢 5、协调性 6、平衡性 7、柔韧性 8、灵敏性 9、拍球 10 、传球 11、上篮)  ") @RequestParam(required = false) Integer sort,
                                              @ApiParam("asc 或者 desc") @RequestParam(required = false) String ascOrDesc
     ) {
-        return Result.success(itemService.getDataPage(pageQuery,childName,phone,name,createBy,areaId,sort,ascOrDesc));
+        return Result.success(xxItemService.getDataPage(pageQuery,childName,phone,name,createBy,areaId,sort,ascOrDesc));
     }
     @AddOperLog(name = "数据报告导出")
     @GetMapping("/export")
@@ -108,42 +107,37 @@ public class ItemController {
                        @ApiParam("排序(1、身高得分 2、bmi 3、下肢 4、上肢 5、协调性 6、平衡性 7、柔韧性 8、灵敏性 9、拍球 10 、传球 11、上篮) ") @RequestParam(required = false) Integer sort,
                        @ApiParam("asc 或者 desc") @RequestParam(required = false) String ascOrDesc
                                                                                             ) {
-        itemService.export(response,request,childName,phone,name,createBy,areaId,sort,ascOrDesc);
+        xxItemService.export(response,request,childName,phone,name,createBy,areaId,sort,ascOrDesc);
     }
 
     @PostMapping("/import")
     @AddOperLog(name = "数据报告导入")
     @ApiOperation(value = "导入", notes = "数据报告导入")
     public Result<?> importWord(@RequestParam("file") MultipartFile file) {
-        itemService.importItem(file);
+        xxItemService.importItem(file);
         return Result.success();
     }
     @AddOperLog(name = "公众号获取报告")
     @GetMapping("/getData")
     @ApiOperation(value = "公众号获取报告", notes = "公众号获取报告")
-    public Result<List<ItemVO> > getData(
+    public Result<List<XxItemVO> > getData(
                                                  @ApiParam("小朋友姓名") @RequestParam(required = false) String childName,
                                                  @ApiParam("家长手机号") @RequestParam(required = false) String phone,
                                                  @ApiParam("场次名称") @RequestParam(required = true) Long sportId
 
     ) {
-        return Result.success(itemService.getData(childName,phone,sportId));
+        return Result.success(xxItemService.getData(childName,phone,sportId));
     }
 
-    @GetMapping("/getList")
-    @ApiOperation(value = "公众号场次选择下拉列表", notes = "公众号场次选择下拉列表")
-    public Result<List<Sport>> getList() {
-        return Result.success(sportService.getWechatList());
-    }
 
     @IgnoreLogin
     @GetMapping("/detail")
     @ApiOperation(value = "详情", notes = "详情")
-    public Result<ItemVO> detail(
+    public Result<XxItemVO> detail(
             @ApiParam("id") @RequestParam(required = true) Long id
 
     ) {
-        return Result.success(itemService.detail(id));
+        return Result.success(xxItemService.detail(id));
     }
 
     @GetMapping("/del")
@@ -151,7 +145,7 @@ public class ItemController {
     @ApiOperation(value = "删除报告", notes = "删除报告")
     public Result del(
             @ApiParam("id") @RequestParam(required = true) Long id) {
-        itemService.del(id);
+        xxItemService.del(id);
         return Result.success();
     }
 
@@ -162,7 +156,7 @@ public class ItemController {
           try {
               HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
                   String path = request.getSession().getServletContext().getRealPath("/");
-                   path = path + File.separator + "幼儿园体测数据模板-格式统一为文本格式.xlsx";
+                   path = path + File.separator + "小学体测数据模板-格式统一为文本格式.xlsx";
                    // path是指欲下载的文件的路径。
                    File file = new File(path);
                    // 取得文件名。

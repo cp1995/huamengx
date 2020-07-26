@@ -4,7 +4,7 @@ import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
-import com.cp.dd.common.vo.sport.ItemVO;
+import com.cp.dd.common.vo.sport.SportVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.SportForm;
 import com.cp.dd.web.service.sport.ISportService;
@@ -55,8 +55,8 @@ public class SportController {
     }
     @GetMapping("/getDataPage")
     @ApiOperation(value = "数据报告分页列表", notes = "数据报告分页列表")
-    public Result<PageModel<Sport>> getDataPage(@Valid PageQuery pageQuery,
-                                                 @ApiParam("name") @RequestParam(required = false) String name
+    public Result<PageModel<SportVO>> getDataPage(@Valid PageQuery pageQuery,
+                                                  @ApiParam("name") @RequestParam(required = false) String name
     ) {
         return Result.success(sportService.getPage(pageQuery,name));
     }
