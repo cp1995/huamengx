@@ -276,8 +276,8 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
             areaId = session.getAreaId();
         }
        List<XxItemVO> list = baseMapper.getDataList(childName,phone,name,createBy,areaId,orderBy);
-        String[] titles = new String[]{"姓名","场次名","年龄","学员类型","身高","预测身高", "BMI", "肺活量", "10×4折返跑","柔韧性","一分钟跳绳","移动技术","接球","投篮"};
-        String[] fields = {"name","sportName","age","xyType","height","resultHeight","ibm", "feiHl", "sensitives","flexibility","tiaos","remove","pass","shoot"};
+        String[] titles = new String[]{"姓名","场次名","年龄","总分","学员类型","身高","预测身高", "BMI", "肺活量", "10×4折返跑","柔韧性","一分钟跳绳","移动技术","接球","投篮"};
+        String[] fields = {"name","sportName","age","total","xyType","height","resultHeight","ibm", "feiHl", "sensitives","flexibility","tiaos","remove","pass","shoot"};
         // 转化器
         Map<String, ExcelUtil.Converter> converters = new HashMap<>(16);
      //   converters.put("createTime", (ExcelUtil.Converter<LocalDateTime>) createTime -> createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -380,7 +380,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
             Cell cell14 =row.getCell(14);
             cell14.setCellType(CellType.STRING);
             item.setTiaos(Integer.valueOf(row.getCell(14).getStringCellValue()));
-            item.setFeiHlScore(XxCalculation.calTs(item.getAge(),item.getTiaos(),item.getSex()));
+            item.setTiaosScore(XxCalculation.calTs(item.getAge(),item.getTiaos(),item.getSex()));
 
             //拍球
             Cell cell17 =row.getCell(15);
@@ -414,6 +414,9 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
                 item.setShoot(0);
                 item.setShootScore(0);
             }
+            Cell cell20 =row.getCell(18);
+            cell20.setCellType(CellType.STRING);
+            item.setXyType((row.getCell(18).getStringCellValue()));
             item.setCreateBy(session.getUsername());
             XxItem item1 = baseMapper.selectOne(Wrappers.<XxItem>lambdaQuery().eq(XxItem::getSportId,sport.getId())
                                                              .eq(XxItem::getState,CommonConstant.State.ENABLE)

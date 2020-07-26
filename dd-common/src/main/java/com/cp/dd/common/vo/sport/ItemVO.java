@@ -56,6 +56,9 @@ public class ItemVO extends  Item  implements Serializable {
     @ApiModelProperty(value = "全国平均成绩投篮")
     private int shootAvg;
 
+    @ApiModelProperty(value = "八项总分")
+    private int total;
+
     @ApiModelProperty(value = "全国平均成绩BMI")
     private double bmiAvg;
 

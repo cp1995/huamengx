@@ -47,5 +47,8 @@ public class XxItemVO extends XxItem implements Serializable {
     @ApiModelProperty(value = "全国平均成绩BMI")
     private double bmiAvg;
 
+    @ApiModelProperty(value = "八项总分")
+    private int total;
+
 
 }

@@ -301,8 +301,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             areaId = session.getAreaId();
         }
        List<ItemVO> list = baseMapper.getDataList(childName,phone,name,createBy,areaId,orderBy);
-        String[] titles = new String[]{"姓名","场次名","年龄","学员类型","身高","预测身高", "BMI", "下肢力量", "上肢力量","协调性","平衡性","柔韧性","灵敏性","拍球","传球","投篮"};
-        String[] fields = {"name","sportName","age","xyType","height","resultHeight","ibm", "legs", "szLimb","coordinate","balance","flexibility","sensitives","racket","pass","shoot"};
+        String[] titles = new String[]{"姓名","场次名","年龄","总分","学员类型","身高","预测身高", "BMI", "下肢力量", "上肢力量","协调性","平衡性","柔韧性","灵敏性","拍球","传球","投篮"};
+        String[] fields = {"name","sportName","age","total","xyType","height","resultHeight","ibm", "legs", "szLimb","coordinate","balance","flexibility","sensitives","racket","pass","shoot"};
         // 转化器
         Map<String, ExcelUtil.Converter> converters = new HashMap<>(16);
      //   converters.put("createTime", (ExcelUtil.Converter<LocalDateTime>) createTime -> createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
@@ -448,6 +448,9 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
                 item.setShoot(0);
                 item.setShootScore(0);
             }
+            Cell cell20 =row.getCell(20);
+            cell20.setCellType(CellType.STRING);
+            item.setXyType((row.getCell(20).getStringCellValue()));
             item.setCreateBy(session.getUsername());
             Item item1 = baseMapper.selectOne(Wrappers.<Item>lambdaQuery().eq(Item::getSportId,sport.getId())
                                                              .eq(Item::getState,CommonConstant.State.ENABLE)

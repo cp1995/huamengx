@@ -3,7 +3,9 @@
 <mapper namespace="com.cp.dd.common.mapper.sport.ItemMapper">
 
     <select id="getPage" resultType="com.cp.dd.common.vo.sport.ItemVO">
-        SELECT i.*,s.`name` sportName FROM item i
+        SELECT i.*,s.`name` sportName,
+        (i.height_score+i.ibm_score+i.balance_score+i.coordinate_score+i.flexibility_score+i.sensitive_score+i.legs_score+i.limb_score) total
+        FROM item i
         LEFT JOIN sport s on i.sport_id = s.id
         <where>
             <if test="childName != null">
@@ -30,7 +32,9 @@
     </select>
 
     <select id="getDataPage" resultType="com.cp.dd.common.vo.sport.ItemVO">
-        SELECT i.*,s.`name` sportName FROM item i
+        SELECT i.*,s.`name` sportName,
+        (i.height_score+i.ibm_score+i.balance_score+i.coordinate_score+i.flexibility_score+i.sensitive_score+i.legs_score+i.limb_score) total
+         FROM item i
         LEFT JOIN sport s on i.sport_id = s.id
         <where>
             <if test="childName != null">
@@ -54,7 +58,9 @@
     </select>
 
     <select id="getDataList" resultType="com.cp.dd.common.vo.sport.ItemVO">
-        SELECT i.*,s.`name` sportName FROM item i
+        SELECT i.*,s.`name` sportName,
+        (i.height_score+i.ibm_score+i.balance_score+i.coordinate_score+i.flexibility_score+i.sensitive_score+i.legs_score+i.limb_score) total
+        FROM item i
         LEFT JOIN sport s on i.sport_id = s.id
         <where>
             <if test="childName != null">
@@ -78,7 +84,9 @@
     </select>
 
     <select id="getData" resultType="com.cp.dd.common.vo.sport.ItemVO">
-        SELECT i.*,s.`name` sportName FROM item i
+        SELECT i.*,s.`name` sportName,
+        (i.height_score+i.ibm_score+i.balance_score+i.coordinate_score+i.flexibility_score+i.sensitive_score+i.legs_score+i.limb_score) total
+        FROM item i
         LEFT JOIN sport s on i.sport_id = s.id
         <where>
             <if test="childName != null">
@@ -97,7 +105,9 @@
     </select>
 
     <select id="detail" resultType="com.cp.dd.common.vo.sport.ItemVO">
-        SELECT i.*,s.`name` sportName FROM item i
+        SELECT i.*,s.`name` sportName,
+        (i.height_score+i.ibm_score+i.balance_score+i.coordinate_score+i.flexibility_score+i.sensitive_score+i.legs_score+i.limb_score) total
+         FROM item i
         LEFT JOIN sport s on i.sport_id = s.id
       where i.id = #{id}
        and i.state = 1
