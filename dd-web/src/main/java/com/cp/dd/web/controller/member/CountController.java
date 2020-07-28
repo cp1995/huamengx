@@ -10,6 +10,7 @@ import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
 import com.cp.dd.common.util.SignUtil;
 import com.cp.dd.common.vo.sport.AccessTokenFactory;
+import com.cp.dd.common.vo.sport.CountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.ItemForm;
@@ -133,6 +134,13 @@ public class CountController {
         map.put("月新增学员",countNan+countNan2);
         map.put("月新增非学员",countNv+countNv2);
         return Result.success(map);
+    }
+    @GetMapping("/countTotal")
+    @ApiOperation(value = "男女合格比例统计", notes = "男女合格比例统计")
+    public Result<CountVO> countTotal(@ApiParam("年龄段开始最小是  3") @RequestParam(required = false) String start,
+                                      @ApiParam("年龄段结束 最大为 10") @RequestParam(required = false) String end
+                                      ) {
+        return Result.success(itemService.countTotal(start,end));
     }
 
 

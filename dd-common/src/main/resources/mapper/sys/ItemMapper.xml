@@ -113,6 +113,75 @@
        and i.state = 1
     </select>
 
+    <select id="countTotal" resultType="com.cp.dd.common.vo.sport.CountVO">
+
+                SELECT
+            a.nan nanHg,
+            b.nv nvHg,
+            c.nanTotal nanTotal,
+            d.nvTotal nvTotal
+        FROM
+            (
+            (
+        SELECT
+            count( 1 ) AS nan
+        FROM
+            item i
+        <where>
+           and (
+            i.height_score + i.ibm_score + i.balance_score + i.coordinate_score + i.flexibility_score + i.sensitive_score + i.legs_score + i.limb_score
+            ) > 60
+            AND i.state = 1
+            AND i.sex = 1
+            <if test="start != null and start !='' ">
+                AND i.age <![CDATA[  >=  ]]> #{start}
+            </if>
+            <if test="end != null and end !='' ">
+                AND i.age <![CDATA[  <=  ]]> #{end}
+            </if>
+        </where>
+            ) a,
+            (
+        SELECT
+            count( 1 ) AS nv
+        FROM
+            item i
+        <where>
+
+           and (
+            i.height_score + i.ibm_score + i.balance_score + i.coordinate_score + i.flexibility_score + i.sensitive_score + i.legs_score + i.limb_score
+            ) > 60
+            AND i.state = 1
+            AND i.sex = 2
+            <if test="start != null and start !='' ">
+                AND i.age <![CDATA[  >=  ]]> #{start}
+            </if>
+            <if test="end != null and end !='' ">
+                AND i.age <![CDATA[  <=  ]]> #{end}
+            </if>
+        </where>
+            ) b,
+            ( SELECT count( 1 ) AS nanTotal FROM item i <where> and i.state = 1 AND i.sex = 1
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+             ) c,
+            ( SELECT count( 1 ) AS nvTotal FROM item i <where> and i.state = 1 AND i.sex = 2
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+        </where>
+            ) d
+            )
+    </select>
+
 
 
 </mapper>

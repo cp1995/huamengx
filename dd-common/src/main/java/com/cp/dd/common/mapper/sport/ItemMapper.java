@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cp.dd.common.entity.sport.Item;
+import com.cp.dd.common.vo.sport.CountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
 import org.apache.ibatis.annotations.Param;
 
@@ -52,6 +53,10 @@ public interface ItemMapper extends BaseMapper<Item> {
                          @Param("sportId")Long sportId);
 
     ItemVO detail(Long id);
+
+    CountVO countTotal(@Param("start")String start,
+                       @Param("end")String end);
+
 
 
 }

@@ -17,16 +17,19 @@ import com.cp.dd.common.util.ExcelUtil;
 import com.cp.dd.common.util.calculation;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
+import com.cp.dd.common.vo.sport.CountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.form.sport.ItemForm;
 import com.cp.dd.web.form.sport.ItemUpdateForm;
 import com.cp.dd.web.service.sport.IItemService;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
@@ -525,6 +528,12 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         }
         item.setState(CommonConstant.State.DELETE);
         baseMapper.updateById(item);
+    }
+
+    @Override
+    public CountVO countTotal(String start,String end) {
+
+        return this.baseMapper.countTotal(start,end);
     }
 
 }
