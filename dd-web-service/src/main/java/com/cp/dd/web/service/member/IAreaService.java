@@ -5,13 +5,9 @@ package com.cp.dd.web.service.member;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.entity.member.Area;
-import com.cp.dd.common.entity.member.Member;
 import com.cp.dd.common.support.PageQuery;
-import com.cp.dd.common.vo.member.MemberVO;
-import com.cp.dd.web.form.member.MemberForm;
-import com.cp.dd.web.form.member.MemberLoginForm;
+import com.cp.dd.common.vo.member.AreaVO;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -30,7 +26,7 @@ public interface IAreaService extends IService<Area> {
 
     void save(String name,String areaCode,String type);
 
-    IPage getPage(PageQuery pageQuery, String name);
+    IPage<AreaVO> getPage(PageQuery pageQuery, String name);
 
 
 }

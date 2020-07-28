@@ -15,10 +15,12 @@ import com.cp.dd.common.mapper.member.MemberMapper;
 import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.sys.SessionCache;
+import com.cp.dd.common.vo.member.AreaVO;
 import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.web.service.member.IAreaService;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -87,7 +89,7 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
     }
 
     @Override
-    public IPage getPage(PageQuery pageQuery, String name) {
+    public IPage<AreaVO> getPage(PageQuery pageQuery, String name) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
         LambdaQueryWrapper<Area> wrapper;
@@ -103,6 +105,13 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
         }
 
         IPage<Area> page = baseMapper.selectPage(pageQuery.loadPage(), wrapper);
-        return page;
+        return page.convert(area -> {
+            AreaVO areaVO = new AreaVO();
+            BeanUtils.copyProperties(area, areaVO);
+            SysArea sysArea =sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,area.getAreaCode()));
+            areaVO.setAreaName(sysArea.getFullName());
+            return areaVO;
+        });
     }
 }

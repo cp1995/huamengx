@@ -4,6 +4,7 @@ import com.cp.dd.common.entity.member.Area;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
+import com.cp.dd.common.vo.member.AreaVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.service.member.IAreaService;
 import io.swagger.annotations.Api;
@@ -59,8 +60,8 @@ public class AreaController {
 
     @GetMapping("/getPage")
     @ApiOperation(value = "分页列表", notes = "分页列表")
-    public Result<PageModel<Area>> getPage(@Valid PageQuery pageQuery,
-                                           @RequestParam ( required =false) @ApiParam(value = "name", required = false) String name) {
+    public Result<PageModel<AreaVO>> getPage(@Valid PageQuery pageQuery,
+                                             @RequestParam ( required =false) @ApiParam(value = "name", required = false) String name) {
         return Result.success(areaService.getPage(pageQuery,name));
     }
 
