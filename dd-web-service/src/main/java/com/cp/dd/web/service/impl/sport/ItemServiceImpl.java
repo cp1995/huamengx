@@ -18,6 +18,7 @@ import com.cp.dd.common.util.calculation;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.CountVO;
+import com.cp.dd.common.vo.sport.ItemCountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.form.sport.ItemForm;
 import com.cp.dd.web.form.sport.ItemUpdateForm;
@@ -534,6 +535,11 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     public CountVO countTotal(String start,String end) {
 
         return this.baseMapper.countTotal(start,end);
+    }
+
+    @Override
+    public ItemCountVO getItemCount(String start,String end) {
+        return this.baseMapper.getItemCount(start,end);
     }
 
 }

@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.sport.CountVO;
+import com.cp.dd.common.vo.sport.ItemCountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.form.sport.ItemForm;
 import com.cp.dd.web.form.sport.ItemUpdateForm;
@@ -46,6 +47,8 @@ public interface IItemService extends IService<Item> {
     void del(Long id);
 
     CountVO countTotal(String start,String end);
+
+    ItemCountVO getItemCount(String start,String end);
 
 }
 

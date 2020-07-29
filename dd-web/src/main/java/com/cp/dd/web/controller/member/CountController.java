@@ -5,12 +5,14 @@ import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.entity.sport.XxItem;
+import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
 import com.cp.dd.common.util.SignUtil;
 import com.cp.dd.common.vo.sport.AccessTokenFactory;
 import com.cp.dd.common.vo.sport.CountVO;
+import com.cp.dd.common.vo.sport.ItemCountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.ItemForm;
@@ -23,6 +25,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -141,6 +144,24 @@ public class CountController {
                                       @ApiParam("年龄段结束 最大为 10") @RequestParam(required = false) String end
                                       ) {
         return Result.success(itemService.countTotal(start,end));
+    }
+
+    @GetMapping("/getItemCount")
+    @ApiOperation(value = "幼儿园各项目统计", notes = "幼儿园各项目统计")
+    public Result<ItemCountVO> getItemCount(@ApiParam("年龄段开始最小是  3") @RequestParam(required = false) String start,
+                                            @ApiParam("年龄段结束 最大为 6") @RequestParam(required = false) String end
+    ) {
+        if(StringUtils.isNotBlank(start)){
+            if(Integer.valueOf(start) < 3){
+                throw new ApiException("开始年龄有误");
+            }
+        }
+        if(StringUtils.isNotBlank(end)){
+            if(Integer.valueOf(end) < 8  ){
+                throw new ApiException("结束年龄段有误");
+            }
+        }
+        return Result.success(itemService.getItemCount(start,end));
     }
 
 
