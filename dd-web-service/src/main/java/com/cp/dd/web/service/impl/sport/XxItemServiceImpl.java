@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cp.dd.common.constant.CommonConstant;
-import com.cp.dd.common.entity.sport.Avg;
 import com.cp.dd.common.entity.sport.Sport;
+import com.cp.dd.common.entity.sport.XxAvg;
 import com.cp.dd.common.entity.sport.XxItem;
 import com.cp.dd.common.exception.ApiException;
-import com.cp.dd.common.mapper.sport.AvgMapper;
 import com.cp.dd.common.mapper.sport.SportMapper;
+import com.cp.dd.common.mapper.sport.XxAvgMapper;
 import com.cp.dd.common.mapper.sport.XxItemMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.ExcelUtil;
@@ -18,6 +18,7 @@ import com.cp.dd.common.util.XxCalculation;
 import com.cp.dd.common.util.calculation;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
+import com.cp.dd.common.vo.sport.XxItemCountVO;
 import com.cp.dd.common.vo.sport.XxItemVO;
 import com.cp.dd.web.form.sport.XxItemForm;
 import com.cp.dd.web.form.sport.XxItemUpdateForm;
@@ -54,7 +55,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
 
     private SportMapper sportMapper;
 
-    private AvgMapper avgMapper;
+    private XxAvgMapper xxAvgMapper;
 
     @Override
     public XxItem save(XxItemForm itemForm) {
@@ -439,18 +440,18 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
     @Override
     public XxItemVO detail(Long id) {
         XxItemVO vo =baseMapper.detail(id);
-        Avg avg =avgMapper.selectOne(Wrappers.<Avg>lambdaQuery().eq(Avg::getSex,vo.getSex())
-                .eq(Avg::getAge,vo.getAge()));
-        if(avg != null){
-            vo.setHightAvg(avg.getHightAvg());
-            vo.setBmiAvg(avg.getBmiAvg());
-            vo.setFeiHlAvg(0);
-            vo.setSensitiveAvg(avg.getSensitiveAvg());
-            vo.setFlexibilityAvg(avg.getFlexibilityAvg());
-            vo.setTiaosAvg(0);
-            vo.setRemoveAvg(0);
-            vo.setPassAvg(avg.getPassAvg());
-            vo.setShootAvg(avg.getShootAvg());
+        XxAvg xxAvg =xxAvgMapper.selectOne(Wrappers.<XxAvg>lambdaQuery().eq(XxAvg::getSex,vo.getSex())
+                .eq(XxAvg::getAge,vo.getAge()));
+        if(xxAvg != null){
+            vo.setHightAvg(xxAvg.getHeightAvg());
+            vo.setBmiAvg(xxAvg.getIbmAvg());
+            vo.setFeiHlAvg(xxAvg.getFeiHlAvg());
+            vo.setSensitiveAvg(xxAvg.getSensitiveAvg());
+            vo.setFlexibilityAvg(xxAvg.getFlexibilityAvg());
+            vo.setTiaosAvg(xxAvg.getTiaosAvg());
+            vo.setRemoveAvg(xxAvg.getRemoveAvg());
+            vo.setPassAvg(xxAvg.getPassAvg());
+            vo.setShootAvg(xxAvg.getShootAvg());
 
         }
         return vo;
@@ -466,6 +467,10 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
         baseMapper.updateById(item);
     }
 
+    @Override
+    public XxItemCountVO getItemCount(String start, String end) {
+        return this.baseMapper.getItemCount(start,end);
+    }
 
 
 }

@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.entity.sport.XxItem;
 import com.cp.dd.common.support.PageQuery;
+import com.cp.dd.common.vo.sport.XxItemCountVO;
 import com.cp.dd.common.vo.sport.XxItemVO;
 import com.cp.dd.web.form.sport.XxItemForm;
 import com.cp.dd.web.form.sport.XxItemUpdateForm;
@@ -43,6 +44,8 @@ public interface IXxItemService extends IService<XxItem> {
     XxItemVO detail(Long id);
 
     void del(Long id);
+
+    XxItemCountVO getItemCount(String start, String end);
 
 }
 

@@ -114,5 +114,272 @@
     </select>
 
 
+    <select id="getItemCount" resultType="com.cp.dd.common.vo.sport.XxItemCountVO">
+
+
+            SELECT nan.nan nanTotal,nv.nv  nvTotal,nanHg.`nan` nanHeightHg,nvHg.nv nvHeightHg,
+            nanFhl.`nan` nanFeiHlHg, nvFhl.nv nvFeiHlHg,nanTs.`nan` nanTiaosHg, nvTs.nv nvTiaosHg,
+            nanFle.`nan` nanFlexibilityHg , nvFle.nv nvFlexibilityHg,nanSen.`nan` nanSensitivesHg, nvSen.nv nvSensitivesHg,
+            nanIbm.`nan` nanIbmHg ,nvIbm.nv nvIbmHg
+
+            FROM (
+
+            (SELECT
+                count( 1 ) as nan
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+             <where>
+                AND i.sex = 1
+                AND a.sex = 1
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nan,
+
+                (SELECT
+                count( 1 ) AS nv
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                AND i.sex = 2
+                AND a.sex = 2
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nv,
+
+            (SELECT
+                count( 1 ) as nan
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                AND i.sex = 1
+                AND a.sex = 1
+                AND i.height > a.height_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+        ) nanHg,
+            (SELECT
+                count( 1 ) AS nv
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                AND i.sex = 2
+                AND a.sex = 2
+                AND i.height > a.height_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nvHg,
+
+            (SELECT
+                count( 1 ) as nan
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+         <where>
+                and i.sex = 1
+                AND a.sex = 1
+                AND i.fei_hl > a.fei_hl_avg
+                 <if test="start != null and start !='' ">
+                     AND i.age <![CDATA[  >=  ]]> #{start}
+                 </if>
+                 <if test="end != null and end !='' ">
+                     AND i.age <![CDATA[  <=  ]]> #{end}
+                 </if>
+         </where>
+                ) nanFhl,
+
+            (SELECT
+                count( 1 ) AS nv
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                 and i.sex = 2
+                AND a.sex = 2
+                AND i.fei_hl > a.fei_hl_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nvFhl,
+
+                (SELECT
+                count( 1 ) as nan
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                 and i.sex = 1
+                AND a.sex = 1
+                AND i.tiaos > a.tiaos_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nanTs,
+
+            (SELECT
+                count( 1 ) AS nv
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                 and i.sex = 2
+                AND a.sex = 2
+                AND i.tiaos > a.tiaos_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nvTs,
+
+
+                (SELECT
+                count( 1 ) as nan
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                and i.sex = 1
+                AND a.sex = 1
+                AND i.flexibility > a.flexibility_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nanFle,
+
+            (SELECT
+                count( 1 ) AS nv
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                 and i.sex = 2
+                AND a.sex = 2
+                AND i.flexibility > a.flexibility_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nvFle,
+
+
+                (SELECT
+                count( 1 ) as nan
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                 and i.sex = 1
+                AND a.sex = 1
+                AND i.sensitives > a.sensitive_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nanSen,
+
+            (SELECT
+                count( 1 ) AS nv
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                and i.sex = 2
+                AND a.sex = 2
+                AND i.sensitives > a.sensitive_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nvSen,
+
+
+                (SELECT
+                count( 1 ) as nan
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                and i.sex = 1
+                AND a.sex = 1
+                AND i.ibm > a.ibm_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nanIbm,
+
+            (SELECT
+                count( 1 ) AS nv
+            FROM
+                xx_item i
+                LEFT JOIN xx_avg a ON i.age = a.age
+            <where>
+                and i.sex = 2
+                AND a.sex = 2
+                AND i.ibm > a.ibm_avg
+                <if test="start != null and start !='' ">
+                    AND i.age <![CDATA[  >=  ]]> #{start}
+                </if>
+                <if test="end != null and end !='' ">
+                    AND i.age <![CDATA[  <=  ]]> #{end}
+                </if>
+            </where>
+                ) nvIbm
+
+                )
+
+    </select>
+
+
 
 </mapper>

@@ -10,10 +10,7 @@ import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
 import com.cp.dd.common.util.SignUtil;
-import com.cp.dd.common.vo.sport.AccessTokenFactory;
-import com.cp.dd.common.vo.sport.CountVO;
-import com.cp.dd.common.vo.sport.ItemCountVO;
-import com.cp.dd.common.vo.sport.ItemVO;
+import com.cp.dd.common.vo.sport.*;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.ItemForm;
 import com.cp.dd.web.form.sport.ItemUpdateForm;
@@ -157,11 +154,29 @@ public class CountController {
             }
         }
         if(StringUtils.isNotBlank(end)){
-            if(Integer.valueOf(end) < 8  ){
+            if(Integer.valueOf(end) >  7  ){
                 throw new ApiException("结束年龄段有误");
             }
         }
         return Result.success(itemService.getItemCount(start,end));
+    }
+
+    @GetMapping("/getXxItemCount")
+    @ApiOperation(value = "小学各项目统计", notes = "小学各项目统计")
+    public Result<XxItemCountVO> getXxItemCount(@ApiParam("年龄段开始最小是  7") @RequestParam(required = false) String start,
+                                              @ApiParam("年龄段结束 最大为 10") @RequestParam(required = false) String end
+    ) {
+        if(StringUtils.isNotBlank(start)){
+            if(Integer.valueOf(start) < 7){
+                throw new ApiException("开始年龄有误");
+            }
+        }
+        if(StringUtils.isNotBlank(end)){
+            if(Integer.valueOf(end) >10   ){
+                throw new ApiException("结束年龄段有误");
+            }
+        }
+        return Result.success(xxItemService.getItemCount(start,end));
     }
 
 
