@@ -528,5 +528,61 @@
     </select>
 
 
+    <select id="countMonth" resultType="com.cp.dd.common.vo.sport.MonthVO">
+
+                SELECT
+            xy.Jan xyJan,xy.Feb xyFeb,xy.Mar xyMar,xy.Apr xyApr,xy.May xyMay,xy.June xyJune,
+            xy.July xyJuly,xy.Aug xyAug,xy.Sept xySept,xy.Oct xyOct,xy.Nov xyNov,xy.Dece xyDece,
+            fxy.Jan fJan,fxy.Feb fFeb,fxy.Mar fMar,fxy.Apr fApr,fxy.May fMay,fxy.June fJune,
+            fxy.July fJuly,fxy.Aug fAug,fxy.Sept fSept,fxy.Oct fOct,fxy.Nov fNov,fxy.Dece fDece
+        FROM
+            (
+            (
+        SELECT
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '1' THEN 1 ELSE 0 END ), 0 ) AS Jan,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '2' THEN 1 ELSE 0 END ), 0 ) AS Feb,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '3' THEN 1 ELSE 0 END ), 0 ) AS Mar,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '4' THEN 1 ELSE 0 END ), 0 ) AS Apr,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '5' THEN 1 ELSE 0 END ), 0 ) AS May,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '6' THEN 1 ELSE 0 END ), 0 ) AS June,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '7' THEN 1 ELSE 0 END ), 0 ) AS July,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '8' THEN 1 ELSE 0 END ), 0 ) AS Aug,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '9' THEN 1 ELSE 0 END ), 0 ) AS Sept,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '10' THEN 1 ELSE 0 END ), 0 ) AS Oct,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '11' THEN 1 ELSE 0 END ), 0 ) AS Nov,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '12' THEN 1 ELSE 0 END ), 0 ) AS Dece
+        FROM
+            item
+        WHERE
+            YEAR ( create_time ) = '2020'
+            AND state = 1
+            AND xy_type = '华蒙星学员'
+            ) xy,
+            (
+        SELECT
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '1' THEN 1 ELSE 0 END ), 0 ) AS Jan,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '2' THEN 1 ELSE 0 END ), 0 ) AS Feb,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '3' THEN 1 ELSE 0 END ), 0 ) AS Mar,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '4' THEN 1 ELSE 0 END ), 0 ) AS Apr,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '5' THEN 1 ELSE 0 END ), 0 ) AS May,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '6' THEN 1 ELSE 0 END ), 0 ) AS June,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '7' THEN 1 ELSE 0 END ), 0 ) AS July,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '8' THEN 1 ELSE 0 END ), 0 ) AS Aug,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '9' THEN 1 ELSE 0 END ), 0 ) AS Sept,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '10' THEN 1 ELSE 0 END ), 0 ) AS Oct,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '11' THEN 1 ELSE 0 END ), 0 ) AS Nov,
+            IFNULL( sum( CASE MONTH ( create_time ) WHEN '12' THEN 1 ELSE 0 END ), 0 ) AS Dece
+        FROM
+            item
+        WHERE
+            YEAR ( create_time ) = #{year}
+            AND state = 1
+            AND xy_type = '非学员'
+            ) fxy
+            )
+
+    </select>
+
+
 
 </mapper>

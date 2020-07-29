@@ -87,53 +87,12 @@ public class CountController {
         return Result.success(map);
     }
 
-    @GetMapping("/countType")
-    @ApiOperation(value = "学员与非学员统计", notes = "学员与非学员统计")
-    public Result countType() {
-        Integer countNan= itemService.count(Wrappers.<Item>lambdaQuery()
-                .eq(Item::getXyType,"华蒙星学员")
-                .eq(Item::getState,1));
-        Integer countNv= itemService.count(Wrappers.<Item>lambdaQuery()
-                .eq(Item::getXyType,"非学员")
-                .eq(Item::getState,1));
-        Integer countNan2= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
-                .eq(XxItem::getXyType,"华蒙星学员")
-                .eq(XxItem::getState,1));
-        Integer countNv2= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
-                .eq(XxItem::getXyType,"非学员")
-                .eq(XxItem::getState,1));
-        Map<String,Integer> map = new HashMap<>();
-        map.put("学员",countNan+countNan2);
-        map.put("非学员",countNv+countNv2);
-        return Result.success(map);
-    }
+
     @GetMapping("/yxz")
     @ApiOperation(value = "月新增学员与非学员统计", notes = "月新增学员与非学员统计")
-    public Result yxz() {
-        String year =(localDateTime.getMonthValue() < 10) ? "0"+localDateTime.getMonthValue() : localDateTime.getMonthValue()+"";
-        year = localDateTime.getYear() + "-" + year;
-        LocalDateTime startTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(year+"-01"+" "+"00:00:00"));
-        LocalDateTime endTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(year+"-30"+" "+"23:59:59"));
-        Integer countNan= itemService.count(Wrappers.<Item>lambdaQuery()
-                .eq(Item::getXyType,"华蒙星学员")
-                .between(Item::getCreateTime, startTime,endTime)
-                .eq(Item::getState,1));
-        Integer countNv= itemService.count(Wrappers.<Item>lambdaQuery()
-                .eq(Item::getXyType,"非学员")
-                .between(Item::getCreateTime, startTime,endTime)
-                .eq(Item::getState,1));
-        Integer countNan2= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
-                .eq(XxItem::getXyType,"华蒙星学员")
-                .between(XxItem::getCreateTime, startTime,endTime)
-                .eq(XxItem::getState,1));
-        Integer countNv2= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
-                .eq(XxItem::getXyType,"非学员")
-                .between(XxItem::getCreateTime, startTime,endTime)
-                .eq(XxItem::getState,1));
-        Map<String,Integer> map = new HashMap<>();
-        map.put("月新增学员",countNan+countNan2);
-        map.put("月新增非学员",countNv+countNv2);
-        return Result.success(map);
+    public Result<MonthVO> yxz(@ApiParam("年份") @RequestParam(required = false) String year) {
+
+        return Result.success(itemService.countMonth(year));
     }
     @GetMapping("/countTotal")
     @ApiOperation(value = "男女合格比例统计", notes = "男女合格比例统计")

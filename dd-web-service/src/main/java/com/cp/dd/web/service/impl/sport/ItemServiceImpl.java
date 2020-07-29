@@ -20,6 +20,7 @@ import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.CountVO;
 import com.cp.dd.common.vo.sport.ItemCountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
+import com.cp.dd.common.vo.sport.MonthVO;
 import com.cp.dd.web.form.sport.ItemForm;
 import com.cp.dd.web.form.sport.ItemUpdateForm;
 import com.cp.dd.web.service.sport.IItemService;
@@ -540,6 +541,14 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     @Override
     public ItemCountVO getItemCount(String start,String end) {
         return this.baseMapper.getItemCount(start,end);
+    }
+
+    @Override
+    public MonthVO countMonth(String year) {
+        if(StringUtils.isBlank(year)){
+            year = "2020";
+        }
+        return this.baseMapper.countMonth(year);
     }
 
 }

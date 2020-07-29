@@ -8,6 +8,7 @@ import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.vo.sport.CountVO;
 import com.cp.dd.common.vo.sport.ItemCountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
+import com.cp.dd.common.vo.sport.MonthVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -60,5 +61,7 @@ public interface ItemMapper extends BaseMapper<Item> {
 
     ItemCountVO getItemCount(@Param("start")String start,
                              @Param("end")String end);
+
+    MonthVO countMonth(@Param("year")String year);
 
 }

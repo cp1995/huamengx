@@ -9,6 +9,7 @@ import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.sport.CountVO;
 import com.cp.dd.common.vo.sport.ItemCountVO;
 import com.cp.dd.common.vo.sport.ItemVO;
+import com.cp.dd.common.vo.sport.MonthVO;
 import com.cp.dd.web.form.sport.ItemForm;
 import com.cp.dd.web.form.sport.ItemUpdateForm;
 import org.springframework.web.multipart.MultipartFile;
@@ -49,6 +50,8 @@ public interface IItemService extends IService<Item> {
     CountVO countTotal(String start,String end);
 
     ItemCountVO getItemCount(String start,String end);
+
+    MonthVO countMonth(String year);
 
 }
 
