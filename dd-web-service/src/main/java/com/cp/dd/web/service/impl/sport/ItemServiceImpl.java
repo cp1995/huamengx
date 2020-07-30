@@ -535,12 +535,12 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     @Override
     public CountVO countTotal(String start,String end) {
 
-        return this.baseMapper.countTotal(start,end);
+        return this.baseMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
     }
 
     @Override
     public ItemCountVO getItemCount(String start,String end) {
-        return this.baseMapper.getItemCount(start,end);
+        return this.baseMapper.getItemCount(Integer.valueOf(start),Integer.valueOf(end));
     }
 
     @Override

@@ -56,11 +56,11 @@ public interface ItemMapper extends BaseMapper<Item> {
 
     ItemVO detail(Long id);
 
-    CountVO countTotal(@Param("start")String start,
-                       @Param("end")String end);
+    CountVO countTotal(@Param("start")Integer start,
+                       @Param("end")Integer end);
 
-    ItemCountVO getItemCount(@Param("start")String start,
-                             @Param("end")String end);
+    ItemCountVO getItemCount(@Param("start")Integer start,
+                             @Param("end")Integer end);
 
     MonthVO countMonth(@Param("year")String year);
 

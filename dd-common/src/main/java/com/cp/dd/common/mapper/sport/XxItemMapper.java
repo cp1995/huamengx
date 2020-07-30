@@ -55,8 +55,8 @@ public interface XxItemMapper extends BaseMapper<XxItem> {
     XxItemVO detail(Long id);
 
 
-    XxItemCountVO getItemCount(@Param("start")String start,
-                               @Param("end")String end);
+    XxItemCountVO getItemCount(@Param("start")Integer start,
+                               @Param("end")Integer end);
 
 
 }

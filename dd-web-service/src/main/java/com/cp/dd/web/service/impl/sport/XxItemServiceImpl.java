@@ -469,7 +469,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
 
     @Override
     public XxItemCountVO getItemCount(String start, String end) {
-        return this.baseMapper.getItemCount(start,end);
+        return this.baseMapper.getItemCount(Integer.valueOf(start),Integer.valueOf(end));
     }
 
 

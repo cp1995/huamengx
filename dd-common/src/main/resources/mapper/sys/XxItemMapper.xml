@@ -132,10 +132,10 @@
              <where>
                 AND i.sex = 1
                 AND a.sex = 1
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -149,10 +149,10 @@
             <where>
                 AND i.sex = 2
                 AND a.sex = 2
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -167,10 +167,10 @@
                 AND i.sex = 1
                 AND a.sex = 1
                 AND i.height > a.height_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -184,10 +184,10 @@
                 AND i.sex = 2
                 AND a.sex = 2
                 AND i.height > a.height_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -202,10 +202,10 @@
                 and i.sex = 1
                 AND a.sex = 1
                 AND i.fei_hl > a.fei_hl_avg
-                 <if test="start != null and start !='' ">
+                 <if test="start != null  ">
                      AND i.age <![CDATA[  >=  ]]> #{start}
                  </if>
-                 <if test="end != null and end !='' ">
+                 <if test="end != null  ">
                      AND i.age <![CDATA[  <=  ]]> #{end}
                  </if>
          </where>
@@ -220,10 +220,10 @@
                  and i.sex = 2
                 AND a.sex = 2
                 AND i.fei_hl > a.fei_hl_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -238,10 +238,10 @@
                  and i.sex = 1
                 AND a.sex = 1
                 AND i.tiaos > a.tiaos_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -256,10 +256,10 @@
                  and i.sex = 2
                 AND a.sex = 2
                 AND i.tiaos > a.tiaos_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -275,10 +275,10 @@
                 and i.sex = 1
                 AND a.sex = 1
                 AND i.flexibility > a.flexibility_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -293,10 +293,10 @@
                  and i.sex = 2
                 AND a.sex = 2
                 AND i.flexibility > a.flexibility_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -312,10 +312,10 @@
                  and i.sex = 1
                 AND a.sex = 1
                 AND i.sensitives > a.sensitive_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -330,10 +330,10 @@
                 and i.sex = 2
                 AND a.sex = 2
                 AND i.sensitives > a.sensitive_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -349,10 +349,10 @@
                 and i.sex = 1
                 AND a.sex = 1
                 AND i.ibm > a.ibm_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
@@ -367,10 +367,10 @@
                 and i.sex = 2
                 AND a.sex = 2
                 AND i.ibm > a.ibm_avg
-                <if test="start != null and start !='' ">
+                <if test="start != null  ">
                     AND i.age <![CDATA[  >=  ]]> #{start}
                 </if>
-                <if test="end != null and end !='' ">
+                <if test="end != null  ">
                     AND i.age <![CDATA[  <=  ]]> #{end}
                 </if>
             </where>
