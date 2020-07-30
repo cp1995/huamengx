@@ -12,6 +12,7 @@ import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sport.AvgMapper;
 import com.cp.dd.common.mapper.sport.ItemMapper;
 import com.cp.dd.common.mapper.sport.SportMapper;
+import com.cp.dd.common.mapper.sport.XxItemMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.ExcelUtil;
 import com.cp.dd.common.util.calculation;
@@ -58,6 +59,8 @@ import java.util.Map;
 public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements IItemService {
 
     private SportMapper sportMapper;
+
+    private XxItemMapper xxItemMapper;
 
     private AvgMapper avgMapper;
 
@@ -534,8 +537,13 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
     @Override
     public CountVO countTotal(String start,String end) {
-
-        return this.baseMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
+        CountVO countVO =this.baseMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
+        CountVO countVO1 =this.xxItemMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
+        countVO.setNanTotal(countVO.getNanTotal()+countVO1.getNanTotal());
+        countVO.setNvTotal(countVO.getNvTotal()+countVO1.getNvTotal());
+        countVO.setNanHg(countVO.getNanHg()+countVO1.getNanHg());
+        countVO.setNvHg(countVO.getNvHg()+countVO1.getNvHg());
+        return countVO;
     }
 
     @Override

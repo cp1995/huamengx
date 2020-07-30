@@ -113,6 +113,78 @@
        and i.state = 1
     </select>
 
+    <select id="countTotal" resultType="com.cp.dd.common.vo.sport.CountVO">
+
+        SELECT
+        a.nan nanHg,
+        b.nv nvHg,
+        c.nanTotal nanTotal,
+        d.nvTotal nvTotal
+        FROM
+        (
+        (
+        SELECT
+        count( 1 ) AS nan
+        FROM
+        xx_item i
+        <where>
+            and (
+            i.height + i.ibm + i.fei_hl + i.tiaos + i.flexibility + i.sensitives
+            ) >= 60
+            AND i.state = 1
+            AND i.sex = 1
+            <if test="start != null  ">
+                AND i.age <![CDATA[  >=  ]]> #{start}
+            </if>
+            <if test="end != null  ">
+                AND i.age <![CDATA[  <=  ]]> #{end}
+            </if>
+        </where>
+        ) a,
+        (
+        SELECT
+        count( 1 ) AS nv
+        FROM
+        xx_item i
+        <where>
+
+            and (
+            i.height + i.ibm + i.fei_hl + i.tiaos + i.flexibility + i.sensitives
+            ) >= 60
+            AND i.state = 1
+            AND i.sex = 2
+            <if test="start != null  ">
+                AND i.age <![CDATA[  >=  ]]> #{start}
+            </if>
+            <if test="end != null  ">
+                AND i.age <![CDATA[  <=  ]]> #{end}
+            </if>
+        </where>
+        ) b,
+        ( SELECT count( 1 ) AS nanTotal FROM xx_item i <where> and i.state = 1 AND i.sex = 1
+        <if test="start != null  ">
+            AND i.age <![CDATA[  >=  ]]> #{start}
+        </if>
+        <if test="end != null  ">
+            AND i.age <![CDATA[  <=  ]]> #{end}
+        </if>
+    </where>
+        ) c,
+        ( SELECT count( 1 ) AS nvTotal FROM xx_item i <where> and i.state = 1 AND i.sex = 2
+        <if test="start != null  ">
+            AND i.age <![CDATA[  >=  ]]> #{start}
+        </if>
+        <if test="end != null  ">
+            AND i.age <![CDATA[  <=  ]]> #{end}
+        </if>
+    </where>
+        ) d
+        )
+
+    </select>
+
+
+
 
     <select id="getItemCount" resultType="com.cp.dd.common.vo.sport.XxItemCountVO">
 
