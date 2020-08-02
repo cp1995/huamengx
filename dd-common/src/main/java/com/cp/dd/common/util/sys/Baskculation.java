@@ -334,7 +334,7 @@ public class Baskculation {
 
 
     /**
-     * 传/抛球进圈
+     * 投篮
      * @param age
      * @param rall
      * @return
