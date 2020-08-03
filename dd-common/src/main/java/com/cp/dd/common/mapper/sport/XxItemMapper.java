@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.cp.dd.common.entity.sport.XxItem;
 import com.cp.dd.common.vo.sport.CountVO;
+import com.cp.dd.common.vo.sport.MonthVO;
 import com.cp.dd.common.vo.sport.XxItemCountVO;
 import com.cp.dd.common.vo.sport.XxItemVO;
 import org.apache.ibatis.annotations.Param;
@@ -61,6 +62,8 @@ public interface XxItemMapper extends BaseMapper<XxItem> {
 
     XxItemCountVO getItemCount(@Param("start")Integer start,
                                @Param("end")Integer end);
+
+    MonthVO countMonth(@Param("year")String year);
 
 
 }

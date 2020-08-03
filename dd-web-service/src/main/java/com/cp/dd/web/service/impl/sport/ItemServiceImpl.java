@@ -9,10 +9,7 @@ import com.cp.dd.common.entity.sport.Avg;
 import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.exception.ApiException;
-import com.cp.dd.common.mapper.sport.AvgMapper;
-import com.cp.dd.common.mapper.sport.ItemMapper;
-import com.cp.dd.common.mapper.sport.SportMapper;
-import com.cp.dd.common.mapper.sport.XxItemMapper;
+import com.cp.dd.common.mapper.sport.*;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.ExcelUtil;
 import com.cp.dd.common.util.calculation;
@@ -63,6 +60,8 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     private XxItemMapper xxItemMapper;
 
     private AvgMapper avgMapper;
+
+    private BaskItemMapper baskItemMapper;
 
     @Override
     public Item save(ItemForm itemForm) {
@@ -538,11 +537,12 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     @Override
     public CountVO countTotal(String start,String end) {
         CountVO countVO =this.baseMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
-        CountVO countVO1 =this.xxItemMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
-        countVO.setNanTotal(countVO.getNanTotal()+countVO1.getNanTotal());
-        countVO.setNvTotal(countVO.getNvTotal()+countVO1.getNvTotal());
-        countVO.setNanHg(countVO.getNanHg()+countVO1.getNanHg());
-        countVO.setNvHg(countVO.getNvHg()+countVO1.getNvHg());
+        CountVO countVO1 =xxItemMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
+        CountVO countVO2 =baskItemMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
+        countVO.setNanTotal(countVO.getNanTotal()+countVO1.getNanTotal()+countVO2.getNanTotal());
+        countVO.setNvTotal(countVO.getNvTotal()+countVO1.getNvTotal()+countVO2.getNvTotal());
+        countVO.setNanHg(countVO.getNanHg()+countVO1.getNanHg()+countVO2.getNanHg());
+        countVO.setNvHg(countVO.getNvHg()+countVO1.getNvHg()+countVO2.getNvHg());
         return countVO;
     }
 
@@ -556,7 +556,36 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         if(StringUtils.isBlank(year)){
             year = "2020";
         }
-        return this.baseMapper.countMonth(year);
+        MonthVO vo = this.baseMapper.countMonth(year);
+        MonthVO vo1 = xxItemMapper.countMonth(year);
+        MonthVO vo2 = baskItemMapper.countMonth(year);
+        vo.setXyJan(vo.getXyJan()+vo1.getXyJan()+vo2.getXyJan());
+        vo.setXyFeb(vo.getXyFeb()+vo1.getXyFeb()+vo2.getXyFeb());
+        vo.setXyMar(vo.getXyMar()+vo1.getXyMar()+vo2.getXyMar());
+        vo.setXyApr(vo.getXyApr()+vo1.getXyApr()+vo2.getXyApr());
+        vo.setXyMay(vo.getXyMay()+vo1.getXyMay()+vo2.getXyMay());
+        vo.setXyJune(vo.getXyJune()+vo1.getXyJune()+vo2.getXyJune());
+        vo.setXyJuly(vo.getXyJuly()+vo1.getXyJuly()+vo2.getXyJuly());
+        vo.setXyAug(vo.getXyAug()+vo1.getXyAug()+vo2.getXyAug());
+        vo.setXySept(vo.getXySept()+vo1.getXySept()+vo2.getXySept());
+        vo.setXyOct(vo.getXyOct()+vo1.getXyOct()+vo2.getXyOct());
+        vo.setXyNov(vo.getXyNov()+vo1.getXyNov()+vo2.getXyNov());
+        vo.setXyDece(vo.getXyDece()+vo1.getXyDece()+vo2.getXyDece());
+
+        vo.setFJan(vo.getFJan()+vo1.getFJan()+vo2.getFJan());
+        vo.setFFeb(vo.getFFeb()+vo1.getFFeb()+vo2.getFFeb());
+        vo.setFMar(vo.getFMar()+vo1.getFMar()+vo2.getFMar());
+        vo.setFApr(vo.getFApr()+vo1.getFApr()+vo2.getFApr());
+        vo.setFMay(vo.getFMay()+vo1.getFMay()+vo2.getFMay());
+        vo.setFJune(vo.getFJune()+vo1.getFJune()+vo2.getFJune());
+        vo.setFJuly(vo.getFJuly()+vo1.getFJuly()+vo2.getFJuly());
+        vo.setFAug(vo.getFAug()+vo1.getFAug()+vo2.getFAug());
+        vo.setFSept(vo.getFSept()+vo1.getFSept()+vo2.getFSept());
+        vo.setFOct(vo.getFOct()+vo1.getFOct()+vo2.getFOct());
+        vo.setFNov(vo.getFNov()+vo1.getFNov()+vo2.getFNov());
+        vo.setFDece(vo.getFDece()+vo1.getFDece()+vo2.getFDece());
+
+        return vo;
     }
 
 }

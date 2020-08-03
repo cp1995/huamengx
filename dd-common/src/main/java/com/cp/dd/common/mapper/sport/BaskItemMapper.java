@@ -54,6 +54,11 @@ public interface BaskItemMapper extends BaseMapper<BaskItem> {
 
     BaskItemVO detail(Long id);
 
+    CountVO countTotal(@Param("start")Integer start,
+                       @Param("end")Integer end);
+
+    MonthVO countMonth(@Param("year")String year);
+
 
 
 }

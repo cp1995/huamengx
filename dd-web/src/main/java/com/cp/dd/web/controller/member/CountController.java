@@ -2,6 +2,7 @@ package com.cp.dd.web.controller.member;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.annotation.IgnoreLogin;
+import com.cp.dd.common.entity.sport.BaskItem;
 import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.entity.sport.XxItem;
@@ -14,6 +15,7 @@ import com.cp.dd.common.vo.sport.*;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.ItemForm;
 import com.cp.dd.web.form.sport.ItemUpdateForm;
+import com.cp.dd.web.service.sport.IBaskItemService;
 import com.cp.dd.web.service.sport.IItemService;
 import com.cp.dd.web.service.sport.ISportService;
 import com.cp.dd.web.service.sport.IXxItemService;
@@ -60,6 +62,7 @@ public class CountController {
     private IItemService  itemService;
 
     private IXxItemService xxItemService;
+    private IBaskItemService baskItemService;
     private static LocalDate date = LocalDate.now();
     private static LocalDateTime localDateTime = LocalDateTime.now();
     private static DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -81,9 +84,15 @@ public class CountController {
         Integer countNv2= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
                 .eq(XxItem::getSex,2)
                 .eq(XxItem::getState,1));
+        Integer countNan3= baskItemService.count(Wrappers.<BaskItem>lambdaQuery()
+                .eq(BaskItem::getSex,1)
+                .eq(BaskItem::getState,1));
+        Integer countNv3= baskItemService.count(Wrappers.<BaskItem>lambdaQuery()
+                .eq(BaskItem::getSex,2)
+                .eq(BaskItem::getState,1));
         Map<String,Integer> map = new HashMap<>();
-        map.put("男",countNan+countNan2);
-        map.put("女",countNv+countNv2);
+        map.put("男",countNan+countNan2+countNan3);
+        map.put("女",countNv+countNv2+countNv3);
         return Result.success(map);
     }
 
