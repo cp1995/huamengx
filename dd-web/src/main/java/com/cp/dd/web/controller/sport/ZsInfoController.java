@@ -106,7 +106,7 @@ public class ZsInfoController {
                                              @RequestParam(required = false) @ApiParam("机构名") String deptName,
                                           @RequestParam(required = false) @ApiParam("证书编号") String code
     ) {
-        if(StringUtils.isBlank(name) || StringUtils.isBlank(deptName) || StringUtils.isBlank(code)){
+        if(StringUtils.isBlank(name) && StringUtils.isBlank(deptName) && StringUtils.isBlank(code)){
             throw new ApiException("请输入查询条件");
         }
         return Result.success(zsInfoService.getAppList(name,deptName,code));
