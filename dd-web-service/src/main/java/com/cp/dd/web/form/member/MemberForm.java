@@ -27,7 +27,7 @@ public class MemberForm implements Serializable {
     @ApiModelProperty(value = "手机号")
     private String phone;
 
-    @ApiModelProperty(value = "1管理员2录入员3园区管理员")
+    @ApiModelProperty(value = "1管理员2录入员3园区管理员4 师资部 5总部管理员 ")
     private Integer role;
     
     @ApiModelProperty(value = "密码")

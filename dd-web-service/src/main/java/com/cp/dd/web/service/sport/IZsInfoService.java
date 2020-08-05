@@ -24,8 +24,14 @@ public interface IZsInfoService extends IService<ZsInfo> {
 
     void del(List<Long> ids);
 
-    IPage<ZsInfo> getPage(PageQuery query,String name,String code,String address,String areaCode,
-                          String categoryType,String mobile);
+    void audit(List<Long> ids,Integer auditStatus);
 
+    IPage<ZsInfo> getPage(PageQuery query,String name,String deptName,String code,String areaId,
+                          String categoryType);
+
+    IPage<ZsInfo> getAuditPage(PageQuery query,String name,String deptName,String code,
+                          String categoryType,Integer auditStatus);
+
+    List<ZsInfo> getAppList(String name,String deptName,String code);
 
 }

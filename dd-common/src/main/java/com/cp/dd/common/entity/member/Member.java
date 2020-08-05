@@ -45,13 +45,11 @@ public class Member implements Serializable {
     @ApiModelProperty(value = "园区id")
     private Long areaId;
 
-    @ApiModelProperty(value = "1管理员2录入员")
+    @ApiModelProperty(value = "1管理员2录入员3园区管理员4 师资部 5总部管理员")
     private Integer role;
 
     @ApiModelProperty(value = "状态")
     private Integer state;
-
-
 
     @ApiModelProperty(value = "创建时间/提交时间")
     @TableField(fill = FieldFill.INSERT)

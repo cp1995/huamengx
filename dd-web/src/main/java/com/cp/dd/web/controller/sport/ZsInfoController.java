@@ -1,16 +1,13 @@
 package com.cp.dd.web.controller.sport;
 
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-import com.cp.dd.common.constant.Constants;
-import com.cp.dd.common.entity.member.ZsCategory;
+import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.entity.sport.ZsInfo;
+import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
 import com.cp.dd.web.aop.AddOperLog;
-import com.cp.dd.web.form.member.ZsCategoryForm;
 import com.cp.dd.web.form.sport.ZsInfoForm;
-import com.cp.dd.web.service.member.IZsCategoryService;
 import com.cp.dd.web.service.sport.IZsInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -65,19 +62,55 @@ public class ZsInfoController {
         return Result.success();
     }
 
+    @GetMapping(value = "/audit")
+    @ApiOperation(value = "证书审核", notes = "证书审核")
+    public Result audit(@RequestParam @ApiParam(value = "Id", required = true)
+                              List<Long> ids,
+                        @RequestParam @ApiParam(value = "审核状态  0审核 1审核通过" ,required = true) Integer auditStatus
+                        ) {
+        zsInfoService.audit(ids,auditStatus);
+        return Result.success();
+    }
+
     @GetMapping("/page")
     @ApiOperation(value = "分页列表", notes = "分页列表")
     public Result<PageModel<ZsInfo>> page(@Valid PageQuery pageQuery,
-                                          @RequestParam(required = false) @ApiParam("证书") String name,
+                                          @RequestParam(required = false) @ApiParam("姓名") String name,
+                                          @RequestParam(required = false) @ApiParam("机构名") String deptName,
                                           @RequestParam(required = false) @ApiParam("证书编号") String code,
-                                          @RequestParam(required = false) @ApiParam("地址") String address,
-                                          @RequestParam(required = false) @ApiParam("区域") String areaCode,
-                                          @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType,
-                                          @RequestParam(required = false) @ApiParam("手机号") String mobile
+                                          @RequestParam(required = false) @ApiParam("区域") String areaId,
+                                          @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType
     ) {
-        return Result.success(zsInfoService.getPage(pageQuery,name,code,address,areaCode,categoryType,mobile));
+        return Result.success(zsInfoService.getPage(pageQuery,name,deptName,code,areaId,categoryType));
     }
 
+
+    @GetMapping("/getAuditPage")
+    @ApiOperation(value = "审核分页列表", notes = "审核分页列表")
+    public Result<PageModel<ZsInfo>> getAuditPage(@Valid PageQuery pageQuery,
+                                          @RequestParam(required = false) @ApiParam("姓名") String name,
+                                          @RequestParam(required = false) @ApiParam("机构名") String deptName,
+                                          @RequestParam(required = false) @ApiParam("证书编号") String code,
+                                          @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType,
+                                          @RequestParam(required = false) @ApiParam("审核状态  0审核 1审核通过") Integer auditStatus
+    ) {
+        return Result.success(zsInfoService.getAuditPage(pageQuery,name,deptName,code,categoryType,auditStatus));
+    }
+
+
+    @IgnoreLogin
+    @GetMapping("/pageApp")
+    @ApiOperation(value = "公众号证书查询", notes = "公众号个人证书查询")
+    public Result<List<ZsInfo>> pageApp(
+                                          @RequestParam(required = false) @ApiParam("姓名") String name,
+                                             @RequestParam(required = false) @ApiParam("机构名") String deptName,
+                                          @RequestParam(required = false) @ApiParam("证书编号") String code
+    ) {
+        if(StringUtils.isBlank(name) || StringUtils.isBlank(deptName) || StringUtils.isBlank(code)){
+            throw new ApiException("请输入查询条件");
+        }
+        return Result.success(zsInfoService.getAppList(name,deptName,code));
+    }
 
 
 

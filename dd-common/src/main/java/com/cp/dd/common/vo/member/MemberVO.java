@@ -41,7 +41,7 @@ public class MemberVO implements Serializable {
     private String username;
 
 
-    @ApiModelProperty(value = "1管理员2录入员")
+    @ApiModelProperty(value = "1管理员2录入员3园区管理员4 师资部 5总部管理员")
     private Integer  role;
 
     @ApiModelProperty(value = "手机")

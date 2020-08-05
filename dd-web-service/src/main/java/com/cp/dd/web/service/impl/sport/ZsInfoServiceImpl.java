@@ -1,19 +1,18 @@
 package com.cp.dd.web.service.impl.sport;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.constant.Constants;
+import com.cp.dd.common.entity.member.Member;
 import com.cp.dd.common.entity.sport.ZsInfo;
-import com.cp.dd.common.entity.sys.SysArea;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sport.ZsInfoMapper;
-import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.support.PageQuery;
+import com.cp.dd.common.util.sys.SessionCache;
+import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.sport.IZsInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,29 +32,30 @@ import java.util.Objects;
 @Service
 public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> implements IZsInfoService {
 
-    private SysAreaMapper sysAreaMapper;
 
 
     @Override
     public void save(ZsInfoForm zsInfoForm) {
+        MemberVO member = SessionCache.get();
+        if(member.getRole() != 5){
+            throw new ApiException("总部管理员才能进行录入");
+        }
         ZsInfo zsInfo = new ZsInfo();
         BeanUtils.copyProperties(zsInfoForm, zsInfo);
-        SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
-                .eq(SysArea::getCode,zsInfoForm.getCode()));
-        zsInfo.setShortCode(sysArea.getShortCode());
         this.baseMapper.insert(zsInfo);
     }
 
     @Override
     public void update(ZsInfoForm zsInfoForm) {
+        Member member = SessionCache.get();
+        if(member.getRole() != 5){
+            throw new ApiException("总部管理员才能进行编辑");
+        }
         ZsInfo zsInfo = this.baseMapper.selectById(zsInfoForm.getId());
         if(zsInfo == null){
             throw new ApiException("该证书不存在");
         }
         BeanUtils.copyProperties(zsInfoForm, zsInfo);
-        SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
-                .eq(SysArea::getCode,zsInfoForm.getCode()));
-        zsInfo.setShortCode(sysArea.getShortCode());
         this.baseMapper.updateById(zsInfo);
 
     }
@@ -66,23 +66,63 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
         ids.forEach(this::delete);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public IPage<ZsInfo> getPage(PageQuery query, String name, String code, String address, String areaCode, String categoryType, String mobile) {
-        if(StringUtils.isNotBlank(areaCode)){
-            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
-                    .eq(SysArea::getCode,areaCode));
-            areaCode = sysArea.getShortCode();
+    public void audit(List<Long> ids, Integer auditStatus) {
+        MemberVO memberVO = SessionCache.get();
+        if(memberVO.getRole()  != 4){
+            throw new ApiException("暂无审核权限");
         }
-        return this.baseMapper.getPage(query.loadPage(),name,code,address,areaCode,categoryType,mobile);
+
+        ids.forEach(id->{
+            this.audit(id,auditStatus);
+        });
+
     }
 
+    @Override
+    public IPage<ZsInfo> getPage(PageQuery query, String name, String deptName, String code, String areaId, String categoryType) {
+        MemberVO memberVO = SessionCache.get();
+        if(memberVO.getRole()  == 4){
+            areaId = memberVO.getAreaId()+"";
+        }
+        return this.baseMapper.getPage(query.loadPage(),name,deptName,code,areaId,categoryType);
+    }
+
+    @Override
+    public IPage<ZsInfo> getAuditPage(PageQuery query, String name, String deptName, String code, String categoryType,Integer auditStatus) {
+       MemberVO memberVO = SessionCache.get();
+         String areaId = null;
+       if(memberVO.getRole()  == 4){
+           areaId = memberVO.getAreaId()+"";
+       }
+        return this.baseMapper.getAuditPage(query.loadPage(),name,deptName,code,areaId,categoryType,auditStatus);
+    }
+
+    @Override
+    public List<ZsInfo> getAppList(String name, String deptName, String code) {
+        return this.baseMapper.getAppList(name,deptName,code);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
     public void delete(Long actId) {
         ZsInfo entity = baseMapper.selectById(actId);
         if (Objects.isNull(entity)) {
-            throw new ApiException(-1, "该分类不存在");
+            throw new ApiException(-1, "该证书不存在");
         }
         // 修改状态，逻辑删除
         entity.setStatus(Constants.Status.delete);
+        this.updateById(entity);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void audit(Long id,Integer auditStatus) {
+        ZsInfo entity = baseMapper.selectById(id);
+        if (Objects.isNull(entity)) {
+            throw new ApiException(-1, "该证书不存在");
+        }
+        // 修改状态，逻辑删除
+        entity.setAuditStatus(auditStatus);
         this.updateById(entity);
     }
 

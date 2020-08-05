@@ -5,6 +5,8 @@ import com.cp.dd.common.entity.sport.ZsInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -17,10 +19,26 @@ public interface ZsInfoMapper extends BaseMapper<ZsInfo> {
 
     IPage<ZsInfo> getPage(IPage<ZsInfo> page,
                           @Param("name") String name,
+                          @Param("deptName") String deptName,
                           @Param("code") String code,
-                          @Param("address") String address,
-                          @Param("shortCode") String shortCode,
-                          @Param("categoryType") String categoryType,
-                          @Param("mobile") String mobile);
+                          @Param("areaId") String areaId,
+                          @Param("categoryType") String categoryType);
+
+
+    IPage<ZsInfo> getAuditPage(IPage<ZsInfo> page,
+                          @Param("name") String name,
+                          @Param("deptName") String deptName,
+                          @Param("code") String code,
+                           @Param("areaId") String areaId,
+                           @Param("categoryType") String categoryType,
+                           @Param("auditStatus") Integer auditStatus
+    );
+
+    List<ZsInfo> getAppList(
+            @Param("name") String name,
+            @Param("deptName") String deptName,
+            @Param("code") String code
+
+    );
 
 }

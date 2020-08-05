@@ -8,27 +8,79 @@
 
         <where>
             <if test="name != null and name !='' ">
-                AND zi.`name` like concat('%' ,#{name},'%')
+                AND zi.`name`  = #{name}
             </if>
             <if test="code != null and code !='' ">
                 AND zi.code = #{code}
             </if>
-            <if test="address != null and address !='' ">
-                AND zi.address like concat('%' ,#{address},'%')
+            <if test="deptName != null and deptName !='' ">
+                AND zi.dept_name = #{deptName}
             </if>
-            <if test="shortCode != null and shortCode !='' ">
-                AND zi.short_code like concat('' ,#{shortCode},'%')
+            <if test="areaId != null and areaId !='' ">
+                AND zi.area_id = #{areaId}
             </if>
-            <if test="mobile != null and mobile !='' ">
-                AND zi.mobile like concat('%' ,#{mobile},'%')
-            </if>
+
             <if test="categoryType != null and categoryType !='' ">
                 AND zi.category_type = #{categoryType}
             </if>
 
             AND zi.status =1
+            and zi.audit_status =2
         </where>
             order by zi.create_time desc
+
+    </select>
+
+
+    <select id="getAuditPage" resultType="com.cp.dd.common.entity.sport.ZsInfo">
+
+        SELECT zi.* FROM zs_info zi
+
+        <where>
+            <if test="name != null and name !='' ">
+                AND zi.`name`  = #{name}
+            </if>
+            <if test="code != null and code !='' ">
+                AND zi.code = #{code}
+            </if>
+            <if test="deptName != null and deptName !='' ">
+                AND zi.dept_name = #{deptName}
+            </if>
+            <if test="areaId != null and areaId !='' ">
+                AND zi.area_id = #{areaId}
+            </if>
+            <if test="categoryType != null and categoryType !='' ">
+                AND zi.category_type = #{categoryType}
+            </if>
+              <if test="auditStatus != null  ">
+                AND zi.audit_status = #{auditStatus}
+            </if>
+
+            AND zi.status =1
+        </where>
+        order by zi.create_time desc
+
+    </select>
+
+
+    <select id="getAppList" resultType="com.cp.dd.common.entity.sport.ZsInfo">
+
+        SELECT zi.* FROM zs_info zi
+
+        <where>
+            <if test="name != null and name !='' ">
+                AND zi.`name`  = #{name}
+            </if>
+            <if test="code != null and code !='' ">
+                AND zi.code = #{code}
+            </if>
+            <if test="deptName != null and deptName !='' ">
+                AND zi.dept_name = #{deptName}
+            </if>
+            AND zi.status =1
+            and zi.audit_status =2
+        </where>
+        order by zi.create_time desc
 
     </select>
 

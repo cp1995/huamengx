@@ -28,24 +28,32 @@ public class ZsInfo implements Serializable {
 
     private Long id;
 
-    @ApiModelProperty(value = "证书名字")
+    @ApiModelProperty(value = "姓名")
     private String name;
 
-    @ApiModelProperty(value = "证书编号")
+    @ApiModelProperty(value = "单位名称/ 机构名称")
+    private String deptName;
+
+    @ApiModelProperty(value = "证书编号/合同号")
     private String code;
 
+    @ApiModelProperty(value = "照片")
     private String icon;
 
-    @ApiModelProperty(value = "地址")
-    private String address;
+    @ApiModelProperty(value = "性别 1男2女")
+    private Integer sex;
 
-    @ApiModelProperty(value = "手机号")
-    private String mobile;
+    @ApiModelProperty(value = "身份证")
+    private String idCard;
+
+    @ApiModelProperty(value = "证书路径")
+    private String path;
+
+    @ApiModelProperty(value = "研修班")
+    private String grade;
 
     @ApiModelProperty(value = "区域编码")
-    private String areaCode;
-
-    private String shortCode;
+    private Long areaId;
 
     @ApiModelProperty(value = "机构证书、个人证书  ")
     private String categoryType;
@@ -53,10 +61,10 @@ public class ZsInfo implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "证书失效时间")
+    @ApiModelProperty(value = "证书有效期失效时间")
     private LocalDateTime sxTime;
 
-    @ApiModelProperty(value = "证书开始时间")
+    @ApiModelProperty(value = "证书有效期开始时间")
     private LocalDateTime stTime;
 
     @ApiModelProperty(value = "分类id")
@@ -64,6 +72,9 @@ public class ZsInfo implements Serializable {
 
     @ApiModelProperty(value = "1正常  -1删除")
     private Integer status;
+
+    @ApiModelProperty(value = "审核状态  0审核 1审核通过")
+    private Integer AuditStatus;
 
 
 }

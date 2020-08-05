@@ -48,11 +48,33 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
         if(role == CommonConstant.Role.SUPER){
             list = baseMapper.selectList(Wrappers.<Area>lambdaQuery()
                     .eq(Area::getState,CommonConstant.State.ENABLE)
+                    .ne(Area::getType,"区域")
                     .orderByDesc(Area::getCreateTime));
         }else{
             list = baseMapper.selectList(Wrappers.<Area>lambdaQuery()
                     .eq(Area::getState,CommonConstant.State.ENABLE)
                     .eq(Area::getId,session.getAreaId())
+                    .ne(Area::getType,"区域")
+                    .orderByDesc(Area::getCreateTime));
+        }
+        return list;
+    }
+
+    @Override
+    public List<Area> findRegionList() {
+        List<Area> list= null;
+        MemberVO session = SessionCache.get();
+        Integer role = session.getRole();
+        if(role == CommonConstant.Role.SUPER){
+            list = baseMapper.selectList(Wrappers.<Area>lambdaQuery()
+                    .eq(Area::getState,CommonConstant.State.ENABLE)
+                    .eq(Area::getType,"区域")
+                    .orderByDesc(Area::getCreateTime));
+        }else{
+            list = baseMapper.selectList(Wrappers.<Area>lambdaQuery()
+                    .eq(Area::getState,CommonConstant.State.ENABLE)
+                    .eq(Area::getId,session.getAreaId())
+                    .eq(Area::getType,"区域")
                     .orderByDesc(Area::getCreateTime));
         }
         return list;
@@ -96,10 +118,12 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
         if(role == CommonConstant.Role.SUPER){
             wrapper = Wrappers.<Area>lambdaQuery().like(StringUtils.isNotBlank(name), Area::getName, name)
                     .eq(Area::getState,CommonConstant.State.ENABLE)
+                    .ne(Area::getType,"区域")
                     .orderByAsc(Area::getCreateTime);
         }else{
             wrapper = Wrappers.<Area>lambdaQuery().like(StringUtils.isNotBlank(name), Area::getName, name)
                     .eq(Area::getState,CommonConstant.State.ENABLE)
+                    .ne(Area::getType,"区域")
                     .eq(Area::getId,session.getAreaId())
                     .orderByAsc(Area::getCreateTime);
         }

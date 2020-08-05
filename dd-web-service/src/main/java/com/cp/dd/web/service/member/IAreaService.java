@@ -22,6 +22,8 @@ public interface IAreaService extends IService<Area> {
 
     List<Area> findList();
 
+    List<Area> findRegionList();
+
     void delete(Long id);
 
     void save(String name,String areaCode,String type);

@@ -23,37 +23,45 @@ public class ZsInfoForm implements Serializable {
     @ApiModelProperty(value = "修改时使用")
     private Long id;
 
-    @ApiModelProperty(value = "证书名字")
-    @NotBlank(message = "证书名字不能为空")
+    @ApiModelProperty(value = "姓名")
     private String name;
 
-    @ApiModelProperty(value = "证书编号")
+    @ApiModelProperty(value = "单位名称/ 机构名称")
+    private String deptName;
+
+    @ApiModelProperty(value = "证书编号/授权合同号")
     @NotBlank(message = "证书编号不能为空")
     private String code;
 
+    @ApiModelProperty(value = "照片")
     private String icon;
 
-    @ApiModelProperty(value = "手机号")
-    private String mobile;
+    @ApiModelProperty(value = "身份证")
+    private String idCard;
 
-    @ApiModelProperty(value = "地址")
-    private String address;
+    @ApiModelProperty(value = "性别 1男2女")
+    private Integer sex;
+
+    @ApiModelProperty(value = "证书路径")
+    private String path;
+
+    @ApiModelProperty(value = "研修班")
+    private String grade;
+
+    @ApiModelProperty(value = "区域编码")
+    private Long areaId;
 
     @ApiModelProperty(value = "机构证书、个人证书  ")
     private String categoryType;
 
-    @ApiModelProperty(value = "区域编码")
-    @NotBlank(message = "区域编码不能为空")
-    private String areaCode;
-
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "证书失效时间")
+    @ApiModelProperty(value = "证书有效期失效时间")
     @NotNull(message = "证书失效不能为空")
     private LocalDateTime sxTime;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @NotNull(message = "证书开始时间不能为空")
-    @ApiModelProperty(value = "证书开始时间")
+    @ApiModelProperty(value = "证书有效期开始时间")
     private LocalDateTime stTime;
 
     @ApiModelProperty(value = "分类id")
