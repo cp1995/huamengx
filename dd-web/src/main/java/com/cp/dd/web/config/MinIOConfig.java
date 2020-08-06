@@ -21,8 +21,8 @@ public class MinIOConfig {
     @Bean
     public MinioClient minioClient() {
         String host ="http://114.55.104.155:9000";
-        String accesskey ="minioadmin";
-        String secretkey = "minioadmin";
+        String accesskey ="hmx";
+        String secretkey = "hmx2020minio";
         MinioClient minioClient
                 = null;
         try {
