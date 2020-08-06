@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cp.dd.common.entity.sport.ZsInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.support.PageQuery;
+import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 
 import java.util.List;
@@ -33,5 +35,9 @@ public interface IZsInfoService extends IService<ZsInfo> {
                           String categoryType,Integer auditStatus);
 
     List<ZsInfo> getAppList(String name,String deptName,String code);
+
+    ZsInfoCountVO countInfo();
+
+    ZsInfoAreaCountVO countArea();
 
 }

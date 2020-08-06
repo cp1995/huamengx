@@ -9,6 +9,8 @@ import com.cp.dd.common.mapper.sport.ZsInfoMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
+import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.sport.IZsInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -102,6 +104,26 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     @Override
     public List<ZsInfo> getAppList(String name, String deptName, String code) {
         return this.baseMapper.getAppList(name,deptName,code);
+    }
+
+    @Override
+    public ZsInfoCountVO countInfo() {
+        MemberVO memberVO = SessionCache.get();
+        String areaId = null;
+        if (memberVO.getRole() == 4){
+            areaId = memberVO.getAreaId()+"";
+        }
+        return this.baseMapper.countInfo(areaId);
+    }
+
+    @Override
+    public ZsInfoAreaCountVO countArea() {
+        MemberVO memberVO = SessionCache.get();
+        String areaId = null;
+//        if (memberVO.getRole() == 4){
+//            areaId = memberVO.getAreaId()+"";
+//        }
+        return this.baseMapper.countArea(areaId);
     }
 
     @Transactional(rollbackFor = Exception.class)

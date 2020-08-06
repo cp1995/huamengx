@@ -84,4 +84,76 @@
 
     </select>
 
+
+
+    <select id="countInfo" resultType="com.cp.dd.common.vo.sport.ZsInfoCountVO">
+
+       select count(*) total,category_id ,zs.name  categoryName from zs_info z ,zs_category zs
+        <where>
+            <if test="areaId != null and areaId !='' ">
+                AND z.area_id = #{areaId}
+            </if>
+        and  z.category_id = zs.id
+        and z.status =1
+        and z.audit_status =1
+        </where>
+        group by z.category_id
+
+    </select>
+
+    <select id="countArea" resultType="com.cp.dd.common.vo.sport.ZsInfoAreaCountVO">
+
+                     select aa.a east,bb.b northWest,cc.c south,dd.d north from (
+
+    (select count(*) a from zs_info
+        <where>
+            <if test="areaId != null and areaId !='' ">
+                AND area_id = #{areaId}
+            </if>
+            and area_id = 26
+            and status =1
+            and audit_status =1
+        </where>
+            ) aa
+         ,
+        ( select count(*) b from zs_info
+
+        <where>
+            <if test="areaId != null and areaId !='' ">
+                AND area_id = #{areaId}
+            </if>
+            and area_id = 27
+            and status =1
+            and audit_status =1
+        </where>
+            ) bb
+         ,
+        ( select count(*) c from zs_info
+
+        <where>
+            <if test="areaId != null and areaId !='' ">
+                AND area_id = #{areaId}
+            </if>
+            and area_id = 28
+            and status =1
+            and audit_status =1
+        </where>
+            ) cc
+         ,
+         (select count(*) d from zs_info
+
+        <where>
+            <if test="areaId != null and areaId !='' ">
+                AND area_id = #{areaId}
+            </if>
+            and area_id = 29
+            and status =1
+            and audit_status =1
+        </where>
+            ) dd )
+
+
+    </select>
+
+
 </mapper>

@@ -1,11 +1,17 @@
 package com.cp.dd.web.controller.sport;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.entity.sport.ZsInfo;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
+import com.cp.dd.common.util.sys.SessionCache;
+import com.cp.dd.common.vo.member.MemberVO;
+import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoCountVO;
+import com.cp.dd.common.vo.sys.SysUserVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.sport.IZsInfoService;
@@ -18,7 +24,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -66,7 +75,7 @@ public class ZsInfoController {
     @ApiOperation(value = "证书审核", notes = "证书审核")
     public Result audit(@RequestParam @ApiParam(value = "Id", required = true)
                               List<Long> ids,
-                        @RequestParam @ApiParam(value = "审核状态  0审核 1审核通过" ,required = true) Integer auditStatus
+                        @RequestParam @ApiParam(value = "审核状态  0审核 1审核通过 2不通过" ,required = true) Integer auditStatus
                         ) {
         zsInfoService.audit(ids,auditStatus);
         return Result.success();
@@ -92,7 +101,7 @@ public class ZsInfoController {
                                           @RequestParam(required = false) @ApiParam("机构名") String deptName,
                                           @RequestParam(required = false) @ApiParam("证书编号") String code,
                                           @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType,
-                                          @RequestParam(required = false) @ApiParam("审核状态  0审核 1审核通过") Integer auditStatus
+                                          @RequestParam(required = false) @ApiParam("审核状态  0审核 1审核通过 2不通过") Integer auditStatus
     ) {
         return Result.success(zsInfoService.getAuditPage(pageQuery,name,deptName,code,categoryType,auditStatus));
     }
@@ -110,6 +119,43 @@ public class ZsInfoController {
             throw new ApiException("请输入查询条件");
         }
         return Result.success(zsInfoService.getAppList(name,deptName,code));
+    }
+
+    @GetMapping("/countInfo")
+    @ApiOperation(value = "各类证书总数量统计", notes = "各类证书总数量统计")
+    public Result<ZsInfoCountVO> countInfo(
+    ) {
+        return Result.success(zsInfoService.countInfo());
+    }
+
+    @GetMapping("/countArea")
+    @ApiOperation(value = "证书区域统计", notes = "证书区域统计")
+    public Result<ZsInfoAreaCountVO> countArea(
+    ) {
+        return Result.success(zsInfoService.countArea());
+    }
+
+    @GetMapping("/countSex")
+    @ApiOperation(value = "统计男女比例", notes = "统计男女比例")
+    public Result countSex() {
+        MemberVO memberVO = SessionCache.get();
+        String areaId = null;
+        if (memberVO.getRole() == 4){
+            areaId = memberVO.getAreaId()+"";
+        }
+       Integer countNan = zsInfoService.count(Wrappers.<ZsInfo>lambdaQuery()
+            .eq(ZsInfo::getSex,1)
+            .eq(StringUtils.isNotBlank(areaId),ZsInfo::getAreaId,areaId)
+        );
+
+        Integer countNv = zsInfoService.count(Wrappers.<ZsInfo>lambdaQuery()
+                .eq(ZsInfo::getSex,2)
+                .eq(StringUtils.isNotBlank(areaId),ZsInfo::getAreaId,areaId)
+        );
+        Map<String,Integer> map = new HashMap<>();
+        map.put("男",countNan);
+        map.put("女",countNv);
+        return Result.success(map);
     }
 
 
