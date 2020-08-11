@@ -155,5 +155,14 @@
 
     </select>
 
+    <select id="countLx" resultType="com.cp.dd.common.vo.sport.ZsInfoLsCountVO">
+        select  aa.a addInfo,bb.b reduceInfo from ((select count(*) a from zs_info where  YEAR ( create_time ) = '2020' ) aa ,
+
+        (select count(*) b from zs_info where  YEAR ( sx_time ) = '2020'
+        and sx_time < now() ) bb
+        )
+
+    </select>
+
 
 </mapper>

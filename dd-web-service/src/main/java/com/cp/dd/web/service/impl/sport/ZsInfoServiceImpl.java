@@ -11,10 +11,12 @@ import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.sport.IZsInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -124,6 +126,14 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
 //            areaId = memberVO.getAreaId()+"";
 //        }
         return this.baseMapper.countArea(areaId);
+    }
+
+    @Override
+    public ZsInfoLsCountVO countLx(String year) {
+        if(StringUtils.isBlank(year)){
+            year = "2020";
+        }
+        return this.baseMapper.countLx(year);
     }
 
     @Transactional(rollbackFor = Exception.class)

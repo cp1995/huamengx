@@ -5,6 +5,7 @@ import com.cp.dd.common.entity.sport.ZsInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -46,5 +47,7 @@ public interface ZsInfoMapper extends BaseMapper<ZsInfo> {
     ZsInfoCountVO countInfo( @Param("areaId")String areaId);
 
     ZsInfoAreaCountVO countArea( @Param("areaId")String areaId);
+
+    ZsInfoLsCountVO countLx(@Param("year")String year);
 
 }

@@ -480,7 +480,7 @@
         FROM
             xx_item
         WHERE
-            YEAR ( create_time ) = '2020'
+            YEAR ( create_time ) = #{year}
             AND state = 1
             AND xy_type = '华蒙星学员'
             ) xy,

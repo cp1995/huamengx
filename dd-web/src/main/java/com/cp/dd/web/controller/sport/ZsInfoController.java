@@ -11,6 +11,7 @@ import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
 import com.cp.dd.common.vo.sys.SysUserVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.ZsInfoForm;
@@ -146,11 +147,13 @@ public class ZsInfoController {
        Integer countNan = zsInfoService.count(Wrappers.<ZsInfo>lambdaQuery()
             .eq(ZsInfo::getSex,1)
             .eq(StringUtils.isNotBlank(areaId),ZsInfo::getAreaId,areaId)
+            .eq(ZsInfo::getCategoryType,"个人证书")
         );
 
         Integer countNv = zsInfoService.count(Wrappers.<ZsInfo>lambdaQuery()
                 .eq(ZsInfo::getSex,2)
                 .eq(StringUtils.isNotBlank(areaId),ZsInfo::getAreaId,areaId)
+                .eq(ZsInfo::getCategoryType,"个人证书")
         );
         Map<String,Integer> map = new HashMap<>();
         map.put("男",countNan);
@@ -158,6 +161,12 @@ public class ZsInfoController {
         return Result.success(map);
     }
 
+    @GetMapping("/countLx")
+    @ApiOperation(value = "证书流失人数", notes = "证书流失人数")
+    public Result<ZsInfoLsCountVO> countLx(@RequestParam(required = false) @ApiParam("年份") String year
+    ) {
+        return Result.success(zsInfoService.countLx(year));
+    }
 
 
 }

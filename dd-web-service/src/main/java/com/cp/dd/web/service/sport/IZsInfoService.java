@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 
 import java.util.List;
@@ -39,5 +40,7 @@ public interface IZsInfoService extends IService<ZsInfo> {
     ZsInfoCountVO countInfo();
 
     ZsInfoAreaCountVO countArea();
+
+    ZsInfoLsCountVO countLx(String year);
 
 }
