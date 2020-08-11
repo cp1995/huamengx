@@ -28,6 +28,8 @@ public interface IAreaService extends IService<Area> {
 
     void save(String name,String areaCode,String type);
 
+    void update(Long id,String name,String areaCode,String type);
+
     IPage<AreaVO> getPage(PageQuery pageQuery, String name);
 
 

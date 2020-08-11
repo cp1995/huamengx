@@ -111,6 +111,23 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
     }
 
     @Override
+    public void update(Long id,String name,String areaCode,String type) {
+        MemberVO session = SessionCache.get();
+        Integer role = session.getRole();
+        if(role != CommonConstant.Role.SUPER){
+            throw new ApiException("暂无权限");
+        }
+        SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                .eq(SysArea::getCode,areaCode));
+        Area area = this.baseMapper.selectById(id);
+        area.setName(name);
+        area.setAreaCode(areaCode);
+        area.setType(type);
+        area.setShortCode(sysArea.getShortCode());
+        this.baseMapper.updateById(area);
+    }
+
+    @Override
     public IPage<AreaVO> getPage(PageQuery pageQuery, String name) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();

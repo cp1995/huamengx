@@ -44,6 +44,18 @@ public class AreaController {
         areaService.save(name,areaCode,type);
         return Result.success();
     }
+
+    @AddOperLog(name = "修改园区")
+    @GetMapping("/update")
+    @ApiOperation(value = "修改", notes = "修改")
+    public Result update(@RequestParam @ApiParam(value = "id", required = true) Long id,
+                        @RequestParam @ApiParam(value = "name", required = true) String name,
+                       @RequestParam @ApiParam(value = "区域", required = true) String areaCode,
+                       @RequestParam @ApiParam(value = "幼儿园/场馆", required = true) String type
+    ) {
+        areaService.update(id,name,areaCode,type);
+        return Result.success();
+    }
     @AddOperLog(name = "删除园区")
     @GetMapping("/delete")
     @ApiOperation(value = "删除", notes = "删除")
