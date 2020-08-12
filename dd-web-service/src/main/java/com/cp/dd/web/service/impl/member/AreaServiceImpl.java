@@ -151,6 +151,16 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
             BeanUtils.copyProperties(area, areaVO);
             SysArea sysArea =sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
                     .eq(SysArea::getCode,area.getAreaCode()));
+            String code = sysArea.getCode();
+            if(sysArea.getGrade().equals("3")){
+                SysArea sysArea1 =sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                        .eq(SysArea::getCode,sysArea.getParentCode()));
+                code = sysArea1.getParentCode() + "-" + sysArea1.getCode() + "-" + code;
+            }
+            if(sysArea.getGrade().equals("2")){
+                code = sysArea.getParentCode() + "-" + code;
+            }
+            areaVO.setAreaCode(code);
             areaVO.setAreaName(sysArea.getFullName());
             return areaVO;
         });
