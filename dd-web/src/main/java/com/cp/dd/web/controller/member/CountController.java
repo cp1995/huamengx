@@ -71,28 +71,35 @@ public class CountController {
 
     @GetMapping("/countSex")
     @ApiOperation(value = "统计男女比例", notes = "统计男女比例")
-    public Result countSex() {
-        Integer countNan= itemService.count(Wrappers.<Item>lambdaQuery()
-                .eq(Item::getSex,1)
-                .eq(Item::getState,1));
-        Integer countNv= itemService.count(Wrappers.<Item>lambdaQuery()
-                .eq(Item::getSex,2)
-                .eq(Item::getState,1));
-        Integer countNan2= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
-                .eq(XxItem::getSex,1)
-                .eq(XxItem::getState,1));
-        Integer countNv2= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
-                .eq(XxItem::getSex,2)
-                .eq(XxItem::getState,1));
-        Integer countNan3= baskItemService.count(Wrappers.<BaskItem>lambdaQuery()
-                .eq(BaskItem::getSex,1)
-                .eq(BaskItem::getState,1));
-        Integer countNv3= baskItemService.count(Wrappers.<BaskItem>lambdaQuery()
-                .eq(BaskItem::getSex,2)
-                .eq(BaskItem::getState,1));
+    public Result countSex(@ApiParam("1幼儿园 2小学 3篮球") @RequestParam(required = true) Integer type) {
+        Integer countNan= 0;
+        Integer countNv= 0;
+        if(type == 1){
+             countNan= itemService.count(Wrappers.<Item>lambdaQuery()
+                    .eq(Item::getSex,1)
+                    .eq(Item::getState,1));
+             countNv= itemService.count(Wrappers.<Item>lambdaQuery()
+                    .eq(Item::getSex,2)
+                    .eq(Item::getState,1));
+        }else if(type == 2){
+             countNan= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
+                    .eq(XxItem::getSex,1)
+                    .eq(XxItem::getState,1));
+             countNv= xxItemService.count(Wrappers.<XxItem>lambdaQuery()
+                    .eq(XxItem::getSex,2)
+                    .eq(XxItem::getState,1));
+        }else{
+             countNan= baskItemService.count(Wrappers.<BaskItem>lambdaQuery()
+                    .eq(BaskItem::getSex,1)
+                    .eq(BaskItem::getState,1));
+             countNv= baskItemService.count(Wrappers.<BaskItem>lambdaQuery()
+                    .eq(BaskItem::getSex,2)
+                    .eq(BaskItem::getState,1));
+        }
+
         Map<String,Integer> map = new HashMap<>();
-        map.put("男",countNan+countNan2+countNan3);
-        map.put("女",countNv+countNv2+countNv3);
+        map.put("男",countNan);
+        map.put("女",countNv);
         return Result.success(map);
     }
 
