@@ -28,7 +28,7 @@ import java.util.Locale;
 @Validated
 @AllArgsConstructor
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/api/upload")
 @Api(tags = "文件上传接口")
 @Slf4j
 @IgnoreLogin

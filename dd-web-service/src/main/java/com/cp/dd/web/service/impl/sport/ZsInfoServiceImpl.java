@@ -51,7 +51,7 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
 
     @Override
     public void update(ZsInfoForm zsInfoForm) {
-        Member member = SessionCache.get();
+        MemberVO member = SessionCache.get();
         if(member.getRole() != 5){
             throw new ApiException("总部管理员才能进行编辑");
         }

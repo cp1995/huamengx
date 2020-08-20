@@ -63,6 +63,14 @@ public class ZsInfoController {
         return Result.success();
     }
 
+    @GetMapping(value = "/detail")
+    @ApiOperation(value = "详情", notes = "详情")
+    public Result<ZsInfo> detail(@RequestParam @ApiParam(value = "Id", required = true)
+                              Long id) {
+
+        return Result.success(zsInfoService.getById(id));
+    }
+
     @GetMapping(value = "/del")
     @AddOperLog(name = "删除证书信息")
     @ApiOperation(value = "删除证书信息", notes = "删除证书信息")
