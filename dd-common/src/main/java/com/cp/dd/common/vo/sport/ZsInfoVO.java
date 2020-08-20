@@ -2,6 +2,7 @@ package com.cp.dd.common.vo.sport;
 
 import com.cp.dd.common.entity.sport.ZsInfo;
 import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,9 +14,9 @@ import java.io.Serializable;
 @ApiModel(description = "系统用户信息")
 public class ZsInfoVO extends ZsInfo implements Serializable {
 
-    private static final long serialVersionUID = 1L;
 
-
+    @ApiModelProperty(value = "分类名称")
+    private String categoryName;
 
 
 

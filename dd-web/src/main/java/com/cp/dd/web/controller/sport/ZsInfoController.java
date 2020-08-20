@@ -12,15 +12,18 @@ import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
+import com.cp.dd.common.vo.sport.ZsInfoVO;
 import com.cp.dd.common.vo.sys.SysUserVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.ZsInfoForm;
+import com.cp.dd.web.service.member.IZsCategoryService;
 import com.cp.dd.web.service.sport.IZsInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,6 +49,7 @@ import java.util.Objects;
 public class ZsInfoController {
 
     private IZsInfoService zsInfoService;
+    private IZsCategoryService zsCategoryService;
 
     @PostMapping(value = "/save")
     @AddOperLog(name = "新增证书信息")
@@ -65,10 +69,13 @@ public class ZsInfoController {
 
     @GetMapping(value = "/detail")
     @ApiOperation(value = "详情", notes = "详情")
-    public Result<ZsInfo> detail(@RequestParam @ApiParam(value = "Id", required = true)
+    public Result<ZsInfoVO> detail(@RequestParam @ApiParam(value = "Id", required = true)
                               Long id) {
-
-        return Result.success(zsInfoService.getById(id));
+        ZsInfo zsInfo =zsInfoService.getById(id);
+        ZsInfoVO vo = new ZsInfoVO();
+        BeanUtils.copyProperties(zsInfo,vo);
+        vo.setCategoryName(zsCategoryService.getById(zsInfo.getCategoryId()).getName());
+        return Result.success(vo);
     }
 
     @GetMapping(value = "/del")
