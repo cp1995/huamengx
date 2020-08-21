@@ -37,7 +37,7 @@ public interface IZsInfoService extends IService<ZsInfo> {
 
     List<ZsInfo> getAppList(String name,String deptName,String code);
 
-    ZsInfoCountVO countInfo();
+    List<ZsInfoCountVO> countInfo();
 
     ZsInfoAreaCountVO countArea();
 

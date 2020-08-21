@@ -139,7 +139,7 @@ public class ZsInfoController {
 
     @GetMapping("/countInfo")
     @ApiOperation(value = "各类证书总数量统计", notes = "各类证书总数量统计")
-    public Result<ZsInfoCountVO> countInfo(
+    public Result<List<ZsInfoCountVO>> countInfo(
     ) {
         return Result.success(zsInfoService.countInfo());
     }

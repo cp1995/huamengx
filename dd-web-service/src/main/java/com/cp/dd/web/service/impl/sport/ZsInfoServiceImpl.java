@@ -109,7 +109,7 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     }
 
     @Override
-    public ZsInfoCountVO countInfo() {
+    public List<ZsInfoCountVO> countInfo() {
         MemberVO memberVO = SessionCache.get();
         String areaId = null;
         if (memberVO.getRole() == 4){
