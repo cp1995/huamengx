@@ -15,6 +15,7 @@ import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoVO;
 import com.cp.dd.common.vo.sys.SysUserVO;
 import com.cp.dd.web.aop.AddOperLog;
+import com.cp.dd.web.form.sport.WechatZsInfoForm;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.member.IZsCategoryService;
 import com.cp.dd.web.service.sport.IZsInfoService;
@@ -56,6 +57,15 @@ public class ZsInfoController {
     @ApiOperation(value = "新增证书信息", notes = "新增证书信息")
     public Result save(ZsInfoForm zsInfoForm) {
         zsInfoService.save(zsInfoForm);
+        return Result.success();
+    }
+
+    @IgnoreLogin
+    @PostMapping(value = "/wechatSave")
+    @AddOperLog(name = "公众号新增证书信息")
+    @ApiOperation(value = "公众号新增证书信息", notes = "公众号新增证书信息")
+    public Result wechatSave(WechatZsInfoForm zsInfoForm) {
+        zsInfoService.weChatSave(zsInfoForm);
         return Result.success();
     }
 

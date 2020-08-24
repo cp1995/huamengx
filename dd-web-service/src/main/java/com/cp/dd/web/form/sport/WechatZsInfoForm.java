@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @date 2019/9/20
  */
 @Data
-public class ZsInfoForm implements Serializable {
+public class WechatZsInfoForm implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -49,11 +49,8 @@ public class ZsInfoForm implements Serializable {
     private String grade;
 
     @NotNull(message = "区域编码不能为空")
-    @ApiModelProperty(value = "区域编码")
+    @ApiModelProperty(value = "区域编码" ,required = true)
     private Long areaId;
-
-    @ApiModelProperty(value = "机构证书、个人证书  ")
-    private String categoryType;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "证书有效期失效时间")

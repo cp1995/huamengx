@@ -7,6 +7,7 @@ import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
+import com.cp.dd.web.form.sport.WechatZsInfoForm;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 
 import java.util.List;
@@ -22,6 +23,8 @@ import java.util.List;
 public interface IZsInfoService extends IService<ZsInfo> {
 
     void save (ZsInfoForm zsInfoForm);
+
+    void weChatSave (WechatZsInfoForm zsInfoForm);
 
     void update (ZsInfoForm zsInfoForm);
 

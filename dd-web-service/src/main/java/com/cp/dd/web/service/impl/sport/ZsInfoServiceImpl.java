@@ -12,6 +12,7 @@ import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
+import com.cp.dd.web.form.sport.WechatZsInfoForm;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.sport.IZsInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -46,6 +47,16 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
         }
         ZsInfo zsInfo = new ZsInfo();
         BeanUtils.copyProperties(zsInfoForm, zsInfo);
+        this.baseMapper.insert(zsInfo);
+    }
+
+
+    @Override
+    public void weChatSave(WechatZsInfoForm zsInfoForm) {
+        MemberVO member = SessionCache.get();
+        ZsInfo zsInfo = new ZsInfo();
+        BeanUtils.copyProperties(zsInfoForm, zsInfo);
+        zsInfo.setCategoryType("个人证书");
         this.baseMapper.insert(zsInfo);
     }
 

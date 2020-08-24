@@ -73,7 +73,7 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
         }else{
             list = baseMapper.selectList(Wrappers.<Area>lambdaQuery()
                     .eq(Area::getState,CommonConstant.State.ENABLE)
-                    .eq(Area::getId,session.getAreaId())
+                   // .eq(Area::getId,session.getAreaId())
                     .eq(Area::getType,"区域")
                     .orderByDesc(Area::getCreateTime));
         }
