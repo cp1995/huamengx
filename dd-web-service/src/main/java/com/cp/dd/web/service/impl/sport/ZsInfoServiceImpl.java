@@ -85,10 +85,6 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     @Override
     public void audit(List<Long> ids, Integer auditStatus) {
         MemberVO memberVO = SessionCache.get();
-        if(memberVO.getRole()  != 4){
-            throw new ApiException("暂无审核权限");
-        }
-
         ids.forEach(id->{
             this.audit(id,auditStatus);
         });
