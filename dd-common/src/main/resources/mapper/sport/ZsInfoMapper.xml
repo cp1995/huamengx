@@ -8,7 +8,7 @@
 
         <where>
             <if test="name != null and name !='' ">
-                AND zi.`name`  = #{name}
+                AND zi.`name` like concat('%',#{name},'%')
             </if>
             <if test="code != null and code !='' ">
                 AND zi.code = #{code}
@@ -38,7 +38,7 @@
 
         <where>
             <if test="name != null and name !='' ">
-                AND zi.`name`  = #{name}
+                AND zi.`name`  like concat('%',#{name},'%')
             </if>
             <if test="code != null and code !='' ">
                 AND zi.code = #{code}
