@@ -1,5 +1,6 @@
 package com.cp.dd.common.entity.sport;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -62,10 +63,10 @@ public class ZsInfo implements Serializable {
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "证书有效期失效时间")
-    private LocalDateTime sxTime;
+    private LocalDate sxTime;
 
     @ApiModelProperty(value = "证书有效期开始时间")
-    private LocalDateTime stTime;
+    private LocalDate stTime;
 
     @ApiModelProperty(value = "分类id")
     private Long categoryId;

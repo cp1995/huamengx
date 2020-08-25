@@ -96,12 +96,12 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     }
 
     @Override
-    public IPage<ZsInfo> getPage(PageQuery query, String name, String deptName, String code, String areaId, String categoryType) {
+    public IPage<ZsInfo> getPage(PageQuery query, String name, String deptName, String code, String areaId, String categoryType,Long categoryId) {
         MemberVO memberVO = SessionCache.get();
         if(memberVO.getRole()  == 4){
             areaId = memberVO.getAreaId()+"";
         }
-        return this.baseMapper.getPage(query.loadPage(),name,deptName,code,areaId,categoryType);
+        return this.baseMapper.getPage(query.loadPage(),name,deptName,code,areaId,categoryType,categoryId);
     }
 
     @Override

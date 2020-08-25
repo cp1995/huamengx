@@ -23,6 +23,9 @@
             <if test="categoryType != null and categoryType !='' ">
                 AND zi.category_type = #{categoryType}
             </if>
+            <if test="categoryId != null  ">
+                AND zi.category_id = #{categoryId}
+            </if>
 
             AND zi.status =1
             and zi.audit_status =1

@@ -7,7 +7,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+
 
 /**
  * jwt登录参数
@@ -53,17 +54,18 @@ public class ZsInfoForm implements Serializable {
     private Long areaId;
 
     @ApiModelProperty(value = "机构证书、个人证书  ")
+    @NotBlank(message = "证书类型不能为空")
     private String categoryType;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "证书有效期失效时间")
     @NotNull(message = "证书失效不能为空")
-    private LocalDateTime sxTime;
+    private LocalDate sxTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "证书开始时间不能为空")
     @ApiModelProperty(value = "证书有效期开始时间")
-    private LocalDateTime stTime;
+    private LocalDate stTime;
 
     @ApiModelProperty(value = "分类id")
     @NotNull(message = "分类id不能为空")

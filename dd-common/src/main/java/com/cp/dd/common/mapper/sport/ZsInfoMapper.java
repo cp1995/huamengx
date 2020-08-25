@@ -25,7 +25,10 @@ public interface ZsInfoMapper extends BaseMapper<ZsInfo> {
                           @Param("deptName") String deptName,
                           @Param("code") String code,
                           @Param("areaId") String areaId,
-                          @Param("categoryType") String categoryType);
+                          @Param("categoryType") String categoryType,
+                          @Param("categoryId") Long categoryId
+
+                          );
 
 
     IPage<ZsInfo> getAuditPage(IPage<ZsInfo> page,

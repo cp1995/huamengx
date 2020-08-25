@@ -114,9 +114,10 @@ public class ZsInfoController {
                                           @RequestParam(required = false) @ApiParam("机构名") String deptName,
                                           @RequestParam(required = false) @ApiParam("证书编号") String code,
                                           @RequestParam(required = false) @ApiParam("区域") String areaId,
-                                          @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType
+                                          @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType,
+                                          @RequestParam(required = false) @ApiParam("证书类别") Long categoryId
     ) {
-        return Result.success(zsInfoService.getPage(pageQuery,name,deptName,code,areaId,categoryType));
+        return Result.success(zsInfoService.getPage(pageQuery,name,deptName,code,areaId,categoryType,categoryId));
     }
 
 

@@ -33,7 +33,7 @@ public interface IZsInfoService extends IService<ZsInfo> {
     void audit(List<Long> ids,Integer auditStatus);
 
     IPage<ZsInfo> getPage(PageQuery query,String name,String deptName,String code,String areaId,
-                          String categoryType);
+                          String categoryType,Long categoryId);
 
     IPage<ZsInfo> getAuditPage(PageQuery query,String name,String deptName,String code,
                           String categoryType,Integer auditStatus);
