@@ -1,6 +1,7 @@
 package com.cp.dd.web.controller.sport;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.member.ZsCategory;
 import com.cp.dd.common.support.PageModel;
@@ -75,6 +76,19 @@ public class ZsCategoryController {
                 .orderByAsc(ZsCategory::getCreateTime)));
     }
 
+    @IgnoreLogin
+    @GetMapping("/appPage")
+    @ApiOperation(value = "分页列表", notes = "分页列表")
+    public Result<PageModel<ZsCategory>> appPage(@Valid PageQuery pageQuery,
+                                              @RequestParam(required = false) @ApiParam("分类名称") String name,
+                                              @RequestParam(required = false) @ApiParam("机构证书、个人证书") String type
+    ) {
+        return Result.success(zsCategoryService.page(pageQuery.loadPage(), Wrappers.<ZsCategory>lambdaQuery()
+                .eq(StringUtils.isNotBlank(name), ZsCategory::getName, name)
+                .eq(StringUtils.isNotBlank(type), ZsCategory::getType, type)
+                .ne(ZsCategory::getStatus, Constants.Status.delete)
+                .orderByAsc(ZsCategory::getCreateTime)));
+    }
     @GetMapping("/list")
     @ApiOperation(value = "列表", notes = "列表")
     public Result<List<ZsCategory>> list() {

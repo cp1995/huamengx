@@ -77,6 +77,12 @@ public class AreaController {
         return Result.success(areaService.findRegionList());
     }
 
+    @GetMapping("/appRegionList")
+    @ApiOperation(value = "获取区域列表", notes = "获取区域列表 ")
+    public Result<List<Area>> appRegionList() {
+        return Result.success(areaService.findRegionList());
+    }
+
     @GetMapping("/getPage")
     @ApiOperation(value = "分页列表", notes = "分页列表")
     public Result<PageModel<AreaVO>> getPage(@Valid PageQuery pageQuery,
