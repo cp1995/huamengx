@@ -135,8 +135,10 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
         //BMI得分
         item.setIbmScore(XxCalculation.calBmi(item.getAge(),itemForm.getHeight(),itemForm.getWeight(),item.getSex()));
         //肺活量得分
+        item.setFeiHl(itemForm.getFeiHl());
         item.setFeiHlScore(XxCalculation.calFhl(item.getAge(),itemForm.getFeiHl(),item.getSex()));
         //跳绳得分
+        item.setTiaos(itemForm.getTiaos());
         item.setTiaosScore(XxCalculation.calTs(item.getAge(),itemForm.getTiaos(),item.getSex()));
         //柔韧性成绩
         item.setFlexibility(itemForm.getFlexibility());
