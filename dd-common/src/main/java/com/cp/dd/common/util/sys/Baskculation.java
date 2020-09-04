@@ -152,7 +152,7 @@ public class Baskculation {
                 score =3;
             }else if(3 <= rall && rall <= 4){
                 score =2;
-            }else if(2 <= rall && rall <= 1){
+            }else if(1 <= rall && rall <= 2){
                 score =1;
             }
         }else if("5".equals(age)){
