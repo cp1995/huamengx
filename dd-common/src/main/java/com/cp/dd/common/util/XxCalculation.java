@@ -21,8 +21,8 @@ public class XxCalculation {
      */
     public static int calHeight(String age,double height,int sex){
 
-
         int score = 0;
+        height =  Double.valueOf(height);
         if(sex ==1){
             if("7".equals(age)){
                 if(height>123.9){
@@ -141,6 +141,8 @@ public class XxCalculation {
      * @return
      */
     public static int calBmi(String age,double height,double tz,int sex){
+        height =  Double.valueOf(height);
+        tz =  Double.valueOf(tz);
         double bmi = bigDecimalDouble(height,tz);
         int score = 0;
         if(sex ==1){
@@ -263,7 +265,7 @@ public class XxCalculation {
      */
     public static int calFhl(String age,double height,int sex){
 
-
+        height =  Double.valueOf(height);
         int score = 0;
         if(sex ==1){
             if("7".equals(age)){
@@ -384,6 +386,8 @@ public class XxCalculation {
      */
     public static int calSensitives(String age,double coordinate,int sex){
         int score = 0;
+
+        coordinate =  Double.valueOf(coordinate);
         if(sex ==1){
             if("7".equals(age)){
                 if(coordinate<11.3){
@@ -519,8 +523,8 @@ public class XxCalculation {
      * @return
      */
     public static int calFlexibility(String age,double coordinate,int sex){
-
         int score = 0;
+        coordinate =  Double.valueOf(coordinate);
         if(sex ==1){
             if("7".equals(age)){
                 if(coordinate>12){
@@ -754,6 +758,7 @@ public class XxCalculation {
 
 
 
+
     /**
      *    移动技术
      * @param age 年龄
@@ -763,7 +768,7 @@ public class XxCalculation {
      */
     public static int calYd(String age,Double coordinate,int sex){
         int score = 0;
-
+        coordinate =  Double.valueOf(coordinate);
         if(coordinate != null){
             if(sex ==1){
                 if("7".equals(age)){
@@ -888,9 +893,10 @@ public class XxCalculation {
             }
         }
 
-        log.info("年龄:"+age+"灵敏性:"+coordinate+"性别:"+sex+"得分:"+score);
+        log.info("年龄:"+age+"移动:"+coordinate+"性别:"+sex+"得分:"+score);
         return score;
     }
+
 
 
 
@@ -1017,10 +1023,11 @@ public class XxCalculation {
 
 
 
+
     /**
      *    投篮计算
      * @param age 年龄
-     * @param legs  跳远
+     * @param legs  投篮
      * @return
      */
     public static int calShoot(String age,Integer legs,int sex){
@@ -1132,7 +1139,7 @@ public class XxCalculation {
                 }
             }
         }
-        log.info("年龄:"+age+"传球:"+legs+""+"得分:"+score);
+        log.info("年龄:"+age+"投篮:"+legs+""+"得分:"+score);
         return score;
     }
 

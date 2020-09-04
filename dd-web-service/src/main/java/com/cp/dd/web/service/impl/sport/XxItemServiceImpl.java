@@ -148,13 +148,13 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
         item.setSensitiveScore(XxCalculation.calSensitives(item.getAge(),itemForm.getSensitives(),item.getSex()));
         //移动
         item.setRemove(itemForm.getRemove());
-        item.setRemoveScore(calculation.calRacket(item.getAge(),itemForm.getRemove()));
+        item.setRemoveScore(XxCalculation.calYd(item.getAge(),itemForm.getRemove(),item.getSex()));
         //接球
         item.setPass(itemForm.getPass());
-        item.setPassScore(calculation.calPass(item.getAge(),itemForm.getPass()));
+        item.setPassScore(XxCalculation.calPass(item.getAge(),itemForm.getPass(),item.getSex()));
         //投篮成绩
         item.setShoot(itemForm.getShoot());
-        item.setShootScore(calculation.calShoot(item.getAge(),itemForm.getShoot()));
+        item.setShootScore(XxCalculation.calShoot(item.getAge(),itemForm.getShoot(),item.getSex()));
         item.setCreateBy(session.getUsername());
         baseMapper.updateById(item);
         return item;

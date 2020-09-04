@@ -68,7 +68,7 @@ public class XxItemUpdateForm implements Serializable {
     private double sensitives;
 
     @ApiModelProperty(value = "移动", required = false)
-    private Integer remove;
+    private double remove;
 
     @ApiModelProperty(value = "接球", required = false)
     private Integer pass;
