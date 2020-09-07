@@ -54,9 +54,9 @@ public class XxCalculation {
                     score = 10;
                 }else if(132.8<=height && height<= 136.6){
                     score = 8;
-                }else if(130.1<=height && height<= 132.7){
+                }else if(129.1<=height && height<= 132.7){
                     score = 6;
-                }else if(125.6<=height && height<= 130.0){
+                }else if(125.6<=height && height<= 129.0){
                     score = 4;
                 }else  if(height < 125.6){
                     score = 2;
@@ -230,7 +230,7 @@ public class XxCalculation {
                     score = 6;
                 }else if(14.73<=bmi && bmi<= 16.72){
                     score = 10;
-                }else if(13.77<=bmi && bmi<= 14.73){
+                }else if(13.77<=bmi && bmi<= 14.72){
                     score = 6;
                 }else  if(bmi < 13.77){
                     score = 2;
@@ -239,9 +239,9 @@ public class XxCalculation {
             }else{
                 if(bmi>19.90){
                     score = 2;
-                }else if(17.24<=bmi && bmi<= 19.90){
+                }else if(17.26<=bmi && bmi<= 19.90){
                     score = 6;
-                }else if(15.32<=bmi && bmi<= 17.23){
+                }else if(15.32<=bmi && bmi<= 17.25){
                     score = 10;
                 }else if(13.96<=bmi && bmi<= 15.31){
                     score = 6;
@@ -952,9 +952,9 @@ public class XxCalculation {
                 } else {
                     if (legs > 27) {
                         score = 40;
-                    } else if (25 <= legs && legs <= 27) {
+                    } else if (26 <= legs && legs <= 27) {
                         score = 32;
-                    } else if (21 <= legs && legs <= 24) {
+                    } else if (21 <= legs && legs <= 25) {
                         score = 24;
                     } else if (13 <= legs && legs <= 20) {
                         score = 16;
