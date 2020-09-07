@@ -745,7 +745,7 @@ public class XxCalculation {
                     score = 12;
                 } else if (34 <= legs && legs <= 46) {
                     score = 8;
-                } else if ( legs < 30) {
+                } else if ( legs < 34) {
                     score = 4;
                 }
             }
@@ -1201,8 +1201,6 @@ public class XxCalculation {
         }
         return  age;
     }
-
-
 
 
 

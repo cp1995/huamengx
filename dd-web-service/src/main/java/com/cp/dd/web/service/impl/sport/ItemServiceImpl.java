@@ -127,6 +127,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         if(item == null){
             throw new ApiException("该数据不存在!");
         }
+        item.setCreateTime(LocalDateTime.now());
         item.setName(itemForm.getName());
         LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(itemForm.getBirth()));
         item.setBirthday(playerDate);

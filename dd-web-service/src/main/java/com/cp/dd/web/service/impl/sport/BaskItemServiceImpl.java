@@ -103,6 +103,7 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         if(item == null){
             throw new ApiException("该数据不存在!");
         }
+        item.setCreateTime(LocalDateTime.now());
         item.setName(baskItemForm.getName());
         LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
         item.setBirthday(playerDate);

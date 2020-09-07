@@ -124,6 +124,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
         if(Double.valueOf(item.getAge()) <7 || Double.valueOf(item.getAge()) >10){
             throw new ApiException("测试年龄不符合");
         }
+        item.setCreateTime(LocalDateTime.now());
         item.setFHeight(itemForm.getFHeight());
         item.setMHeight(itemForm.getMHeight());
         //身高预测
