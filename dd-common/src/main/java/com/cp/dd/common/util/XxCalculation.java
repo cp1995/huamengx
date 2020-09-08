@@ -850,9 +850,9 @@ public class XxCalculation {
                         score = 20;
                     }else if(16.84<=coordinate && coordinate<= 18.33){
                         score = 16;
-                    }else if(18.34<=coordinate && coordinate<= 21.37){
+                    }else if(18.34<=coordinate && coordinate<= 21.35){
                         score = 12;
-                    }else if(21.38<=coordinate && coordinate<= 23.43){
+                    }else if(21.36<=coordinate && coordinate<= 23.43){
                         score = 8;
                     }else  if(23.43<coordinate ){
                         score = 4;
@@ -880,9 +880,9 @@ public class XxCalculation {
                         score = 20;
                     }else if(14.96<=coordinate && coordinate<= 16.47){
                         score = 16;
-                    }else if(16.48<=coordinate && coordinate<= 19.57){
+                    }else if(16.48<=coordinate && coordinate<= 19.56){
                         score = 12;
-                    }else if(19.58<=coordinate && coordinate<= 21.34){
+                    }else if(19.57<=coordinate && coordinate<= 21.34){
                         score = 8;
                     }else  if(21.34<coordinate ){
                         score = 4;
