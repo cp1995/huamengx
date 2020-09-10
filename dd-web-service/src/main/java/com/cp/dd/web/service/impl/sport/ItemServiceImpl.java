@@ -539,11 +539,11 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     public CountVO countTotal(String start,String end) {
         CountVO countVO =this.baseMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
         CountVO countVO1 =xxItemMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
-        CountVO countVO2 =baskItemMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
-        countVO.setNanTotal(countVO.getNanTotal()+countVO1.getNanTotal()+countVO2.getNanTotal());
-        countVO.setNvTotal(countVO.getNvTotal()+countVO1.getNvTotal()+countVO2.getNvTotal());
-        countVO.setNanHg(countVO.getNanHg()+countVO1.getNanHg()+countVO2.getNanHg());
-        countVO.setNvHg(countVO.getNvHg()+countVO1.getNvHg()+countVO2.getNvHg());
+       // CountVO countVO2 =baskItemMapper.countTotal(Integer.valueOf(start),Integer.valueOf(end));
+        countVO.setNanTotal(countVO.getNanTotal()+countVO1.getNanTotal());
+        countVO.setNvTotal(countVO.getNvTotal()+countVO1.getNvTotal());
+        countVO.setNanHg(countVO.getNanHg()+countVO1.getNanHg());
+        countVO.setNvHg(countVO.getNvHg()+countVO1.getNvHg());
         return countVO;
     }
 

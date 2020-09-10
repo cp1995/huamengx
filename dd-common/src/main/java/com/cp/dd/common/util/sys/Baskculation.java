@@ -136,48 +136,48 @@ public class Baskculation {
 
     /**
      * 30秒胯下O字绕滚球
-     * @param age
+     * @param type
      * @param rall
      * @return
      */
 
-    public  static  int calRall(String age,int rall){
+    public  static  int calRall(Integer type,int rall){
         int score = 0;
-        if("4".equals(age)){
+        if(type == 1){
             if(rall >= 9){
-                score =5;
+                score =100;
             }else if(7 <= rall && rall <= 8){
-                score =4;
+                score =80;
             }else if(5 <= rall && rall <= 6){
-                score =3;
+                score =60;
             }else if(3 <= rall && rall <= 4){
-                score =2;
+                score =40;
             }else if(1 <= rall && rall <= 2){
-                score =1;
+                score =20;
             }
-        }else if("5".equals(age)){
+        }else if(type == 2){
             if(rall >= 12){
-                score =5;
+                score =100;
             }else if(10 <= rall && rall <= 11){
-                score =4;
+                score =80;
             }else if(8 <= rall && rall <= 9){
-                score =3;
+                score =60;
             }else if(6 <= rall && rall <= 7){
-                score =2;
+                score =40;
             }else if(2 <= rall && rall <= 5){
-                score =1;
+                score =20;
             }
-        }else if("6".equals(age)){
+        }else if(type == 3){
             if(rall >= 6){
-                score =5;
+                score =100;
             }else if(5 == rall){
-                score =4;
+                score =80;
             }else if( 4 == rall ){
-                score =3;
+                score =60;
             }else if(3 == rall ){
-                score =2;
+                score =40;
             }else if(1 <= rall && rall <= 2){
-                score =1;
+                score =20;
             }
         }
         return score;
@@ -186,48 +186,48 @@ public class Baskculation {
 
     /**
      * 30秒原地单手运球
-     * @param age
+     * @param type
      * @param rall
      * @return
      */
 
-    public  static  int calShDribble(String age,int rall){
+    public  static  int calShDribble(Integer type,int rall){
         int score = 0;
-        if("4".equals(age)){
+        if(type == 1){
             if(rall >= 36){
-                score =5;
+                score =100;
             }else if(31 <= rall && rall <= 35){
-                score =4;
+                score =80;
             }else if(20 <= rall && rall <= 30){
-                score =3;
+                score =60;
             }else if(10 <= rall && rall <= 19){
-                score =2;
+                score =40;
             }else if(3 <= rall && rall <= 9){
-                score =1;
+                score =20;
             }
-        }else if("5".equals(age)){
+        }else if(type == 2){
             if(rall >= 49){
-                score =5;
+                score =100;
             }else if(40 <= rall && rall <= 48){
-                score =4;
+                score =80;
             }else if(28 <= rall && rall <= 39){
-                score =3;
+                score =60;
             }else if(13 <= rall && rall <= 27){
-                score =2;
+                score =40;
             }else if(6 <= rall && rall <= 12){
-                score =1;
+                score =20;
             }
-        }else if("6".equals(age)){
+        }else if(type == 3){
             if(rall >= 63){
-                score =5;
+                score =100;
             }else if(57 <= rall && rall <= 62){
-                score =4;
+                score =80;
             }else if(46 <= rall && rall <= 56){
-                score =3;
+                score =60;
             }else if(30 <= rall && rall <= 45){
-                score =2;
+                score =40;
             }else if(12 <= rall && rall <= 29){
-                score =1;
+                score =20;
             }
         }
         return score;
@@ -236,48 +236,48 @@ public class Baskculation {
 
     /**
      *8米折返动感1+1拍球
-     * @param age
+     * @param type
      * @param rall
      * @return
      */
 
-    public  static  int calBat(String age,int rall){
+    public  static  int calBat(Integer type,int rall){
         int score = 0;
-        if("4".equals(age)){
+        if(type == 1){
             if(rall <= 15){
-                score =5;
+                score =100;
             }else if(16 <= rall && rall <= 21){
-                score =4;
+                score =80;
             }else if(22 <= rall && rall <= 29){
-                score =3;
+                score =60;
             }else if(30 <= rall && rall <= 36){
-                score =2;
+                score =40;
             }else if(37 <= rall && rall <= 45){
-                score =1;
+                score =20;
             }
-        }else if("5".equals(age)){
+        }else if(type == 2){
             if(rall <= 15){
-                score =5;
+                score =100;
             }else if(16 <= rall && rall <= 20){
-                score =4;
+                score =80;
             }else if(21 <= rall && rall <= 25){
-                score =3;
+                score =60;
             }else if(26 <= rall && rall <= 29){
-                score =2;
+                score =40;
             }else if(30 <= rall && rall <= 45){
-                score =1;
+                score =20;
             }
-        }else if("6".equals(age)){
+        }else if(type == 3){
             if(rall <= 19){
-                score =5;
+                score =100;
             }else if(20 <= rall && rall <= 25){
-                score =4;
+                score =80;
             }else if(26 <= rall && rall <= 30){
-                score =3;
+                score =60;
             }else if(31 <= rall && rall <= 35){
-                score =2;
+                score =40;
             }else if(36 <= rall && rall <= 45){
-                score =1;
+                score =20;
             }
         }
         return score;
@@ -286,47 +286,47 @@ public class Baskculation {
 
     /**
      * 传/抛球进圈
-     * @param age
+     * @param type
      * @param rall
      * @return
      */
-    public  static  int calPass(String age,int rall){
+    public  static  int calPass(Integer type,int rall){
         int score = 0;
-        if("4".equals(age)){
+        if(type == 1){
             if(rall >= 7){
-                score =5;
+                score =100;
             }else if(5 <= rall && rall <= 6){
-                score =4;
+                score =80;
             }else if(4 == rall ){
-                score =3;
+                score =60;
             }else if(2 <= rall && rall <= 3){
-                score =2;
+                score =40;
             }else if(1 == rall ){
-                score =1;
+                score =20;
             }
-        }else if("5".equals(age)){
+        }else if(type == 2){
             if(rall >= 7){
-                score =5;
+                score =100;
             }else if(5 <= rall && rall <= 6){
-                score =4;
+                score =80;
             }else if(3 <= rall && rall <= 4){
-                score =3;
+                score =60;
             }else if(2 == rall ){
-                score =2;
+                score =40;
             }else if(1 == rall){
-                score =1;
+                score =20;
             }
-        }else if("6".equals(age)){
+        }else if(type == 3){
             if(rall >= 6){
-                score =5;
+                score =100;
             }else if(5 == rall ){
-                score =4;
+                score =80;
             }else if(4 == rall){
-                score =3;
+                score =60;
             }else if(3 == rall){
-                score =2;
+                score =40;
             }else if(1 <= rall && rall <= 2){
-                score =1;
+                score =20;
             }
         }
         return score;
@@ -335,47 +335,47 @@ public class Baskculation {
 
     /**
      * 投篮
-     * @param age
+     * @param type
      * @param rall
      * @return
      */
-    public  static  int calShoot(String age,int rall){
+    public  static  int calShoot(Integer type,int rall){
         int score = 0;
-        if("4".equals(age)){
+        if(type == 1){
             if(rall >= 5){
-                score =5;
+                score =100;
             }else if(4 == rall ){
-                score =4;
+                score =80;
             }else if(3 == rall ){
-                score =3;
+                score =60;
             }else if(2 == rall){
-                score =2;
+                score =40;
             }else if(1 == rall ){
-                score =1;
+                score =20;
             }
-        }else if("5".equals(age)){
+        }else if(type == 2){
             if(rall >= 5){
-                score =5;
+                score =100;
             }else if(4 == rall ){
-                score =4;
+                score =80;
             }else if(3 == rall ){
-                score =3;
+                score =60;
             }else if(2 == rall){
-                score =2;
+                score =40;
             }else if(1 == rall ){
-                score =1;
+                score =20;
             }
-        }else if("6".equals(age)){
+        }else if(type == 3){
             if(rall >= 5){
-                score =5;
+                score =100;
             }else if(4 == rall ){
-                score =4;
+                score =80;
             }else if(3 == rall ){
-                score =3;
+                score =60;
             }else if(2 == rall){
-                score =2;
+                score =40;
             }else if(1 == rall ){
-                score =1;
+                score =20;
             }
         }
         return score;

@@ -69,23 +69,23 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         }
         BaskItem item = new BaskItem();
         BeanUtils.copyProperties(baskItemForm,item);
-        LocalDate today = LocalDate.now();
-        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
-        item.setBirthday(playerDate);
-        item.setAge(Baskculation.getBaskAge(baskItemForm.getBirth()));
-        if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
-            throw new ApiException("测试年龄不符合");
-        }
+//        LocalDate today = LocalDate.now();
+//        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
+//        item.setBirthday(playerDate);
+//        item.setAge(Baskculation.getBaskAge(baskItemForm.getBirth()));
+//        if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
+//            throw new ApiException("测试年龄不符合");
+//        }
         //滚球
-        item.setRallScore(Baskculation.calRall(item.getAge(),baskItemForm.getRall()));
+        item.setRallScore(Baskculation.calRall(item.getType(),baskItemForm.getRall()));
         //运球
-        item.setDsDribbleScore(Baskculation.calShDribble(item.getAge(),baskItemForm.getDsDribble()));
+        item.setDsDribbleScore(Baskculation.calShDribble(item.getType(),baskItemForm.getDsDribble()));
         //拍球
-        item.setBatScore(Baskculation.calBat(item.getAge(),baskItemForm.getBat()));
+        item.setBatScore(Baskculation.calBat(item.getType(),baskItemForm.getBat()));
         //传球
-        item.setPassScore(Baskculation.calPass(item.getAge(),baskItemForm.getPass()));
+        item.setPassScore(Baskculation.calPass(item.getType(),baskItemForm.getPass()));
         //投篮成绩
-        item.setShootScore(Baskculation.calShoot(item.getAge(),baskItemForm.getShoot()));
+        item.setShootScore(Baskculation.calShoot(item.getType(),baskItemForm.getShoot()));
         item.setTotal(item.getBatScore()+item.getDsDribbleScore()+item.getRallScore()+item.getPassScore()+item.getShootScore());
         item.setCreateBy(session.getUsername());
         baseMapper.insert(item);
@@ -105,28 +105,29 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         }
         item.setCreateTime(LocalDateTime.now());
         item.setName(baskItemForm.getName());
-        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
-        item.setBirthday(playerDate);
-        item.setAge(Baskculation.getBaskAge(baskItemForm.getBirth()));
-        if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
-            throw new ApiException("测试年龄不符合");
-        }
+       // LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
+//        item.setBirthday(playerDate);
+//        item.setAge(Baskculation.getBaskAge(baskItemForm.getBirth()));
+//        if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
+//            throw new ApiException("测试年龄不符合");
+//        }
+        item.setType(baskItemForm.getType());
         //滚球
         item.setRall(baskItemForm.getRall());
-        item.setRallScore(Baskculation.calRall(item.getAge(),baskItemForm.getRall()));
+        item.setRallScore(Baskculation.calRall(item.getType(),baskItemForm.getRall()));
 
         //运球
         item.setDsDribble(baskItemForm.getDsDribble());
-        item.setDsDribbleScore(Baskculation.calShDribble(item.getAge(),baskItemForm.getDsDribble()));
+        item.setDsDribbleScore(Baskculation.calShDribble(item.getType(),baskItemForm.getDsDribble()));
         //拍球
         item.setBat(baskItemForm.getBat());
-        item.setBatScore(Baskculation.calBat(item.getAge(),baskItemForm.getBat()));
+        item.setBatScore(Baskculation.calBat(item.getType(),baskItemForm.getBat()));
         //传球
         item.setPass(baskItemForm.getPass());
-        item.setPassScore(Baskculation.calPass(item.getAge(),baskItemForm.getPass()));
+        item.setPassScore(Baskculation.calPass(item.getType(),baskItemForm.getPass()));
         //投篮成绩
         item.setShoot(baskItemForm.getShoot());
-        item.setShootScore(Baskculation.calShoot(item.getAge(),baskItemForm.getShoot()));
+        item.setShootScore(Baskculation.calShoot(item.getType(),baskItemForm.getShoot()));
         item.setTotal(item.getBatScore()+item.getDsDribbleScore()+item.getRallScore()+item.getPassScore()+item.getShootScore());
         item.setCreateBy(session.getUsername());
         baseMapper.updateById(item);
@@ -180,12 +181,12 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
             areaId = session.getAreaId();
         }
        List<BaskItemVO> list = baseMapper.getDataList(childName,phone,name,createBy,areaId,orderBy);
-        String[] titles = new String[]{"姓名","场次名","年龄","总分","学员类型","滚球","运球","拍球","传球","投篮"};
-        String[] fields = {"name","sportName","age","total","xyType","rall","dsDribble","bat","pass","shoot"};
+        String[] titles = new String[]{"姓名","场次名","班级","总分","学员类型","滚球","运球","拍球","传球","投篮"};
+        String[] fields = {"name","sportName","type","total","xyType","rall","dsDribble","bat","pass","shoot"};
         // 转化器
         Map<String, ExcelUtil.Converter> converters = new HashMap<>(16);
      //   converters.put("createTime", (ExcelUtil.Converter<LocalDateTime>) createTime -> createTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-      //  converters.put("resultCode", (ExcelUtil.Converter<Integer>) signStatus -> signStatus == 0 ? "成功" : "失败");
+        converters.put("type", (ExcelUtil.Converter<Integer>) type -> type == 1 ? "小班" :type == 2 ? "中班" : "大班");
        // converters.put("times", (ExcelUtil.Converter<Long>) times -> times /1000 +"秒");
         ExcelUtil.exportExcel( "篮球数据报表内容.xlsx", titles, fields, list, response, converters);
     }
@@ -234,13 +235,15 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
             Cell cell2 =row.getCell(2);
             cell2.setCellType(CellType.STRING);
             item.setSex(Integer.valueOf(cell2.getStringCellValue()));
-            LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(row.getCell(3).getStringCellValue()));
+         //   LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(row.getCell(3).getStringCellValue()));
             // long years = ChronoUnit.YEARS.between(playerDate, today);
-            item.setBirthday(playerDate);
-            item.setAge(Baskculation.getBaskAge(row.getCell(3).getStringCellValue()));
-            if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
-                throw new ApiException("测试年龄不符合");
-            }
+            Cell cell3 =row.getCell(3);
+            cell3.setCellType(CellType.STRING);
+            item.setType(Integer.valueOf(cell3.getStringCellValue()));
+//            item.setAge(Baskculation.getBaskAge(row.getCell(3).getStringCellValue()));
+//            if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
+//                throw new ApiException("测试年龄不符合");
+//            }
             item.setParentName(row.getCell(4).getStringCellValue());
             Cell cell5 =row.getCell(5);
             cell5.setCellType(CellType.STRING);
@@ -251,30 +254,30 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
             Cell cell7 =row.getCell(7);
             cell7.setCellType(CellType.STRING);
             item.setRall(Integer.valueOf(row.getCell(7).getStringCellValue()));
-            item.setRallScore(Baskculation.calRall(item.getAge(),item.getRall()));
+            item.setRallScore(Baskculation.calRall(item.getType(),item.getRall()));
 
             // 运球
             Cell cell8 =row.getCell(8);
             cell8.setCellType(CellType.STRING);
             item.setDsDribble(Integer.valueOf(row.getCell(8).getStringCellValue()));
-            item.setDsDribbleScore(Baskculation.calShDribble(item.getAge(),item.getDsDribble()));
+            item.setDsDribbleScore(Baskculation.calShDribble(item.getType(),item.getDsDribble()));
 
             //拍球
             Cell cell9 =row.getCell(9);
             cell9.setCellType(CellType.STRING);
             item.setBat(Integer.valueOf(row.getCell(9).getStringCellValue()));
-            item.setBatScore(Baskculation.calBat(item.getAge(),item.getBat()));
+            item.setBatScore(Baskculation.calBat(item.getType(),item.getBat()));
             //传球
             Cell cell10 =row.getCell(10);
             cell10.setCellType(CellType.STRING);
             item.setPass(Integer.valueOf(row.getCell(10).getStringCellValue()));
-            item.setPassScore(Baskculation.calPass(item.getAge(),item.getPass()));
+            item.setPassScore(Baskculation.calPass(item.getType(),item.getPass()));
 
             //投篮
             Cell cell11 =row.getCell(11);
             cell11.setCellType(CellType.STRING);
             item.setShoot(Integer.valueOf(row.getCell(11).getStringCellValue()));
-            item.setShootScore(Baskculation.calShoot(item.getAge(),item.getShoot()));
+            item.setShootScore(Baskculation.calShoot(item.getType(),item.getShoot()));
             item.setTotal(item.getBatScore()+item.getDsDribbleScore()+item.getRallScore()+item.getPassScore()+item.getShootScore());
 
             Cell cell12 =row.getCell(12);

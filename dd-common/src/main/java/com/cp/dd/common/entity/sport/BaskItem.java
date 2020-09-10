@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -42,11 +41,15 @@ public class BaskItem implements Serializable {
     @ApiModelProperty(value = "小孩性别  1男 2女")
     private Integer sex;
 
-    @ApiModelProperty(value = "出生年月")
-    private LocalDate birthday;
+//    @ApiModelProperty(value = "出生年月")
+//    private LocalDate birthday;
+//
+//    @ApiModelProperty(value = "年龄")
+//    private String age;
 
-    @ApiModelProperty(value = "年龄")
-    private String age;
+
+    @ApiModelProperty(value = "班级  1小班 2中班 3大班")
+    private Integer type;
 
     @ApiModelProperty(value = "家长姓名")
     private String parentName;

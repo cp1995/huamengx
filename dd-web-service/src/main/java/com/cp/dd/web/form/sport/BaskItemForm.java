@@ -33,10 +33,14 @@ public class BaskItemForm implements Serializable {
     @NotNull(message = "小孩性别不能为空")
     private Integer sex;
 
-    @ApiModelProperty(value = "出生年月yyyy-MM-dd", required = true)
-  //  @DateTimeFormat(pattern = "yyyy-MM")
-    @NotBlank(message = "出生年月日不能为空")
-    private String birth;
+    @ApiModelProperty(value = "班级  1小班 2中班 3大班")
+    @NotNull(message = "班级不能为空")
+    private Integer type;
+
+//    @ApiModelProperty(value = "出生年月yyyy-MM-dd", required = true)
+//  //  @DateTimeFormat(pattern = "yyyy-MM")
+//    @NotBlank(message = "出生年月日不能为空")
+//    private String birth;
 
     @ApiModelProperty(value = "家长姓名", required = true)
     @NotBlank(message = "家长姓名不能为空")
