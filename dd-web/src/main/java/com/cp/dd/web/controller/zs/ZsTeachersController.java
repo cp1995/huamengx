@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
@@ -53,6 +54,14 @@ public class ZsTeachersController {
                 // 默认按sort排序
                 .orderByAsc(ZsTeachers::getRzTime));
         return Result.success(page);
+    }
+
+    @PostMapping("/import")
+    @AddOperLog(name = "认证师资数据导入")
+    @ApiOperation(value = "导入", notes = "认证师资数据导入")
+    public Result<?> importWord(@RequestParam("file") MultipartFile file) {
+        zsTeachersService.importItem(file);
+        return Result.success();
     }
 
 }
