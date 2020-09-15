@@ -13,8 +13,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * <p>
@@ -51,5 +54,29 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
     @Override
     public IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status) {
         return this.baseMapper.getPage(query.loadPage(),categoryId,status);
+    }
+
+    @Override
+    public IPage<ZsDeptVO> auditPage(PageQuery query, Long categoryId, String status,Integer auditStatus) {
+        return this.baseMapper.getAuditPage(query.loadPage(),categoryId,status,auditStatus);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void audit(List<Long> ids, Integer auditStatus) {
+        ids.forEach(id->{
+            this.audit(id,auditStatus);
+        });
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void audit(Long id,Integer auditStatus) {
+        ZsDept entity = baseMapper.selectById(id);
+        if (Objects.isNull(entity)) {
+            throw new ApiException(-1, "加盟商不存在");
+        }
+        // 修改状态，逻辑删除
+        entity.setAuditStatus(auditStatus);
+        this.updateById(entity);
     }
 }

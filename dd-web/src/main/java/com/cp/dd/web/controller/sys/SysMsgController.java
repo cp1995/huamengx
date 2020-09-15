@@ -9,6 +9,7 @@ import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
 import com.cp.dd.common.util.sys.SessionCache;
+import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sys.SysUserVO;
 import com.cp.dd.web.service.sys.ISysMsgService;
 import io.swagger.annotations.Api;
@@ -48,9 +49,9 @@ public class SysMsgController {
     @ApiOperation(value = "分页列表", notes = "字典树状列表")
     public Result<PageModel<SysMsg>> page(@Valid PageQuery pageQuery,
                                           @RequestParam(required = false) @ApiParam("状态（1-未读，2-已读）") Integer status) {
-        SysUserVO sysUserVO = SessionCache.get();
-        IPage<SysMsg> page = sysMsgService.page(pageQuery.loadPage(), Wrappers.<SysMsg>lambdaQuery()
-                .eq(SysMsg::getUserId, sysUserVO.getId())
+        MemberVO memberVO = SessionCache.get();
+        IPage<SysMsg> page = sysMsgService.page(pageQuery.loadPage(), Wrappers. <SysMsg>lambdaQuery()
+                .eq(SysMsg::getUserId, memberVO.getId())
                 .eq(Objects.nonNull(status), SysMsg::getStatus, status)
                 // 默认按sort排序
                 .orderByAsc(SysMsg::getCreateTime));

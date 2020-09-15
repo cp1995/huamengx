@@ -15,8 +15,26 @@
             </if>
 
         </where>
+            order by zi.create_time desc
+    </select>
 
+    <select id="getAuditPage" resultType="com.cp.dd.common.vo.zs.ZsDeptVO">
 
+        SELECT zi.* ,zs.name categoryName FROM zs_dept zi
+        left  join zs_category zs on zi.category_id =zs.id
+        <where>
+            <if test="status != null and status !='' ">
+                AND zi.status = #{status}
+            </if>
+            <if test="categoryId != null  ">
+                AND zi.category_id = #{categoryId}
+            </if>
+            <if test="auditStatus != null  ">
+                AND zi.audit_status = #{auditStatus}
+            </if>
+
+        </where>
+        order by zi.create_time desc
     </select>
 
 </mapper>

@@ -22,4 +22,11 @@ public interface ZsDeptMapper extends BaseMapper<ZsDept> {
 
     );
 
+    IPage<ZsDeptVO> getAuditPage(IPage<ZsDept> page,
+                            @Param("categoryId") Long categoryId,
+                            @Param("status") String status,
+                            @Param("auditStatus") Integer auditStatus
+
+    );
+
 }

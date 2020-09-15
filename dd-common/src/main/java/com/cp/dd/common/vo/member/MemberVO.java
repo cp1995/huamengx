@@ -53,6 +53,9 @@ public class MemberVO implements Serializable {
     @ApiModelProperty(value = "园区id")
     private Long areaId;
 
+    @ApiModelProperty(value = "未读消息数")
+    private Integer msgCount;
+
     @ApiModelProperty(value = "注册时间")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)

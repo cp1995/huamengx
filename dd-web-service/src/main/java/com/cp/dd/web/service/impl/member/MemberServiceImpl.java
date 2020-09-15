@@ -8,12 +8,14 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.constant.CommonConstant;
 import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.member.Area;
+import com.cp.dd.common.entity.sys.SysMsg;
 import com.cp.dd.common.exception.ApiException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.cp.dd.common.constant.member.*;
 import com.cp.dd.common.entity.member.Member;
 import com.cp.dd.common.mapper.member.AreaMapper;
 import com.cp.dd.common.mapper.member.MemberMapper;
+import com.cp.dd.common.mapper.sys.SysMsgMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.ExcelUtil;
 import com.cp.dd.common.util.PatternUtils;
@@ -53,6 +55,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
 
     private TokenUtil tokenUtil;
     private AreaMapper areaMapper;
+    private SysMsgMapper sysMsgMapper;
 
 
     @Override
@@ -70,6 +73,11 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         }
         MemberVO memberVO = new MemberVO();
         BeanUtils.copyProperties(member, memberVO);
+        Integer count = sysMsgMapper.selectCount(Wrappers.<SysMsg>lambdaQuery()
+            .eq(SysMsg::getUserId,member.getId())
+            .eq(SysMsg::getStatus,1)
+        );
+        memberVO.setMsgCount(count);
         Area area = areaMapper.selectById(member.getAreaId());
         memberVO.setAreaName(area.getName());
         String token = tokenUtil.generateWebTokenAndCache(memberVO, SourceEnum.getEnumByType(1));

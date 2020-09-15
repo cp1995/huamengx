@@ -7,6 +7,8 @@ import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.zs.ZsDeptVO;
 import com.cp.dd.web.form.zs.ZsDeptForm;
 
+import java.util.List;
+
 /**
  * <p>
  *  服务类
@@ -22,5 +24,9 @@ public interface IZsDeptService extends IService<ZsDept> {
     void update(ZsDeptForm zsDeptForm);
 
     IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status);
+
+    IPage<ZsDeptVO> auditPage(PageQuery query, Long categoryId, String status,Integer auditStatus);
+
+    void audit(List<Long> ids, Integer auditStatus);
 
 }
