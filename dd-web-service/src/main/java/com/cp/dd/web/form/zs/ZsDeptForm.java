@@ -43,6 +43,10 @@ public class ZsDeptForm implements Serializable {
     @ApiModelProperty(value = "所属子公司")
     private String company;
 
+    @NotNull(message = "区域编码不能为空")
+    @ApiModelProperty(value = "区域编码")
+    private String areaCode;
+
     @ApiModelProperty(value = "头像")
     private String icon;
 

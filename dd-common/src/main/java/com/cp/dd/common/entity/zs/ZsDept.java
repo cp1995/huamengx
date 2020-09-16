@@ -13,6 +13,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * <p>
  * 
@@ -64,6 +66,10 @@ public class ZsDept implements Serializable {
 
     @ApiModelProperty(value = "加盟金额")
     private String amount;
+
+    @NotNull(message = "区域编码不能为空")
+    @ApiModelProperty(value = "区域编码")
+    private String areaCode;
 
     @ApiModelProperty(value = "合同归档(未归档/已归档)")
     private String htgd;

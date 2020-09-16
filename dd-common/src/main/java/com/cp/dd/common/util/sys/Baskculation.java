@@ -180,7 +180,7 @@ public class Baskculation {
                 score =20;
             }
         }
-        return score;
+        return score/5;
     }
 
 
@@ -230,7 +230,7 @@ public class Baskculation {
                 score =20;
             }
         }
-        return score;
+        return score/5;
     }
 
 
@@ -280,7 +280,7 @@ public class Baskculation {
                 score =20;
             }
         }
-        return score;
+        return score/5;
     }
 
 
@@ -329,7 +329,7 @@ public class Baskculation {
                 score =20;
             }
         }
-        return score;
+        return score/5;
     }
 
 
@@ -378,7 +378,7 @@ public class Baskculation {
                 score =20;
             }
         }
-        return score;
+        return score/5;
     }
 
 

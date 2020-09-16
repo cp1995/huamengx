@@ -62,7 +62,7 @@ public class ZsDeptController {
 
     ) {
 
-        return Result.success(zsDeptService.getPage(pageQuery,categoryId,status));
+        return Result.success(zsDeptService.auditPage(pageQuery,categoryId,status,auditStatus));
     }
 
 

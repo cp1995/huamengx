@@ -18,6 +18,9 @@ public class ZsDeptVO extends ZsDept implements Serializable {
     @ApiModelProperty(value = "分类名称")
     private String categoryName;
 
+    @ApiModelProperty(value = " 区域名")
+    private String areaName;
+
 
 
 }
