@@ -152,7 +152,7 @@ public class Baskculation {
                 score =60;
             }else if(3 <= rall && rall <= 4){
                 score =40;
-            }else if(1 <= rall && rall <= 2){
+            }else if( rall <= 2){
                 score =20;
             }
         }else if(type == 2){
@@ -164,7 +164,7 @@ public class Baskculation {
                 score =60;
             }else if(6 <= rall && rall <= 7){
                 score =40;
-            }else if(2 <= rall && rall <= 5){
+            }else if(rall <= 5){
                 score =20;
             }
         }else if(type == 3){
@@ -176,7 +176,7 @@ public class Baskculation {
                 score =60;
             }else if(3 == rall ){
                 score =40;
-            }else if(1 <= rall && rall <= 2){
+            }else if( rall <= 2){
                 score =20;
             }
         }
@@ -202,7 +202,7 @@ public class Baskculation {
                 score =60;
             }else if(10 <= rall && rall <= 19){
                 score =40;
-            }else if(3 <= rall && rall <= 9){
+            }else if( rall <= 9){
                 score =20;
             }
         }else if(type == 2){
@@ -214,7 +214,7 @@ public class Baskculation {
                 score =60;
             }else if(13 <= rall && rall <= 27){
                 score =40;
-            }else if(6 <= rall && rall <= 12){
+            }else if( rall <= 12){
                 score =20;
             }
         }else if(type == 3){
@@ -252,31 +252,31 @@ public class Baskculation {
                 score =60;
             }else if(30 <= rall && rall <= 36){
                 score =40;
-            }else if(37 <= rall && rall <= 45){
+            }else if(37 <= rall ){
                 score =20;
             }
         }else if(type == 2){
             if(rall <= 15){
                 score =100;
-            }else if(16 <= rall && rall <= 20){
+            }else if(16 <= rall && rall <= 19){
                 score =80;
-            }else if(21 <= rall && rall <= 25){
+            }else if(20 <= rall && rall <= 25){
                 score =60;
-            }else if(26 <= rall && rall <= 29){
+            }else if(26 <= rall && rall <= 30){
                 score =40;
-            }else if(30 <= rall && rall <= 45){
+            }else if(31 <= rall ){
                 score =20;
             }
         }else if(type == 3){
-            if(rall <= 19){
+            if(rall <= 20){
                 score =100;
-            }else if(20 <= rall && rall <= 25){
+            }else if(21 <= rall && rall <= 25){
                 score =80;
             }else if(26 <= rall && rall <= 30){
                 score =60;
             }else if(31 <= rall && rall <= 35){
                 score =40;
-            }else if(36 <= rall && rall <= 45){
+            }else if(36 <= rall ){
                 score =20;
             }
         }
@@ -301,7 +301,7 @@ public class Baskculation {
                 score =60;
             }else if(2 <= rall && rall <= 3){
                 score =40;
-            }else if(1 == rall ){
+            }else if(rall <= 1 ){
                 score =20;
             }
         }else if(type == 2){
@@ -313,7 +313,7 @@ public class Baskculation {
                 score =60;
             }else if(2 == rall ){
                 score =40;
-            }else if(1 == rall){
+            }else if(rall <= 1){
                 score =20;
             }
         }else if(type == 3){
@@ -325,12 +325,13 @@ public class Baskculation {
                 score =60;
             }else if(3 == rall){
                 score =40;
-            }else if(1 <= rall && rall <= 2){
+            }else if( rall <= 2){
                 score =20;
             }
         }
         return score/5;
     }
+
 
 
     /**
@@ -350,7 +351,7 @@ public class Baskculation {
                 score =60;
             }else if(2 == rall){
                 score =40;
-            }else if(1 == rall ){
+            }else if(rall <= 1  ){
                 score =20;
             }
         }else if(type == 2){
@@ -362,7 +363,7 @@ public class Baskculation {
                 score =60;
             }else if(2 == rall){
                 score =40;
-            }else if(1 == rall ){
+            }else if(rall <= 1 ){
                 score =20;
             }
         }else if(type == 3){
@@ -374,7 +375,7 @@ public class Baskculation {
                 score =60;
             }else if(2 == rall){
                 score =40;
-            }else if(1 == rall ){
+            }else if(rall <= 1  ){
                 score =20;
             }
         }
