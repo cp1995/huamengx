@@ -70,7 +70,7 @@ public class SysMsgController {
                 throw new ApiException("该消息不存在");
             }
             sysMsg.setStatus(2);
-            sysMsgService.save(sysMsg);
+            sysMsgService.updateById(sysMsg);
         });
         return Result.success();
     }
