@@ -7,6 +7,7 @@ import com.cp.dd.common.entity.member.ZsCategory;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
+import com.cp.dd.common.vo.zs.ZsCategoryVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.member.ZsCategoryForm;
 import com.cp.dd.web.service.member.IZsCategoryService;
@@ -96,6 +97,15 @@ public class ZsCategoryController {
                 .eq(ZsCategory::getStatus, Constants.Status.enable)
                 .orderByAsc(ZsCategory::getCreateTime)));
     }
+
+    @GetMapping("/getAcCode")
+    @ApiOperation(value = "通过分类id过去证书编号 名称", notes = "通过分类id过去证书编号")
+    public Result<ZsCategoryVO> getAcCode(@RequestParam @ApiParam(value = "Id", required = true)
+                                                    Long id) {
+        return Result.success(zsCategoryService.getId(id));
+    }
+
+
 
 
 }

@@ -41,6 +41,9 @@ public class ZsPersonalForm implements Serializable {
     @ApiModelProperty(value = "头像")
     private String icon;
 
+    @ApiModelProperty(value = "分类id")
+    private Long categoryId;
+
     @NotNull(message = "授权开始时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @ApiModelProperty(value = "授权开始时间yyyy-MM-dd", required = true)

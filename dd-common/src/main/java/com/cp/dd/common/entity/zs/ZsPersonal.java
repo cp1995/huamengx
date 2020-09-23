@@ -38,6 +38,9 @@ public class ZsPersonal implements Serializable {
     @ApiModelProperty(value = "培训名称")
     private String pxName;
 
+    @ApiModelProperty(value = "分类id")
+    private Long categoryId;
+
     @ApiModelProperty(value = "证书编号")
     private String code;
 

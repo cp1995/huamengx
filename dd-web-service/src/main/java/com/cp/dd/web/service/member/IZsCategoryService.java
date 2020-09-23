@@ -2,6 +2,7 @@ package com.cp.dd.web.service.member;
 
 import com.cp.dd.common.entity.member.ZsCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cp.dd.common.vo.zs.ZsCategoryVO;
 import com.cp.dd.web.form.member.ZsCategoryForm;
 
 import java.util.List;
@@ -21,5 +22,7 @@ public interface IZsCategoryService extends IService<ZsCategory> {
     void update(ZsCategoryForm zsCategoryForm);
 
     void del(List<Long> ids);
+
+    ZsCategoryVO getId(Long id);
 
 }
