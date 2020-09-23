@@ -71,10 +71,13 @@ public class ZsCategoryServiceImpl extends ServiceImpl<ZsCategoryMapper, ZsCateg
                 .eq(ZsPersonal::getCategoryId,id)
                 .orderByDesc(ZsPersonal::getId)
         );
+        String listCode;
         if(list.size()>0){
             code = code + String.valueOf(list.get(0).getId());
+            listCode = String.valueOf(list.get(0).getId());
         }else {
             code = code + "1";
+            listCode = "1";
         }
         switch(ids){
             case 5 :
@@ -119,19 +122,19 @@ public class ZsCategoryServiceImpl extends ServiceImpl<ZsCategoryMapper, ZsCateg
                 break;
             case 20 :
                 vo.setName("华蒙星幼儿篮球公益培训");
-                vo.setCode("WpG"+code);
+                vo.setCode("WPG"+code);
                 break;
             case 21 :
                 vo.setName("星伙伴合作基地");
-                vo.setCode("WX"+code);
+                vo.setCode("WX"+listCode);
                 break;
             case 22 :
                 vo.setName("小小CBA少儿篮球示范基地");
-                vo.setCode("WA"+code);
+                vo.setCode("C810X"+code);
                 break;
             case 23 :
                 vo.setName("小小CBA少儿篮球示范园");
-                vo.setCode("WA"+code);
+                vo.setCode("K600X"+code);
                 break;
 
         }
