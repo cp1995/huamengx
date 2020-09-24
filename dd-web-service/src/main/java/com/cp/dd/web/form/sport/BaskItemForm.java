@@ -2,6 +2,7 @@ package com.cp.dd.web.form.sport;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -37,10 +38,16 @@ public class BaskItemForm implements Serializable {
     @NotNull(message = "班级不能为空")
     private Integer type;
 
-//    @ApiModelProperty(value = "出生年月yyyy-MM-dd", required = true)
-//  //  @DateTimeFormat(pattern = "yyyy-MM")
-//    @NotBlank(message = "出生年月日不能为空")
-//    private String birth;
+    @ApiModelProperty(value = "出生年月yyyy-MM-dd", required = true)
+    @DateTimeFormat(pattern = "yyyy-MM")
+    @NotBlank(message = "出生年月日不能为空")
+    private String birth;
+
+    @ApiModelProperty(value = "身高", required = true)
+    private double height;
+
+    @ApiModelProperty(value = "体重" , required = true)
+    private double weight;
 
     @ApiModelProperty(value = "家长姓名", required = true)
     @NotBlank(message = "家长姓名不能为空")

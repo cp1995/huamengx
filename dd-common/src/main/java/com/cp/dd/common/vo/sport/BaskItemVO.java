@@ -19,7 +19,11 @@ public class BaskItemVO extends BaskItem implements Serializable {
     @ApiModelProperty(value = "场次名")
     private String sportName;
 
+    @ApiModelProperty(value = "全国平均成绩身高")
+    private double hightAvg;
 
+    @ApiModelProperty(value = "全国平均成绩BMI")
+    private double bmiAvg;
 
 
 

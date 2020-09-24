@@ -10,6 +10,7 @@ import com.cp.dd.common.entity.sport.BaskItem;
 import com.cp.dd.common.entity.sport.Item;
 import com.cp.dd.common.entity.sport.Sport;
 import com.cp.dd.common.exception.ApiException;
+import com.cp.dd.common.mapper.sport.AvgMapper;
 import com.cp.dd.common.mapper.sport.BaskItemMapper;
 import com.cp.dd.common.mapper.sport.SportMapper;
 import com.cp.dd.common.support.PageQuery;
@@ -34,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -52,6 +54,7 @@ import java.util.Map;
 public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> implements IBaskItemService {
 
     private SportMapper sportMapper;
+    private AvgMapper avgMapper;
 
 
     @Override
@@ -69,13 +72,16 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         }
         BaskItem item = new BaskItem();
         BeanUtils.copyProperties(baskItemForm,item);
-//        LocalDate today = LocalDate.now();
-//        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
-//        item.setBirthday(playerDate);
-//        item.setAge(Baskculation.getBaskAge(baskItemForm.getBirth()));
-//        if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
-//            throw new ApiException("测试年龄不符合");
-//        }
+        LocalDate today = LocalDate.now();
+        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
+        item.setBirthday(playerDate);
+        item.setAge(geAge(baskItemForm.getBirth()));
+        if(Double.valueOf(item.getAge()) <3 || Double.valueOf(item.getAge()) >6){
+            throw new ApiException("测试年龄不符合");
+        }
+        //身高得分
+        item.setHeightScore(calculation.calHeight(item.getAge(),baskItemForm.getHeight(),baskItemForm.getSex()));
+        item.setIbm(calculation.getBMI(baskItemForm.getHeight(),baskItemForm.getWeight()));
         //滚球
         item.setRallScore(Baskculation.calRall(item.getType(),baskItemForm.getRall()));
         //运球
@@ -105,13 +111,16 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         }
         item.setCreateTime(LocalDateTime.now());
         item.setName(baskItemForm.getName());
-       // LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
-//        item.setBirthday(playerDate);
-//        item.setAge(Baskculation.getBaskAge(baskItemForm.getBirth()));
-//        if(Double.valueOf(item.getAge()) <4 || Double.valueOf(item.getAge()) >6){
-//            throw new ApiException("测试年龄不符合");
-//        }
+        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(baskItemForm.getBirth()));
+        item.setBirthday(playerDate);
+        item.setAge(geAge(baskItemForm.getBirth()));
+        if(Double.valueOf(item.getAge()) <3 || Double.valueOf(item.getAge()) >6){
+            throw new ApiException("测试年龄不符合");
+        }
         item.setType(baskItemForm.getType());
+        //身高得分
+        item.setHeightScore(calculation.calHeight(item.getAge(),baskItemForm.getHeight(),baskItemForm.getSex()));
+        item.setIbm(calculation.getBMI(baskItemForm.getHeight(),baskItemForm.getWeight()));
         //滚球
         item.setRall(baskItemForm.getRall());
         item.setRallScore(Baskculation.calRall(item.getType(),baskItemForm.getRall()));
@@ -305,6 +314,12 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
     @Override
     public BaskItemVO detail(Long id) {
         BaskItemVO vo =baseMapper.detail(id);
+        Avg avg =avgMapper.selectOne(Wrappers.<Avg>lambdaQuery().eq(Avg::getSex,vo.getSex())
+                .eq(Avg::getAge,vo.getAge()));
+        if(avg != null){
+            vo.setHightAvg(avg.getHightAvg());
+            vo.setBmiAvg(avg.getBmiAvg());
+        }
         return vo;
     }
 
@@ -318,6 +333,20 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         baseMapper.updateById(item);
     }
 
-
+    public static String geAge(String birth){
+        LocalDate today = LocalDate.now();
+        LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(birth));
+        long years = ChronoUnit.YEARS.between(playerDate, today);
+        long month = ChronoUnit.MONTHS.between(playerDate, today);
+        String age = String.valueOf(years);
+        if(month - years*12 >= 6 ){
+            if(years <= 1){
+                age = "0.5";
+            }else{
+                age = age + ".5";
+            }
+        }
+        return  age;
+    }
 
 }

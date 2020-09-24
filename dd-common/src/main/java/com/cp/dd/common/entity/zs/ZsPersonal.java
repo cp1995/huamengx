@@ -53,7 +53,7 @@ public class ZsPersonal implements Serializable {
     @ApiModelProperty(value = "头像")
     private String icon;
 
-    @ApiModelProperty(value = "0待失效 1生效 2失效")
+    @ApiModelProperty(value = "-1删除 0待生效 1生效 2失效")
     private Integer status;
 
     @ApiModelProperty(value = "授权开始时间")

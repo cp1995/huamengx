@@ -18,6 +18,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -57,6 +58,25 @@ public class ZsPersonalController {
                 // 默认按sort排序
                 .orderByAsc(ZsPersonal::getCreateTime));
         return Result.success(page);
+    }
+
+    @GetMapping(value = "/del")
+    @AddOperLog(name = "删除证书信息")
+    @ApiOperation(value = "删除证书信息", notes = "删除证书信息")
+    public Result del(@RequestParam @ApiParam(value = "Id", required = true)
+                              List<Long> ids) {
+        zsPersonalService.del(ids);
+        return Result.success();
+    }
+
+    @GetMapping(value = "/audit")
+    @ApiOperation(value = "证书失效/审核", notes = "证书失效/审核")
+    public Result audit(@RequestParam @ApiParam(value = "Id", required = true)
+                                List<Long> ids,
+                        @RequestParam @ApiParam(value = "审核状态  0待生效 1生效 2失效" ,required = true) Integer auditStatus
+    ) {
+        zsPersonalService.audit(ids,auditStatus);
+        return Result.success();
     }
 
 
