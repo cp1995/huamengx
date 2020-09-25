@@ -136,6 +136,11 @@ public class ZsCategoryServiceImpl extends ServiceImpl<ZsCategoryMapper, ZsCateg
                 vo.setName("小小CBA少儿篮球示范园");
                 vo.setCode("K600X"+code);
                 break;
+            case 24 :
+                vo.setName("俱乐部教练BC认证培训");
+                vo.setCode("WBC"+code);
+                break;
+
 
         }
 
