@@ -40,4 +40,11 @@
         order by zi.create_time desc
     </select>
 
+    <select id="detail" resultType="com.cp.dd.common.vo.zs.ZsDeptVO">
+
+        SELECT zi.* ,zs.name categoryName FROM zs_dept zi
+        left  join zs_category zs on zi.category_id =zs.id
+        where zi.id = #{id}
+    </select>
+
 </mapper>

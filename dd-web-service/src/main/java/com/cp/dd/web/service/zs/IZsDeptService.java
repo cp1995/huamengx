@@ -23,6 +23,8 @@ public interface IZsDeptService extends IService<ZsDept> {
 
     void update(ZsDeptForm zsDeptForm);
 
+    ZsDeptVO detail(Long id);
+
     IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status);
 
     IPage<ZsDeptVO> auditPage(PageQuery query, Long categoryId, String status,Integer auditStatus);
