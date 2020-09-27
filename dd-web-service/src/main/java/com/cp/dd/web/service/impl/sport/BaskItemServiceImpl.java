@@ -274,7 +274,7 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
             //拍球
             Cell cell9 =row.getCell(9);
             cell9.setCellType(CellType.STRING);
-            item.setBat(Integer.valueOf(row.getCell(9).getStringCellValue()));
+            item.setBat(Double.valueOf(row.getCell(9).getStringCellValue()));
             item.setBatScore(Baskculation.calBat(item.getType(),item.getBat()));
             //传球
             Cell cell10 =row.getCell(10);

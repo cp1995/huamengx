@@ -241,7 +241,7 @@ public class Baskculation {
      * @return
      */
 
-    public  static  int calBat(Integer type,int rall){
+    public  static  int calBat(Integer type,Double rall){
         int score = 0;
         if(type == 1){
             if(rall <= 15){

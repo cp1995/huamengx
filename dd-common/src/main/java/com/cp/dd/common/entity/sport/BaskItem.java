@@ -90,7 +90,7 @@ public class BaskItem implements Serializable {
     private Integer dsDribbleScore;
 
     @ApiModelProperty(value = "拍球")
-    private Integer bat;
+    private Double bat;
 
     @ApiModelProperty(value = "拍球成绩")
     private Integer batScore;

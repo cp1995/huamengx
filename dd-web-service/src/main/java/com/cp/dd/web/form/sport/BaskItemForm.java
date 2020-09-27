@@ -72,7 +72,7 @@ public class BaskItemForm implements Serializable {
 
     @NotNull(message = "拍球不能为空")
     @ApiModelProperty(value = "拍球", required = true)
-    private Integer bat;
+    private Double bat;
 
     @NotNull(message = "传球不能为空")
     @ApiModelProperty(value = "传球", required = true)
