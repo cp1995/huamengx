@@ -67,13 +67,21 @@ public class ZsDeptController {
 
 
     @GetMapping(value = "/audit")
-    @ApiOperation(value = "加盟商审核", notes = "证书审核")
+    @ApiOperation(value = "加盟商审核", notes = "加盟商审核")
     public Result audit(@RequestParam @ApiParam(value = "Id", required = true)
                                 List<Long> ids,
                         @RequestParam @ApiParam(value = "审核状态  0审核 1审核通过 2不通过" ,required = true) Integer auditStatus
     ) {
         zsDeptService.audit(ids,auditStatus);
         return Result.success();
+    }
+
+    @GetMapping(value = "/detail")
+    @ApiOperation(value = "加盟商详情", notes = "加盟商详情")
+    public Result detail(@RequestParam @ApiParam(value = "Id", required = true)
+                               Long id
+    ) {
+        return Result.success(zsDeptService.detail(id));
     }
 
 

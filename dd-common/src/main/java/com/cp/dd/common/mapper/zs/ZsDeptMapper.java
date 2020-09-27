@@ -29,4 +29,6 @@ public interface ZsDeptMapper extends BaseMapper<ZsDept> {
 
     );
 
+    ZsDeptVO detail(Long id);
+
 }

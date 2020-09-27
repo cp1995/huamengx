@@ -52,6 +52,11 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
     }
 
     @Override
+    public ZsDeptVO detail(Long id) {
+        return this.baseMapper.detail(id);
+    }
+
+    @Override
     public IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status) {
         return this.baseMapper.getPage(query.loadPage(),categoryId,status);
     }
