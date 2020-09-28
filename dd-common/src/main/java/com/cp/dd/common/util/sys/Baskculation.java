@@ -246,42 +246,44 @@ public class Baskculation {
         if(type == 1){
             if(rall <= 15){
                 score =100;
-            }else if(16 <= rall && rall <= 21){
+            }else if(15.1 <= rall && rall <= 21){
                 score =80;
-            }else if(22 <= rall && rall <= 29){
+            }else if(21.1 <= rall && rall <= 29){
                 score =60;
-            }else if(30 <= rall && rall <= 36){
+            }else if(39.1 <= rall && rall <= 36){
                 score =40;
-            }else if(37 <= rall ){
+            }else if(36.1 <= rall ){
                 score =20;
             }
         }else if(type == 2){
             if(rall <= 15){
                 score =100;
-            }else if(16 <= rall && rall <= 19){
+            }else if(15.1 <= rall && rall <= 19){
                 score =80;
-            }else if(20 <= rall && rall <= 25){
+            }else if(19.1 <= rall && rall <= 25){
                 score =60;
-            }else if(26 <= rall && rall <= 30){
+            }else if(25.1 <= rall && rall <= 30){
                 score =40;
-            }else if(31 <= rall ){
+            }else if(30.1 <= rall ){
                 score =20;
             }
         }else if(type == 3){
             if(rall <= 20){
                 score =100;
-            }else if(21 <= rall && rall <= 25){
+            }else if(20.1 <= rall && rall <= 25){
                 score =80;
-            }else if(26 <= rall && rall <= 30){
+            }else if(25.1 <= rall && rall <= 30){
                 score =60;
-            }else if(31 <= rall && rall <= 35){
+            }else if(30.1 <= rall && rall <= 35){
                 score =40;
-            }else if(36 <= rall ){
+            }else if(35.1 <= rall ){
                 score =20;
             }
         }
         return score/5;
     }
+
+
 
 
     /**
