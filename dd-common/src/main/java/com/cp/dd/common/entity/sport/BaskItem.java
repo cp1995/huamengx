@@ -60,6 +60,8 @@ public class BaskItem implements Serializable {
     @ApiModelProperty(value = "ibm")
     private double ibm;
 
+    @ApiModelProperty(value = "ibm得分")
+    private Integer ibmScore;
 
     @ApiModelProperty(value = "班级  1小班 2中班 3大班")
     private Integer type;

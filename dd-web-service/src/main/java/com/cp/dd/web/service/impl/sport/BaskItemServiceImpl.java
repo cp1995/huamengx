@@ -82,6 +82,8 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         //身高得分
         item.setHeightScore(calculation.calHeight(item.getAge(),baskItemForm.getHeight(),baskItemForm.getSex()));
         item.setIbm(calculation.getBMI(baskItemForm.getHeight(),baskItemForm.getWeight()));
+        //BMI得分
+        item.setIbmScore(calculation.calBmi(item.getAge(),baskItemForm.getHeight(),baskItemForm.getWeight(),baskItemForm.getSex()));
         //滚球
         item.setRallScore(Baskculation.calRall(item.getType(),baskItemForm.getRall()));
         //运球
@@ -119,8 +121,12 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
         }
         item.setType(baskItemForm.getType());
         //身高得分
+        item.setHeight(baskItemForm.getHeight());
+        //身高得分
         item.setHeightScore(calculation.calHeight(item.getAge(),baskItemForm.getHeight(),baskItemForm.getSex()));
         item.setIbm(calculation.getBMI(baskItemForm.getHeight(),baskItemForm.getWeight()));
+        //BMI得分
+        item.setIbmScore(calculation.calBmi(item.getAge(),baskItemForm.getHeight(),baskItemForm.getWeight(),baskItemForm.getSex()));
         //滚球
         item.setRall(baskItemForm.getRall());
         item.setRallScore(Baskculation.calRall(item.getType(),baskItemForm.getRall()));
