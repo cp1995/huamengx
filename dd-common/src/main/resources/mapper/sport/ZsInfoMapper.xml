@@ -98,7 +98,6 @@
             </if>
         and  z.category_id = zs.id
         and z.status =1
-        and z.audit_status =1
         </where>
         group by z.category_id
 
