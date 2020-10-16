@@ -39,6 +39,7 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         if(zsTeachers1 != null){
             throw new ApiException("该姓名已存在");
         }
+        zsTeachers.setStatus(1);
         BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
         this.baseMapper.insert(zsTeachers);
     }

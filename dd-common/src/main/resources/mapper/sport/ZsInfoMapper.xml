@@ -91,7 +91,7 @@
 
     <select id="countInfo" resultType="com.cp.dd.common.vo.sport.ZsInfoCountVO">
 
-       select count(*) total,category_id ,zs.name  categoryName from zs_info z ,zs_category zs
+       select count(*) total,category_id ,zs.name  categoryName from zs_personal z ,zs_category zs
         <where>
             <if test="areaId != null and areaId !='' ">
                 AND z.area_id = #{areaId}
