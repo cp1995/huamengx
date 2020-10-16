@@ -6,6 +6,7 @@ import com.cp.dd.common.entity.sport.ZsInfo;
 import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
+import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.form.zs.ZsPersonalForm;
 import com.cp.dd.web.service.zs.IZsPersonalService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -62,6 +63,12 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
             this.audit(id,auditStatus);
         });
     }
+
+    @Override
+    public ZsPersonalVO detail(Long id) {
+        return this.baseMapper.detail(id);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long actId) {
         ZsPersonal entity = baseMapper.selectById(actId);

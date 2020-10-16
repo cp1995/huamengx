@@ -6,6 +6,7 @@ import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
+import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.zs.ZsPersonalForm;
 import com.cp.dd.web.service.zs.IZsPersonalService;
@@ -79,5 +80,12 @@ public class ZsPersonalController {
         return Result.success();
     }
 
+    @GetMapping(value = "/detail")
+    @ApiOperation(value = "证书详情", notes = "证书详情")
+    public Result<ZsPersonalVO> detail(@RequestParam @ApiParam(value = "Id", required = true)
+                                 Long id
+    ) {
+        return Result.success(zsPersonalService.detail(id));
+    }
 
 }

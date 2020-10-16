@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cp.dd.common.mapper.zs.ZsPersonalMapper">
 
+
+    <select id="detail" resultType="com.cp.dd.common.vo.zs.ZsPersonalVO">
+
+        SELECT zi.* ,zs.name categoryName FROM zs_personal zi
+        left  join zs_category zs on zi.category_id =zs.id
+        where zi.id = #{id}
+    </select>
+
 </mapper>

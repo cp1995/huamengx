@@ -2,6 +2,7 @@ package com.cp.dd.web.service.zs;
 
 import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.form.zs.ZsPersonalForm;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public interface IZsPersonalService extends IService<ZsPersonal> {
 
     void audit(List<Long> ids,Integer auditStatus);
 
+    ZsPersonalVO detail(Long id);
 
 
 }
