@@ -1,11 +1,12 @@
 package com.cp.dd.web.service.impl.zs;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.constant.Constants;
-import com.cp.dd.common.entity.sport.ZsInfo;
 import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
+import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.form.zs.ZsPersonalForm;
 import com.cp.dd.web.service.zs.IZsPersonalService;
@@ -46,8 +47,15 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     }
 
     @Override
-    public void update(ZsPersonalForm zsPersonalForm) {
+    public IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status) {
+        return this.baseMapper.getPage(query.loadPage(),name,status);
+    }
 
+    @Override
+    public void update(ZsPersonalForm zsPersonalForm) {
+        ZsPersonal zsTeachers = this.baseMapper.selectById(zsPersonalForm.getId());
+        BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
+        this.baseMapper.insert(zsTeachers);
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -49,16 +49,12 @@ public class ZsPersonalController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页列表", notes = "字典树状列表")
-    public Result<PageModel<ZsPersonal>> page(@Valid PageQuery pageQuery,
+    public Result<PageModel<ZsPersonalVO>> page(@Valid PageQuery pageQuery,
                                               @RequestParam(required = false) @ApiParam("证书名称") String zsName,
                                               @RequestParam(required = false) @ApiParam("证书状态 0待失效 1生效 2失效") Integer status
     ) {
-        IPage<ZsPersonal> page = zsPersonalService.page(pageQuery.loadPage(), Wrappers.<ZsPersonal>lambdaQuery()
-                .like(StringUtils.isNotBlank(zsName),ZsPersonal::getZsName, zsName)
-                .eq(Objects.nonNull(status), ZsPersonal::getStatus,status)
-                // 默认按sort排序
-                .orderByAsc(ZsPersonal::getCreateTime));
-        return Result.success(page);
+
+        return Result.success(zsPersonalService.getPage(pageQuery,zsName,status));
     }
 
     @GetMapping(value = "/del")

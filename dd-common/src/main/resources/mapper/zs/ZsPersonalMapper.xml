@@ -10,4 +10,25 @@
         where zi.id = #{id}
     </select>
 
+
+    <select id="getPage" resultType="com.cp.dd.common.vo.zs.ZsPersonalVO">
+
+        SELECT zi.*,zs.name categoryName FROM zs_personal zi
+        left  join zs_category zs on zi.category_id =zs.id
+
+        <where>
+            <if test="name != null and name !='' ">
+                AND zi.`name` like concat('%',#{name},'%')
+            </if>
+
+            <if test="status != null  ">
+                AND zi.status = #{status}
+            </if>
+
+            AND zi.status =1
+
+        </where>
+        order by zi.create_time desc
+    </select>
+
 </mapper>
