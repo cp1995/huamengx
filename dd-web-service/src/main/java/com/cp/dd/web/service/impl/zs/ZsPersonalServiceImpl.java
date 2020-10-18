@@ -47,6 +47,27 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     }
 
     @Override
+    public void wechatSave(ZsPersonalForm zsPersonalForm) {
+        ZsPersonal zsTeachers = new ZsPersonal();
+        ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
+                .eq(ZsPersonal::getName,zsPersonalForm.getName())
+        );
+        if(zsTeachers1 != null){
+            throw new ApiException("该姓名已存在");
+        }
+        zsTeachers.setStatus(0);
+        BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
+        this.baseMapper.insert(zsTeachers);
+    }
+
+    @Override
+    public void wechatUpdate(ZsPersonalForm zsPersonalForm) {
+        ZsPersonal zsTeachers = this.baseMapper.selectById(zsPersonalForm.getId());
+        BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
+        this.baseMapper.insert(zsTeachers);
+    }
+
+    @Override
     public IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status) {
         return this.baseMapper.getPage(query.loadPage(),name,status);
     }

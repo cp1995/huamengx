@@ -25,7 +25,7 @@
                 AND zi.status = #{status}
             </if>
 
-            AND zi.status =1
+
 
         </where>
         order by zi.create_time desc

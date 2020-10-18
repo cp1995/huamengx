@@ -2,6 +2,7 @@ package com.cp.dd.web.controller.zs;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
@@ -47,6 +48,31 @@ public class ZsPersonalController {
         return Result.success();
     }
 
+    @PostMapping(value = "/update")
+    @AddOperLog(name = "修改认证证书")
+    @ApiOperation(value = "修改认证证书", notes = "修改认证证书")
+    public Result  update(ZsPersonalForm zsDeptForm) {
+        zsPersonalService.update(zsDeptForm);
+        return Result.success();
+    }
+
+    @IgnoreLogin
+    @PostMapping(value = "/wechatSave")
+    @AddOperLog(name = "公众号新增认证证书")
+    @ApiOperation(value = "公众号新增认证证书", notes = "公众号新增认证证书")
+    public Result  wechatSave(ZsPersonalForm zsDeptForm) {
+        zsPersonalService.wechatSave(zsDeptForm);
+        return Result.success();
+    }
+
+    @IgnoreLogin
+    @PostMapping(value = "/wechatUpdate")
+    @AddOperLog(name = "公众号修改认证证书")
+    @ApiOperation(value = "公众号修改认证证书", notes = "修改认证证书")
+    public Result  wechatUpdate(ZsPersonalForm zsDeptForm) {
+        zsPersonalService.wechatUpdate(zsDeptForm);
+        return Result.success();
+    }
     @GetMapping("/page")
     @ApiOperation(value = "分页列表", notes = "字典树状列表")
     public Result<PageModel<ZsPersonalVO>> page(@Valid PageQuery pageQuery,
@@ -55,6 +81,17 @@ public class ZsPersonalController {
     ) {
 
         return Result.success(zsPersonalService.getPage(pageQuery,zsName,status));
+    }
+    @IgnoreLogin
+    @GetMapping(value = "/getName")
+    @ApiOperation(value = "公众号证书审核查询", notes = "公众号证书审核查询")
+    public Result<ZsPersonal> getName(@RequestParam @ApiParam(value = "name", required = true)
+                                               String  name
+    ) {
+        ZsPersonal zsPersonal = zsPersonalService.getOne(Wrappers.<ZsPersonal>lambdaQuery()
+            .eq(ZsPersonal::getName,name)
+        );
+        return Result.success(zsPersonal);
     }
 
     @GetMapping(value = "/del")

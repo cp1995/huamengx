@@ -1,5 +1,6 @@
 package com.cp.dd.web.controller.member;
 
+import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.entity.member.Area;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
@@ -77,6 +78,7 @@ public class AreaController {
         return Result.success(areaService.findRegionList());
     }
 
+    @IgnoreLogin
     @GetMapping("/appRegionList")
     @ApiOperation(value = "获取区域列表", notes = "获取区域列表 ")
     public Result<List<Area>> appRegionList() {

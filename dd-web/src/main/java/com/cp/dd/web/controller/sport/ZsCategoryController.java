@@ -104,6 +104,13 @@ public class ZsCategoryController {
                                                     Long id) {
         return Result.success(zsCategoryService.getId(id));
     }
+    @IgnoreLogin
+    @GetMapping("/getWxAcCode")
+    @ApiOperation(value = "通过分类id过去证书编号 名称", notes = "通过分类id过去证书编号")
+    public Result<ZsCategoryVO> getWxAcCode(@RequestParam @ApiParam(value = "Id", required = true)
+                                                  Long id) {
+        return Result.success(zsCategoryService.getId(id));
+    }
 
 
 
