@@ -4,14 +4,17 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.member.Member;
 import com.cp.dd.common.entity.sport.ZsInfo;
+import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sport.ZsInfoMapper;
+import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.sys.SessionCache;
 import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
+import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.form.sport.WechatZsInfoForm;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 import com.cp.dd.web.service.sport.IZsInfoService;
@@ -22,6 +25,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 
@@ -37,7 +42,7 @@ import java.util.Objects;
 @Service
 public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> implements IZsInfoService {
 
-
+    private ZsPersonalMapper zsPersonalMapper;
 
     @Override
     public void save(ZsInfoForm zsInfoForm) {
@@ -101,12 +106,12 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     }
 
     @Override
-    public IPage<ZsInfo> getAuditPage(PageQuery query, String name, String deptName, String code, String categoryType,Integer auditStatus) {
+    public IPage<ZsPersonalVO> getAuditPage(PageQuery query, String name, String deptName, String code, String categoryType, Integer auditStatus) {
        MemberVO memberVO = SessionCache.get();
          String areaId = null;
-       if(memberVO.getRole()  == 4){
-           areaId = memberVO.getAreaId()+"";
-       }
+//       if(memberVO.getRole()  == 4){
+//           areaId = memberVO.getAreaId()+"";
+//       }
         return this.baseMapper.getAuditPage(query.loadPage(),name,deptName,code,areaId,categoryType,auditStatus);
     }
 
@@ -156,13 +161,15 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
 
     @Transactional(rollbackFor = Exception.class)
     public void audit(Long id,Integer auditStatus) {
-        ZsInfo entity = baseMapper.selectById(id);
+        ZsPersonal entity = zsPersonalMapper.selectById(id);
         if (Objects.isNull(entity)) {
             throw new ApiException(-1, "该证书不存在");
         }
         // 修改状态，逻辑删除
-        entity.setAuditStatus(auditStatus);
-        this.updateById(entity);
+        entity.setStatus(auditStatus);
+        entity.setStartTime(LocalDate.now());
+        entity.setEndTime(LocalDate.now().plus(2, ChronoUnit.YEARS));
+        zsPersonalMapper.updateById(entity);
     }
 
 

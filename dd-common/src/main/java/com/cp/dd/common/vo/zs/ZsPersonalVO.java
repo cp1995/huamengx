@@ -1,6 +1,5 @@
 package com.cp.dd.common.vo.zs;
 
-import com.cp.dd.common.entity.zs.ZsDept;
 import com.cp.dd.common.entity.zs.ZsPersonal;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

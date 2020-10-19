@@ -7,6 +7,7 @@ import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
+import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.form.sport.WechatZsInfoForm;
 import com.cp.dd.web.form.sport.ZsInfoForm;
 
@@ -35,8 +36,8 @@ public interface IZsInfoService extends IService<ZsInfo> {
     IPage<ZsInfo> getPage(PageQuery query,String name,String deptName,String code,String areaId,
                           String categoryType,Long categoryId);
 
-    IPage<ZsInfo> getAuditPage(PageQuery query,String name,String deptName,String code,
-                          String categoryType,Integer auditStatus);
+    IPage<ZsPersonalVO> getAuditPage(PageQuery query, String name, String deptName, String code,
+                                     String categoryType, Integer auditStatus);
 
     List<ZsInfo> getAppList(String name,String deptName,String code);
 

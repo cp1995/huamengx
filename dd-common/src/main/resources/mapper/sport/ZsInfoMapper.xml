@@ -35,9 +35,10 @@
     </select>
 
 
-    <select id="getAuditPage" resultType="com.cp.dd.common.entity.sport.ZsInfo">
+    <select id="getAuditPage" resultType="com.cp.dd.common.vo.zs.ZsPersonalVO">
 
-        SELECT zi.* FROM zs_info zi
+        SELECT zi.*,zs.name categoryName FROM zs_personal zi
+        left  join zs_category zs on zi.category_id =zs.id
 
         <where>
             <if test="name != null and name !='' ">
@@ -49,17 +50,9 @@
             <if test="deptName != null and deptName !='' ">
                 AND zi.dept_name = #{deptName}
             </if>
-            <if test="areaId != null and areaId !='' ">
-                AND zi.area_id = #{areaId}
-            </if>
-            <if test="categoryType != null and categoryType !='' ">
-                AND zi.category_type = #{categoryType}
-            </if>
               <if test="auditStatus != null  ">
                 AND zi.audit_status = #{auditStatus}
             </if>
-
-            AND zi.status =1
         </where>
         order by zi.create_time desc
 

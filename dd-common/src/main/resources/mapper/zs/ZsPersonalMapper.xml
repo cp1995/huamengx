@@ -24,8 +24,7 @@
             <if test="status != null  ">
                 AND zi.status = #{status}
             </if>
-
-
+                and  zi.status != 0
 
         </where>
         order by zi.create_time desc

@@ -14,6 +14,7 @@ import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoVO;
 import com.cp.dd.common.vo.sys.SysUserVO;
+import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.sport.WechatZsInfoForm;
 import com.cp.dd.web.form.sport.ZsInfoForm;
@@ -123,12 +124,12 @@ public class ZsInfoController {
 
     @GetMapping("/getAuditPage")
     @ApiOperation(value = "审核分页列表", notes = "审核分页列表")
-    public Result<PageModel<ZsInfo>> getAuditPage(@Valid PageQuery pageQuery,
-                                          @RequestParam(required = false) @ApiParam("姓名") String name,
-                                          @RequestParam(required = false) @ApiParam("机构名") String deptName,
-                                          @RequestParam(required = false) @ApiParam("证书编号") String code,
-                                          @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType,
-                                          @RequestParam(required = false) @ApiParam("审核状态  0审核 1审核通过 2不通过") Integer auditStatus
+    public Result<PageModel<ZsPersonalVO>> getAuditPage(@Valid PageQuery pageQuery,
+                                                        @RequestParam(required = false) @ApiParam("姓名") String name,
+                                                        @RequestParam(required = false) @ApiParam("机构名") String deptName,
+                                                        @RequestParam(required = false) @ApiParam("证书编号") String code,
+                                                        @RequestParam(required = false) @ApiParam("机构证书、个人证书") String categoryType,
+                                                        @RequestParam(required = false) @ApiParam("审核状态  0审核 1审核通过 2不通过") Integer auditStatus
     ) {
         return Result.success(zsInfoService.getAuditPage(pageQuery,name,deptName,code,categoryType,auditStatus));
     }
