@@ -150,7 +150,7 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
         LambdaQueryWrapper<Member> wrapper;
-        if(role == CommonConstant.Role.SUPER || role != 6){
+        if(role == CommonConstant.Role.SUPER || role == 6){
             wrapper = Wrappers.<Member>lambdaQuery().like(StringUtils.isNotBlank(name), Member::getUsername, name)
                                                     .eq(Member::getState,CommonConstant.State.ENABLE)
                                                     .orderByAsc(Member::getCreateTime);
