@@ -26,6 +26,12 @@ public class ZsDeptForm implements Serializable {
     @ApiModelProperty(value = "加盟商名称", required = true)
     private String name;
 
+    @ApiModelProperty(value = "法人姓名")
+    private String frName;
+
+    @ApiModelProperty(value = "法人身份证")
+    private String idCard;
+
     @ApiModelProperty(value = "加盟商税号")
     private String shCode;
 

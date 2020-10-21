@@ -3,8 +3,10 @@ package com.cp.dd.web.service.impl.zs;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.constant.Constants;
+import com.cp.dd.common.entity.sys.SysArea;
 import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.exception.ApiException;
+import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.vo.zs.ZsPersonalVO;
@@ -12,6 +14,7 @@ import com.cp.dd.web.form.zs.ZsPersonalForm;
 import com.cp.dd.web.service.zs.IZsPersonalService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.AllArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +35,8 @@ import java.util.Objects;
 @Service
 public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPersonal> implements IZsPersonalService {
 
+    private SysAreaMapper sysAreaMapper;
+
     @Override
     public void save(ZsPersonalForm zsPersonalForm) {
         ZsPersonal zsTeachers = new ZsPersonal();
@@ -40,6 +45,11 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         );
         if(zsTeachers1 != null){
             throw new ApiException("该姓名已存在");
+        }
+        if(StringUtils.isNoneBlank(zsPersonalForm.getAreaCode())){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,zsPersonalForm.getAreaCode()));
+            zsTeachers.setShortCode(sysArea.getShortCode());
         }
         zsTeachers.setStatus(1);
         BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
@@ -54,6 +64,11 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         );
         if(zsTeachers1 != null){
             throw new ApiException("该姓名已存在");
+        }
+        if(StringUtils.isNoneBlank(zsPersonalForm.getAreaCode())){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,zsPersonalForm.getAreaCode()));
+            zsTeachers.setShortCode(sysArea.getShortCode());
         }
         zsTeachers.setStatus(0);
         BeanUtils.copyProperties(zsPersonalForm,zsTeachers);

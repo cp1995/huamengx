@@ -47,6 +47,21 @@ public class ZsPersonal implements Serializable {
     @ApiModelProperty(value = "证书名称")
     private String zsName;
 
+    @ApiModelProperty(value = "身份证")
+    private String idCard;
+
+    @ApiModelProperty(value = "身份证")
+    private String mobile;
+
+    @ApiModelProperty(value = "期数")
+    private String periodical;
+
+    @ApiModelProperty(value = "区域编码")
+    private String areaCode;
+
+    @ApiModelProperty(value = "shortCode")
+    private String shortCode;
+
     @ApiModelProperty(value = "内容")
     private String content;
 

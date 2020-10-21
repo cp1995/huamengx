@@ -21,7 +21,11 @@ public interface IZsDeptService extends IService<ZsDept> {
 
     void save(ZsDeptForm zsDeptForm);
 
+    void wechatSave(ZsDeptForm zsDeptForm);
+
     void update(ZsDeptForm zsDeptForm);
+
+    void wechatUpdate(ZsDeptForm zsDeptForm);
 
     ZsDeptVO detail(Long id);
 

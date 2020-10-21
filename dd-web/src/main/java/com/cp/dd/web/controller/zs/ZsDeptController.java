@@ -1,5 +1,9 @@
 package com.cp.dd.web.controller.zs;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.cp.dd.common.annotation.IgnoreLogin;
+import com.cp.dd.common.entity.zs.ZsDept;
+import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
@@ -34,11 +38,38 @@ public class ZsDeptController {
 
     private IZsDeptService zsDeptService;
 
+    @IgnoreLogin
+    @PostMapping(value = "/wechatSave")
+    @AddOperLog(name = "公众号新增加盟商")
+    @ApiOperation(value = "公众号新增加盟商", notes = "公众号新增加盟商")
+    public Result wechatSave(ZsDeptForm zsDeptForm) {
+        zsDeptService.wechatSave(zsDeptForm);
+        return Result.success();
+    }
+
+
     @PostMapping(value = "/save")
     @AddOperLog(name = "新增加盟商")
     @ApiOperation(value = "新增加盟商", notes = "新增加盟商")
     public Result save(ZsDeptForm zsDeptForm) {
         zsDeptService.save(zsDeptForm);
+        return Result.success();
+    }
+
+    @IgnoreLogin
+    @PostMapping(value = "/wechatUpdate")
+    @AddOperLog(name = "公众号修改加盟商")
+    @ApiOperation(value = "公众号修改加盟商", notes = "公众号修改加盟商")
+    public Result wechatUpdate(ZsDeptForm zsDeptForm) {
+        zsDeptService.wechatUpdate(zsDeptForm);
+        return Result.success();
+    }
+
+    @PostMapping(value = "/update")
+    @AddOperLog(name = "修改加盟商")
+    @ApiOperation(value = "修改加盟商", notes = "修改加盟商")
+    public Result update(ZsDeptForm zsDeptForm) {
+        zsDeptService.update(zsDeptForm);
         return Result.success();
     }
 
@@ -63,6 +94,21 @@ public class ZsDeptController {
     ) {
 
         return Result.success(zsDeptService.auditPage(pageQuery,categoryId,status,auditStatus));
+    }
+
+    @IgnoreLogin
+    @GetMapping(value = "/getName")
+    @ApiOperation(value = "公众号证书审核查询", notes = "公众号证书审核查询")
+    public Result<ZsDept> getName(@RequestParam @ApiParam(value = "加盟商名称", required = true)
+                                              String  name,
+                                  @RequestParam @ApiParam(value = "身份证", required = true)
+                                          String  idCard
+    ) {
+        ZsDept zsDept = zsDeptService.getOne(Wrappers.<ZsDept>lambdaQuery()
+                .eq(ZsDept::getName,name)
+                .eq(ZsDept::getIdCard,idCard)
+        );
+        return Result.success(zsDept);
     }
 
 

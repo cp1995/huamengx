@@ -16,7 +16,7 @@
             <if test="categoryId != null  ">
                 AND zi.category_id = #{categoryId}
             </if>
-
+            and zi.audit_status = 1
         </where>
             order by zi.create_time desc
     </select>

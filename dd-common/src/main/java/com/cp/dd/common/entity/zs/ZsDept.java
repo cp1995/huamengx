@@ -37,6 +37,12 @@ public class ZsDept implements Serializable {
     @ApiModelProperty(value = "加盟商名称")
     private String name;
 
+    @ApiModelProperty(value = "法人姓名")
+    private String frName;
+
+    @ApiModelProperty(value = "法人身份证")
+    private String idCard;
+
     @ApiModelProperty(value = "加盟商税号")
     private String shCode;
 
@@ -70,6 +76,9 @@ public class ZsDept implements Serializable {
     @NotNull(message = "区域编码不能为空")
     @ApiModelProperty(value = "区域编码")
     private String areaCode;
+
+    @ApiModelProperty(value = "shortCode")
+    private String shortCode;
 
     @ApiModelProperty(value = "合同归档(未归档/已归档)")
     private String htgd;
