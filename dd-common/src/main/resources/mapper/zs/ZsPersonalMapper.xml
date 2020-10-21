@@ -24,6 +24,9 @@
             <if test="status != null  ">
                 AND zi.status = #{status}
             </if>
+            <if test="categoryId != null  ">
+                AND zi.category_id = #{categoryId}
+            </if>
                 and  zi.status != 0
 
         </where>

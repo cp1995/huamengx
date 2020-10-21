@@ -26,7 +26,7 @@ public interface IZsPersonalService extends IService<ZsPersonal> {
 
     void wechatUpdate(ZsPersonalForm zsPersonalForm);
 
-    IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status);
+    IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status,Long categoryId);
 
     void update(ZsPersonalForm zsPersonalForm);
 

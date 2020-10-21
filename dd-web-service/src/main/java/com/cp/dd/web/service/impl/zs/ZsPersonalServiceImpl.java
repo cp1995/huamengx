@@ -68,8 +68,8 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     }
 
     @Override
-    public IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status) {
-        return this.baseMapper.getPage(query.loadPage(),name,status);
+    public IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status,Long categoryId) {
+        return this.baseMapper.getPage(query.loadPage(),name,status,categoryId);
     }
 
     @Override
