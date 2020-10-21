@@ -56,14 +56,10 @@ public class ZsPersonalForm implements Serializable {
     @ApiModelProperty(value = "分类id")
     private Long categoryId;
 
-    @NotNull(message = "授权开始时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @ApiModelProperty(value = "授权开始时间yyyy-MM-dd", required = true)
     private LocalDate startTime;
 
-    @NotNull(message = "授权结束时间不能为空")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @ApiModelProperty(value = "授权结束时间yyyy-MM-dd", required = true)
     private LocalDate endTime;
 
 }

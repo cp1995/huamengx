@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cp.dd.common.vo.sport.ZsInfoAreaCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoCountVO;
 import com.cp.dd.common.vo.sport.ZsInfoLsCountVO;
+import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,13 +32,13 @@ public interface ZsInfoMapper extends BaseMapper<ZsInfo> {
                           );
 
 
-    IPage<ZsInfo> getAuditPage(IPage<ZsInfo> page,
-                          @Param("name") String name,
-                          @Param("deptName") String deptName,
-                          @Param("code") String code,
-                           @Param("areaId") String areaId,
-                           @Param("categoryType") String categoryType,
-                           @Param("auditStatus") Integer auditStatus
+    IPage<ZsPersonalVO> getAuditPage(IPage<ZsInfo> page,
+                                     @Param("name") String name,
+                                     @Param("deptName") String deptName,
+                                     @Param("code") String code,
+                                     @Param("areaId") String areaId,
+                                     @Param("categoryType") String categoryType,
+                                     @Param("auditStatus") Integer auditStatus
     );
 
     List<ZsInfo> getAppList(
