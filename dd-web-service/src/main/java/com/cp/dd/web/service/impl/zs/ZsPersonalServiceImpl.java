@@ -79,7 +79,7 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     public void wechatUpdate(ZsPersonalForm zsPersonalForm) {
         ZsPersonal zsTeachers = this.baseMapper.selectById(zsPersonalForm.getId());
         BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
-        this.baseMapper.insert(zsTeachers);
+        this.baseMapper.updateById(zsTeachers);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     public void update(ZsPersonalForm zsPersonalForm) {
         ZsPersonal zsTeachers = this.baseMapper.selectById(zsPersonalForm.getId());
         BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
-        this.baseMapper.insert(zsTeachers);
+        this.baseMapper.updateById(zsTeachers);
     }
 
     @Transactional(rollbackFor = Exception.class)

@@ -83,6 +83,7 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
                     .eq(SysArea::getCode,zsDeptForm.getAreaCode()));
             zsDept.setShortCode(sysArea.getShortCode());
         }
+        baseMapper.updateById(zsDept);
 
     }
 
@@ -95,7 +96,7 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
                     .eq(SysArea::getCode,zsDeptForm.getAreaCode()));
             zsDept.setShortCode(sysArea.getShortCode());
         }
-
+        baseMapper.updateById(zsDept);
     }
 
     @Override
