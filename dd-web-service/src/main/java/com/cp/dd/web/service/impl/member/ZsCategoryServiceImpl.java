@@ -109,7 +109,7 @@ public class ZsCategoryServiceImpl extends ServiceImpl<ZsCategoryMapper, ZsCateg
                 vo.setCode("WCP"+code);
                 break;
             case 17 :
-                vo.setName("俱俱乐部初级课程顾问");
+                vo.setName("俱乐部初级课程顾问");
                 vo.setCode("WCC"+code);
                 break;
             case 18 :
