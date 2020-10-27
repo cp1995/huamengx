@@ -19,6 +19,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 
@@ -132,6 +134,11 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         }
         // 修改状态，逻辑删除
         entity.setStatus(auditStatus);
+        // 修改状态，逻辑删除
+        entity.setStatus(auditStatus);
+        entity.setStartTime(LocalDate.now());
+        entity.setEndTime(LocalDate.now().plus(2, ChronoUnit.YEARS));
+        baseMapper.updateById(entity);
         this.updateById(entity);
     }
 

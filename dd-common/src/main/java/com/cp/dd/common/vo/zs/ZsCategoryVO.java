@@ -20,6 +20,9 @@ public class ZsCategoryVO  implements Serializable {
     @ApiModelProperty(value = "编码规则")
     private String code;
 
+    @ApiModelProperty(value = "数量")
+    private Integer zsNum;
+
 
 
 }

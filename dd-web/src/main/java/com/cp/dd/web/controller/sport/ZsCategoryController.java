@@ -1,9 +1,12 @@
 package com.cp.dd.web.controller.sport;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.annotation.IgnoreLogin;
 import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.member.ZsCategory;
+import com.cp.dd.common.entity.zs.ZsDept;
+import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.support.PageModel;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.support.Result;
@@ -11,11 +14,15 @@ import com.cp.dd.common.vo.zs.ZsCategoryVO;
 import com.cp.dd.web.aop.AddOperLog;
 import com.cp.dd.web.form.member.ZsCategoryForm;
 import com.cp.dd.web.service.member.IZsCategoryService;
+import com.cp.dd.web.service.zs.IZsDeptService;
+import com.cp.dd.web.service.zs.IZsPersonalService;
+import com.cp.dd.web.service.zs.IZsTeachersService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +45,8 @@ import java.util.List;
 public class ZsCategoryController {
 
     private IZsCategoryService zsCategoryService;
+    private IZsDeptService zsDeptService;
+    private IZsPersonalService zsPersonalService;
 
     @PostMapping(value = "/save")
     @AddOperLog(name = "新增证书类型")
@@ -66,15 +75,36 @@ public class ZsCategoryController {
 
     @GetMapping("/page")
     @ApiOperation(value = "分页列表", notes = "分页列表")
-    public Result<PageModel<ZsCategory>> page(@Valid PageQuery pageQuery,
+    public Result<PageModel<ZsCategoryVO>> page(@Valid PageQuery pageQuery,
                                               @RequestParam(required = false) @ApiParam("分类名称") String name,
                                               @RequestParam(required = false) @ApiParam("机构证书、个人证书") String type
                                               ) {
-        return Result.success(zsCategoryService.page(pageQuery.loadPage(), Wrappers.<ZsCategory>lambdaQuery()
+        IPage<ZsCategory> page = zsCategoryService.page(pageQuery.loadPage(), Wrappers.<ZsCategory>lambdaQuery()
                 .eq(StringUtils.isNotBlank(name), ZsCategory::getName, name)
                 .eq(StringUtils.isNotBlank(type), ZsCategory::getType, type)
                 .ne(ZsCategory::getStatus, Constants.Status.delete)
-                .orderByAsc(ZsCategory::getCreateTime)));
+                .orderByAsc(ZsCategory::getCreateTime));
+        IPage<ZsCategoryVO> page1 = page.convert(zsCategory -> {
+            ZsCategoryVO zsCategoryVO = new ZsCategoryVO();
+            BeanUtils.copyProperties(zsCategory, zsCategoryVO);
+            if(zsCategory != null){
+                if("个人证书".equals(zsCategory.getType())){
+                  int count =  zsPersonalService.count(Wrappers.<ZsPersonal>lambdaQuery()
+                        .eq(ZsPersonal::getCategoryId,zsCategory.getId())
+                        .eq(ZsPersonal::getStatus,1)
+                    );
+                    zsCategoryVO.setZsNum(count);
+                }else {
+                    int count =  zsDeptService.count(Wrappers.<ZsDept>lambdaQuery()
+                            .eq(ZsDept::getCategoryId,zsCategory.getId())
+                            .eq(ZsDept::getAuditStatus,1)
+                    );
+                    zsCategoryVO.setZsNum(count);
+                }
+            }
+            return zsCategoryVO;
+        });
+        return Result.success(page1);
     }
 
     @IgnoreLogin
