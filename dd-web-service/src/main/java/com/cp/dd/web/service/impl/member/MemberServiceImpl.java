@@ -130,6 +130,18 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
     @Override
     public void delete(Long id) {
         Member member = baseMapper.selectById(id);
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            if(memberVO.getRole() == 4 || memberVO.getRole() == 5){
+                if( member.getRole() == 2 || member.getRole() == 3|| member.getRole() == 6){
+                    throw new ApiException("暂无权限");
+                }
+            }else {
+                if(member.getRole() == 4 || member.getRole() == 5 ){
+                    throw new ApiException("暂无权限");
+                }
+            }
+        }
         member.setState(CommonConstant.State.DELETE);
         baseMapper.updateById(member);
     }
