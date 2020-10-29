@@ -47,6 +47,9 @@ public class ZsPersonalForm implements Serializable {
     @ApiModelProperty(value = "区域编码")
     private String areaCode;
 
+    @ApiModelProperty(value = "所属机构")
+    private String deptName;
+
     @ApiModelProperty(value = "内容", required = true)
     private String content;
 
