@@ -118,16 +118,28 @@ public class ItemController {
         itemService.importItem(file);
         return Result.success();
     }
+
     @AddOperLog(name = "公众号获取报告")
     @GetMapping("/getData")
     @ApiOperation(value = "公众号获取报告", notes = "公众号获取报告")
     public Result<List<ItemVO> > getData(
                                                  @ApiParam("小朋友姓名") @RequestParam(required = false) String childName,
                                                  @ApiParam("家长手机号") @RequestParam(required = false) String phone,
-                                                 @ApiParam("场次名称") @RequestParam(required = true) Long sportId
+                                                 @ApiParam("场次名称") @RequestParam(required = false) Long sportId
 
     ) {
         return Result.success(itemService.getData(childName,phone,sportId));
+    }
+
+    @IgnoreLogin
+    @GetMapping("/getWxData")
+    @ApiOperation(value = "公众号游客获取报告", notes = "公众号游客获取报告")
+    public Result<List<ItemVO> > getWxData(
+            @ApiParam(value = "小朋友姓名" ,required = true) @RequestParam(required = false) String childName,
+            @ApiParam(value = "家长手机号" ,required = true) @RequestParam(required = false) String phone
+
+    ) {
+        return Result.success(itemService.getData(childName,phone,null));
     }
 
     @GetMapping("/getList")

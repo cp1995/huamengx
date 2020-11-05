@@ -131,6 +131,18 @@ public class XxItemController {
 
 
     @IgnoreLogin
+    @GetMapping("/getWxData")
+    @ApiOperation(value = "公众号游客获取报告", notes = "公众号游客获取报告")
+    public Result<List<XxItemVO> > getWxData(
+            @ApiParam(value = "小朋友姓名" ,required = true) @RequestParam(required = false) String childName,
+            @ApiParam(value = "家长手机号" ,required = true) @RequestParam(required = false) String phone
+
+    ) {
+        return Result.success(xxItemService.getData(childName,phone,null));
+    }
+
+
+    @IgnoreLogin
     @GetMapping("/detail")
     @ApiOperation(value = "详情", notes = "详情")
     public Result<XxItemVO> detail(

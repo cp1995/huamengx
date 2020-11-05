@@ -120,11 +120,23 @@ public class BaskItemController {
     public Result<List<BaskItemVO> > getData(
                                                  @ApiParam("小朋友姓名") @RequestParam(required = false) String childName,
                                                  @ApiParam("家长手机号") @RequestParam(required = false) String phone,
-                                                 @ApiParam("场次名称") @RequestParam(required = true) Long sportId
+                                                 @ApiParam("场次名称") @RequestParam(required = false) Long sportId
 
     ) {
         return Result.success(baskItemService.getData(childName,phone,sportId));
     }
+
+    @IgnoreLogin
+    @GetMapping("/getWxData")
+    @ApiOperation(value = "公众号游客获取报告", notes = "公众号游客获取报告")
+    public Result<List<BaskItemVO> > getWxData(
+            @ApiParam(value = "小朋友姓名" ,required = true) @RequestParam(required = false) String childName,
+            @ApiParam(value = "家长手机号" ,required = true) @RequestParam(required = false) String phone
+
+    ) {
+        return Result.success(baskItemService.getData(childName,phone,null));
+    }
+
 
 
     @IgnoreLogin
