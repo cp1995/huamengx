@@ -100,9 +100,22 @@ public class ZsDeptController {
 
     @IgnoreLogin
     @GetMapping(value = "/getName")
-    @ApiOperation(value = "公众号证书审核查询", notes = "公众号证书审核查询")
+    @ApiOperation(value = "公众号证书查询", notes = "公众号证书查询")
     public Result<ZsDept> getName(@RequestParam @ApiParam(value = "加盟商名称", required = true)
-                                              String  name,
+                                              String  name
+
+    ) {
+        ZsDept zsDept = zsDeptService.getOne(Wrappers.<ZsDept>lambdaQuery()
+                .eq(ZsDept::getName,name)
+        );
+        return Result.success(zsDept);
+    }
+
+    @IgnoreLogin
+    @GetMapping(value = "/getAuditName")
+    @ApiOperation(value = "公众号证书审核查询", notes = "公众号证书审核查询")
+    public Result<ZsDept> getAuditName(@RequestParam @ApiParam(value = "加盟商名称", required = true)
+                                          String  name,
                                   @RequestParam @ApiParam(value = "身份证", required = true)
                                           String  idCard
     ) {
@@ -132,6 +145,14 @@ public class ZsDeptController {
         return Result.success(zsDeptService.detail(id));
     }
 
+    @IgnoreLogin
+    @GetMapping(value = "/wxDetail")
+    @ApiOperation(value = "公众号加盟商详情", notes = "加盟商详情")
+    public Result wxDetail(@RequestParam @ApiParam(value = "Id", required = true)
+                                 Long id
+    ) {
+        return Result.success(zsDeptService.detail(id));
+    }
 
 
 }

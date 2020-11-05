@@ -86,12 +86,27 @@ public class ZsPersonalController {
     }
     @IgnoreLogin
     @GetMapping(value = "/getName")
-    @ApiOperation(value = "公众号证书审核查询", notes = "公众号证书审核查询")
+    @ApiOperation(value = "公众号证书查询", notes = "公众号证书查询")
     public Result<ZsPersonal> getName(@RequestParam @ApiParam(value = "name", required = true)
                                                String  name
     ) {
         ZsPersonal zsPersonal = zsPersonalService.getOne(Wrappers.<ZsPersonal>lambdaQuery()
             .eq(ZsPersonal::getName,name)
+        );
+        return Result.success(zsPersonal);
+    }
+
+    @IgnoreLogin
+    @GetMapping(value = "/getAuditName")
+    @ApiOperation(value = "公众号证书审核查询", notes = "公众号证书审核查询")
+    public Result<ZsPersonal> getAuditName(@RequestParam @ApiParam(value = "name", required = true)
+                                              String  name,
+                                           @RequestParam @ApiParam(value = "身份证", required = true)
+                                                   String  idCard
+    ) {
+        ZsPersonal zsPersonal = zsPersonalService.getOne(Wrappers.<ZsPersonal>lambdaQuery()
+                .eq(ZsPersonal::getName,name)
+                .eq(ZsPersonal::getIdCard,idCard)
         );
         return Result.success(zsPersonal);
     }
@@ -119,6 +134,15 @@ public class ZsPersonalController {
     @ApiOperation(value = "证书详情", notes = "证书详情")
     public Result<ZsPersonalVO> detail(@RequestParam @ApiParam(value = "Id", required = true)
                                  Long id
+    ) {
+        return Result.success(zsPersonalService.detail(id));
+    }
+
+    @IgnoreLogin
+    @GetMapping(value = "/wxDetail")
+    @ApiOperation(value = "公众号证书详情", notes = "证书详情")
+    public Result<ZsPersonalVO> wxDetail(@RequestParam @ApiParam(value = "Id", required = true)
+                                               Long id
     ) {
         return Result.success(zsPersonalService.detail(id));
     }
