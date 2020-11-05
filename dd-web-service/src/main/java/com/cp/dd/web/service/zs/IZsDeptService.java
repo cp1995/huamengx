@@ -29,9 +29,9 @@ public interface IZsDeptService extends IService<ZsDept> {
 
     ZsDeptVO detail(Long id);
 
-    IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status);
+    IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status,String areaCode);
 
-    IPage<ZsDeptVO> auditPage(PageQuery query, Long categoryId, String status,Integer auditStatus);
+    IPage<ZsDeptVO> auditPage(PageQuery query, Long categoryId, String status,Integer auditStatus,String areaCode);
 
     void audit(List<Long> ids, Integer auditStatus);
 

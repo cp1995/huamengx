@@ -78,10 +78,11 @@ public class ZsPersonalController {
     public Result<PageModel<ZsPersonalVO>> page(@Valid PageQuery pageQuery,
                                               @RequestParam(required = false) @ApiParam("证书名称") String zsName,
                                               @RequestParam(required = false) @ApiParam("证书状态 0待失效 1生效 2失效") Integer status,
-                                                @RequestParam(required = false) @ApiParam("证书类别") Long categoryId
+                                                @RequestParam(required = false) @ApiParam("证书类别") Long categoryId,
+                                                @RequestParam(required = false) @ApiParam("区域code") String areaCode
     ) {
 
-        return Result.success(zsPersonalService.getPage(pageQuery,zsName,status,categoryId));
+        return Result.success(zsPersonalService.getPage(pageQuery,zsName,status,categoryId,areaCode));
     }
     @IgnoreLogin
     @GetMapping(value = "/getName")

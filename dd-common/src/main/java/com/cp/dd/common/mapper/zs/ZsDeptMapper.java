@@ -18,14 +18,16 @@ public interface ZsDeptMapper extends BaseMapper<ZsDept> {
 
     IPage<ZsDeptVO> getPage(IPage<ZsDept> page,
                             @Param("categoryId") Long categoryId,
-                            @Param("status") String status
+                            @Param("status") String status,
+                            @Param("shortCode") String shortCode
 
     );
 
     IPage<ZsDeptVO> getAuditPage(IPage<ZsDept> page,
                             @Param("categoryId") Long categoryId,
                             @Param("status") String status,
-                            @Param("auditStatus") Integer auditStatus
+                            @Param("auditStatus") Integer auditStatus,
+                             @Param("shortCode") String shortCode
 
     );
 

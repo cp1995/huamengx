@@ -85,8 +85,14 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     }
 
     @Override
-    public IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status,Long categoryId) {
-        return this.baseMapper.getPage(query.loadPage(),name,status,categoryId);
+    public IPage<ZsPersonalVO> getPage(PageQuery query, String name, Integer status,Long categoryId,String areaCode) {
+        String shortCode = null;
+        if(StringUtils.isNotBlank(areaCode)){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,areaCode));
+            shortCode = sysArea.getShortCode();
+        }
+        return this.baseMapper.getPage(query.loadPage(),name,status,categoryId,shortCode);
     }
 
     @Override

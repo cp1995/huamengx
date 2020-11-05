@@ -105,13 +105,25 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
     }
 
     @Override
-    public IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status) {
-        return this.baseMapper.getPage(query.loadPage(),categoryId,status);
+    public IPage<ZsDeptVO> getPage(PageQuery query, Long categoryId, String status,String areaCode) {
+        String shortCode = null;
+        if(StringUtils.isNotBlank(areaCode)){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,areaCode));
+            shortCode = sysArea.getShortCode();
+        }
+        return this.baseMapper.getPage(query.loadPage(),categoryId,status,shortCode);
     }
 
     @Override
-    public IPage<ZsDeptVO> auditPage(PageQuery query, Long categoryId, String status,Integer auditStatus) {
-        return this.baseMapper.getAuditPage(query.loadPage(),categoryId,status,auditStatus);
+    public IPage<ZsDeptVO> auditPage(PageQuery query, Long categoryId, String status,Integer auditStatus,String areaCode) {
+        String shortCode = null;
+        if(StringUtils.isNotBlank(areaCode)){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,areaCode));
+            shortCode = sysArea.getShortCode();
+        }
+        return this.baseMapper.getAuditPage(query.loadPage(),categoryId,status,auditStatus,shortCode);
     }
 
     @Transactional(rollbackFor = Exception.class)

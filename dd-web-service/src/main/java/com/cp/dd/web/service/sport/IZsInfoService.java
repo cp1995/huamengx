@@ -37,7 +37,7 @@ public interface IZsInfoService extends IService<ZsInfo> {
                           String categoryType,Long categoryId);
 
     IPage<ZsPersonalVO> getAuditPage(PageQuery query, String name, String deptName, String code,
-                                     String categoryType, Integer auditStatus);
+                                     String categoryType, Integer auditStatus,String areaCode);
 
     List<ZsInfo> getAppList(String name,String deptName,String code);
 

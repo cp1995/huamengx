@@ -77,11 +77,12 @@ public class ZsDeptController {
     @ApiOperation(value = "分页列表", notes = "分页列表")
     public Result<PageModel<ZsDeptVO>> page(@Valid PageQuery pageQuery,
                                             @RequestParam(required = false) @ApiParam("加盟类型") Long categoryId,
-                                            @RequestParam(required = false) @ApiParam("加盟状态 待加盟 加盟中 已过期 已终止") String status
+                                            @RequestParam(required = false) @ApiParam("加盟状态 待加盟 加盟中 已过期 已终止") String status,
+                                            @RequestParam(required = false) @ApiParam("区域code") String areaCode
 
     ) {
 
-        return Result.success(zsDeptService.getPage(pageQuery,categoryId,status));
+        return Result.success(zsDeptService.getPage(pageQuery,categoryId,status,areaCode));
     }
 
     @GetMapping("/auditPage")
@@ -89,11 +90,12 @@ public class ZsDeptController {
     public Result<PageModel<ZsDeptVO>> auditPage(@Valid PageQuery pageQuery,
                                             @RequestParam(required = false) @ApiParam("加盟类型") Long categoryId,
                                             @RequestParam(required = false) @ApiParam("加盟状态 待加盟 加盟中 已过期 已终止") String status,
-                                                 @RequestParam(required = false) @ApiParam("审核状态  0待审核 1审核通过 2不通过") Integer auditStatus
+                                                 @RequestParam(required = false) @ApiParam("审核状态  0待审核 1审核通过 2不通过") Integer auditStatus,
+                                                 @RequestParam(required = false) @ApiParam("区域code") String areaCode
 
     ) {
 
-        return Result.success(zsDeptService.auditPage(pageQuery,categoryId,status,auditStatus));
+        return Result.success(zsDeptService.auditPage(pageQuery,categoryId,status,auditStatus,areaCode));
     }
 
     @IgnoreLogin

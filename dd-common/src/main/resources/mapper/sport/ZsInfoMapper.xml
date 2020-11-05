@@ -53,6 +53,9 @@
               <if test="auditStatus != null  ">
                 AND zi.audit_status = #{auditStatus}
             </if>
+            <if test="shortCode != null and shortCode !='' ">
+                AND zi.short_code like concat('',#{shortCode},'%')
+            </if>
         </where>
         order by zi.create_time desc
 

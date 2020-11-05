@@ -22,7 +22,8 @@ public interface ZsPersonalMapper extends BaseMapper<ZsPersonal> {
     IPage<ZsPersonalVO> getPage(IPage<ZsPersonal> page,
                           @Param("name") String name,
                           @Param("status") Integer status,
-                                @Param("categoryId") Long categoryId
+                                @Param("categoryId") Long categoryId,
+                                @Param("shortCode") String shortCode
 
     );
 

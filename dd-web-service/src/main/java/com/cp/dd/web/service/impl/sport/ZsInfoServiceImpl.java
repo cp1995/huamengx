@@ -1,12 +1,15 @@
 package com.cp.dd.web.service.impl.sport;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.cp.dd.common.constant.Constants;
 import com.cp.dd.common.entity.member.Member;
 import com.cp.dd.common.entity.sport.ZsInfo;
+import com.cp.dd.common.entity.sys.SysArea;
 import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sport.ZsInfoMapper;
+import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.sys.SessionCache;
@@ -43,6 +46,7 @@ import java.util.Objects;
 public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> implements IZsInfoService {
 
     private ZsPersonalMapper zsPersonalMapper;
+    private SysAreaMapper sysAreaMapper;
 
     @Override
     public void save(ZsInfoForm zsInfoForm) {
@@ -106,13 +110,19 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     }
 
     @Override
-    public IPage<ZsPersonalVO> getAuditPage(PageQuery query, String name, String deptName, String code, String categoryType, Integer auditStatus) {
+    public IPage<ZsPersonalVO> getAuditPage(PageQuery query, String name, String deptName, String code, String categoryType, Integer auditStatus,String areaCode) {
        MemberVO memberVO = SessionCache.get();
          String areaId = null;
 //       if(memberVO.getRole()  == 4){
 //           areaId = memberVO.getAreaId()+"";
 //       }
-        return this.baseMapper.getAuditPage(query.loadPage(),name,deptName,code,areaId,categoryType,auditStatus);
+        String shortCode = null;
+        if(StringUtils.isNotBlank(areaCode)){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,areaCode));
+            shortCode = sysArea.getShortCode();
+        }
+        return this.baseMapper.getAuditPage(query.loadPage(),name,deptName,code,areaId,categoryType,auditStatus,shortCode);
     }
 
     @Override

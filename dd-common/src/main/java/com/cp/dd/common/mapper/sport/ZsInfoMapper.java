@@ -38,7 +38,8 @@ public interface ZsInfoMapper extends BaseMapper<ZsInfo> {
                                      @Param("code") String code,
                                      @Param("areaId") String areaId,
                                      @Param("categoryType") String categoryType,
-                                     @Param("auditStatus") Integer auditStatus
+                                     @Param("auditStatus") Integer auditStatus,
+                                     @Param("shortCode") String shortCode
     );
 
     List<ZsInfo> getAppList(
