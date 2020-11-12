@@ -87,10 +87,10 @@ public class ZsPersonalController {
     @IgnoreLogin
     @GetMapping(value = "/getName")
     @ApiOperation(value = "公众号证书查询", notes = "公众号证书查询")
-    public Result<ZsPersonal> getName(@RequestParam @ApiParam(value = "name", required = true)
+    public Result<List<ZsPersonal>> getName(@RequestParam @ApiParam(value = "name", required = true)
                                                String  name
     ) {
-        ZsPersonal zsPersonal = zsPersonalService.getOne(Wrappers.<ZsPersonal>lambdaQuery()
+        List<ZsPersonal> zsPersonal = zsPersonalService.list(Wrappers.<ZsPersonal>lambdaQuery()
             .eq(ZsPersonal::getName,name)
         );
         return Result.success(zsPersonal);
@@ -99,12 +99,12 @@ public class ZsPersonalController {
     @IgnoreLogin
     @GetMapping(value = "/getAuditName")
     @ApiOperation(value = "公众号证书审核查询", notes = "公众号证书审核查询")
-    public Result<ZsPersonal> getAuditName(@RequestParam @ApiParam(value = "name", required = true)
+    public Result<List<ZsPersonal>> getAuditName(@RequestParam @ApiParam(value = "name", required = true)
                                               String  name,
                                            @RequestParam @ApiParam(value = "身份证", required = true)
                                                    String  idCard
     ) {
-        ZsPersonal zsPersonal = zsPersonalService.getOne(Wrappers.<ZsPersonal>lambdaQuery()
+        List<ZsPersonal> zsPersonal = zsPersonalService.list(Wrappers.<ZsPersonal>lambdaQuery()
                 .eq(ZsPersonal::getName,name)
                 .eq(ZsPersonal::getIdCard,idCard)
         );

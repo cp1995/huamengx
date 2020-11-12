@@ -41,6 +41,7 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
         ZsDept zsDept = new ZsDept();
         ZsDept zsDept1 = this.baseMapper.selectOne(Wrappers.<ZsDept>lambdaQuery()
                 .eq(ZsDept::getName,zsDeptForm.getName())
+                .eq(ZsDept::getCategoryId,zsDeptForm.getCategoryId())
         );
         if(zsDept1 != null){
             throw new ApiException("该加盟商名称已存在");
@@ -60,6 +61,7 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
         ZsDept zsDept = new ZsDept();
         ZsDept zsDept1 = this.baseMapper.selectOne(Wrappers.<ZsDept>lambdaQuery()
                 .eq(ZsDept::getName,zsDeptForm.getName())
+                .eq(ZsDept::getCategoryId,zsDeptForm.getCategoryId())
         );
         if(zsDept1 != null){
             throw new ApiException("该加盟商名称已存在");

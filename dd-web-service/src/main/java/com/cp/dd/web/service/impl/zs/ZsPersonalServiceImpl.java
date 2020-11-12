@@ -44,9 +44,10 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
                 .eq(ZsPersonal::getName,zsPersonalForm.getName())
+                .eq(ZsPersonal::getCategoryId,zsPersonalForm.getCategoryId())
         );
         if(zsTeachers1 != null){
-            throw new ApiException("该姓名已存在");
+            throw new ApiException("已申请此分类证书");
         }
         if(StringUtils.isNoneBlank(zsPersonalForm.getAreaCode())){
             SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
@@ -63,9 +64,10 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
                 .eq(ZsPersonal::getName,zsPersonalForm.getName())
+                .eq(ZsPersonal::getCategoryId,zsPersonalForm.getCategoryId())
         );
         if(zsTeachers1 != null){
-            throw new ApiException("该姓名已存在");
+            throw new ApiException("已申请此分类证书");
         }
         if(StringUtils.isNoneBlank(zsPersonalForm.getAreaCode())){
             SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
@@ -81,6 +83,11 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     public void wechatUpdate(ZsPersonalForm zsPersonalForm) {
         ZsPersonal zsTeachers = this.baseMapper.selectById(zsPersonalForm.getId());
         BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
+        if(StringUtils.isNoneBlank(zsPersonalForm.getAreaCode())){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,zsPersonalForm.getAreaCode()));
+            zsTeachers.setShortCode(sysArea.getShortCode());
+        }
         this.baseMapper.updateById(zsTeachers);
     }
 
@@ -99,6 +106,11 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     public void update(ZsPersonalForm zsPersonalForm) {
         ZsPersonal zsTeachers = this.baseMapper.selectById(zsPersonalForm.getId());
         BeanUtils.copyProperties(zsPersonalForm,zsTeachers);
+        if(StringUtils.isNoneBlank(zsPersonalForm.getAreaCode())){
+            SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
+                    .eq(SysArea::getCode,zsPersonalForm.getAreaCode()));
+            zsTeachers.setShortCode(sysArea.getShortCode());
+        }
         this.baseMapper.updateById(zsTeachers);
     }
 
