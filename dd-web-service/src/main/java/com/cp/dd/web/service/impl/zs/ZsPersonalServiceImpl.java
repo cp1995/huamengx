@@ -152,8 +152,6 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         }
         // 修改状态，逻辑删除
         entity.setStatus(auditStatus);
-        // 修改状态，逻辑删除
-        entity.setStatus(auditStatus);
         entity.setStartTime(LocalDate.now());
         entity.setEndTime(LocalDate.now().plus(2, ChronoUnit.YEARS));
         baseMapper.updateById(entity);

@@ -122,6 +122,7 @@ public class ZsDeptController {
         List<ZsDept> zsDept = zsDeptService.list(Wrappers.<ZsDept>lambdaQuery()
                 .eq(ZsDept::getName,name)
                 .eq(ZsDept::getIdCard,idCard)
+                .eq(ZsDept::getAuditStatus,2)
         );
         return Result.success(zsDept);
     }
