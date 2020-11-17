@@ -168,7 +168,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
     public IPage getPage(PageQuery pageQuery, String childName, String phone, String name,String createBy,String parentName, Long areaId) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
-        if(role != CommonConstant.Role.SUPER || role != 6){
+        if(role != CommonConstant.Role.SUPER && role != 6){
             areaId = session.getAreaId();
         }
         return baseMapper.getPage(pageQuery.loadPage(),childName,phone,name,createBy,parentName,areaId);
@@ -222,7 +222,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
             }
             orderBy = orderBy + "  "+ascOrDesc;
         }
-        if(role != CommonConstant.Role.SUPER){
+        if(role != CommonConstant.Role.SUPER && role != 6){
             areaId = session.getAreaId();
         }
         return baseMapper.getDataPage(pageQuery.loadPage(),childName,phone,name,createBy,areaId,orderBy);

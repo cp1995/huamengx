@@ -154,7 +154,7 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
     public IPage getPage(PageQuery pageQuery, String childName, String phone, String name,String createBy,String parentName, Long areaId) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
-        if(role != CommonConstant.Role.SUPER || role != 6){
+        if(role != CommonConstant.Role.SUPER && role != 6){
             areaId = session.getAreaId();
         }
         return baseMapper.getPage(pageQuery.loadPage(),childName,phone,name,createBy,parentName,areaId);
@@ -192,7 +192,7 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
             }
             orderBy = orderBy + "  "+ascOrDesc;
         }
-        if(role != CommonConstant.Role.SUPER){
+        if(role != CommonConstant.Role.SUPER && role != 6){
             areaId = session.getAreaId();
         }
        List<BaskItemVO> list = baseMapper.getDataList(childName,phone,name,createBy,areaId,orderBy);
