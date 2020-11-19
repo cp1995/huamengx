@@ -42,7 +42,7 @@ public class ZsDeptController {
     @PostMapping(value = "/wechatSave")
     @AddOperLog(name = "公众号新增加盟商")
     @ApiOperation(value = "公众号新增加盟商", notes = "公众号新增加盟商")
-    public Result wechatSave(ZsDeptForm zsDeptForm) {
+    public Result wechatSave(@Valid ZsDeptForm zsDeptForm) {
         zsDeptService.wechatSave(zsDeptForm);
         return Result.success();
     }
@@ -51,7 +51,7 @@ public class ZsDeptController {
     @PostMapping(value = "/save")
     @AddOperLog(name = "新增加盟商")
     @ApiOperation(value = "新增加盟商", notes = "新增加盟商")
-    public Result save(ZsDeptForm zsDeptForm) {
+    public Result save(@Valid ZsDeptForm zsDeptForm) {
         zsDeptService.save(zsDeptForm);
         return Result.success();
     }
@@ -60,7 +60,7 @@ public class ZsDeptController {
     @PostMapping(value = "/wechatUpdate")
     @AddOperLog(name = "公众号修改加盟商")
     @ApiOperation(value = "公众号修改加盟商", notes = "公众号修改加盟商")
-    public Result wechatUpdate(ZsDeptForm zsDeptForm) {
+    public Result wechatUpdate(@Valid ZsDeptForm zsDeptForm) {
         zsDeptService.wechatUpdate(zsDeptForm);
         return Result.success();
     }
@@ -68,7 +68,7 @@ public class ZsDeptController {
     @PostMapping(value = "/update")
     @AddOperLog(name = "修改加盟商")
     @ApiOperation(value = "修改加盟商", notes = "修改加盟商")
-    public Result update(ZsDeptForm zsDeptForm) {
+    public Result update(@Valid ZsDeptForm zsDeptForm) {
         zsDeptService.update(zsDeptForm);
         return Result.success();
     }

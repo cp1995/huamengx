@@ -9,6 +9,7 @@ import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
 import com.cp.dd.common.support.PageQuery;
+import com.cp.dd.common.util.IdCardUtil;
 import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.form.zs.ZsPersonalForm;
 import com.cp.dd.web.service.zs.IZsPersonalService;
@@ -41,6 +42,12 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
 
     @Override
     public void save(ZsPersonalForm zsPersonalForm) {
+        if(StringUtils.isBlank(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入身份证号码");
+        }
+        if(!IdCardUtil.validateCard(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入正确身份证号码");
+        }
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
                 .eq(ZsPersonal::getName,zsPersonalForm.getName())
@@ -61,6 +68,12 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
 
     @Override
     public void wechatSave(ZsPersonalForm zsPersonalForm) {
+        if(StringUtils.isBlank(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入身份证号码");
+        }
+        if(!IdCardUtil.validateCard(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入正确身份证号码");
+        }
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
                 .eq(ZsPersonal::getName,zsPersonalForm.getName())

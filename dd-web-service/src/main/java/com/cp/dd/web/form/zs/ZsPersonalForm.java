@@ -1,5 +1,6 @@
 package com.cp.dd.web.form.zs;
 
+import com.cp.dd.common.support.validator.custom.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -38,10 +39,13 @@ public class ZsPersonalForm implements Serializable {
     @ApiModelProperty(value = "1男 2女", required = true)
     private Integer sex;
 
-    @ApiModelProperty(value = "身份证")
+    @NotBlank(message = "身份证不为空")
+    @ApiModelProperty(value = "身份证", required = true)
     private String idCard;
 
-    @ApiModelProperty(value = "身份证")
+    @NotBlank(message = "手机号不为空")
+    @Mobile
+    @ApiModelProperty(value = "手机号", required = true)
     private String mobile;
 
     @ApiModelProperty(value = "期数")

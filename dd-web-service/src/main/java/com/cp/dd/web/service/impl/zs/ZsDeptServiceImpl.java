@@ -8,6 +8,7 @@ import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.mapper.zs.ZsDeptMapper;
 import com.cp.dd.common.support.PageQuery;
+import com.cp.dd.common.util.IdCardUtil;
 import com.cp.dd.common.vo.zs.ZsDeptVO;
 import com.cp.dd.web.form.zs.ZsDeptForm;
 import com.cp.dd.web.service.zs.IZsDeptService;
@@ -39,6 +40,12 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
     @Override
     public void save(ZsDeptForm zsDeptForm) {
         ZsDept zsDept = new ZsDept();
+        if(StringUtils.isBlank(zsDeptForm.getIdCard())){
+            throw new ApiException("请输入身份证号码");
+        }
+        if(!IdCardUtil.validateCard(zsDeptForm.getIdCard())){
+            throw new ApiException("请输入正确身份证号码");
+        }
         ZsDept zsDept1 = this.baseMapper.selectOne(Wrappers.<ZsDept>lambdaQuery()
                 .eq(ZsDept::getName,zsDeptForm.getName())
                 .eq(ZsDept::getCategoryId,zsDeptForm.getCategoryId())
@@ -58,6 +65,12 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
 
     @Override
     public void wechatSave(ZsDeptForm zsDeptForm) {
+        if(StringUtils.isBlank(zsDeptForm.getIdCard())){
+            throw new ApiException("请输入身份证号码");
+        }
+        if(!IdCardUtil.validateCard(zsDeptForm.getIdCard())){
+            throw new ApiException("请输入正确身份证号码");
+        }
         ZsDept zsDept = new ZsDept();
         ZsDept zsDept1 = this.baseMapper.selectOne(Wrappers.<ZsDept>lambdaQuery()
                 .eq(ZsDept::getName,zsDeptForm.getName())
