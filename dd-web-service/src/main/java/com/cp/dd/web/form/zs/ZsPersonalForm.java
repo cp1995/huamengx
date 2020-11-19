@@ -35,6 +35,9 @@ public class ZsPersonalForm implements Serializable {
     @ApiModelProperty(value = "证书名称", required = true)
     private String zsName;
 
+    @ApiModelProperty(value = "1男 2女", required = true)
+    private Integer sex;
+
     @ApiModelProperty(value = "身份证")
     private String idCard;
 

@@ -44,6 +44,9 @@ public class ZsPersonal implements Serializable {
     @ApiModelProperty(value = "分类id")
     private Long categoryId;
 
+    @ApiModelProperty(value = "1男 2女")
+    private Integer sex;
+
     @ApiModelProperty(value = "证书编号")
     private String code;
 
