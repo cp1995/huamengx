@@ -7,6 +7,8 @@ import com.cp.dd.common.entity.zs.ZsPersonal;
 import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.member.ZsCategoryMapper;
 import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
+import com.cp.dd.common.util.sys.SessionCache;
+import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.zs.ZsCategoryVO;
 import com.cp.dd.web.form.member.ZsCategoryForm;
 import com.cp.dd.web.service.member.IZsCategoryService;
@@ -59,6 +61,10 @@ public class ZsCategoryServiceImpl extends ServiceImpl<ZsCategoryMapper, ZsCateg
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void del(List<Long> ids) {
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            throw new ApiException("暂无权限删除");
+        }
         ids.forEach(this::delete);
     }
 
@@ -157,14 +163,15 @@ public class ZsCategoryServiceImpl extends ServiceImpl<ZsCategoryMapper, ZsCateg
         }
     }
 
-    public void delete(Long actId) {
-        ZsCategory entity = baseMapper.selectById(actId);
+    public void delete(Long id) {
+        ZsCategory entity = baseMapper.selectById(id);
         if (Objects.isNull(entity)) {
             throw new ApiException(-1, "该分类不存在");
         }
         // 修改状态，逻辑删除
-        entity.setStatus(Constants.Status.delete);
-        this.updateById(entity);
+       /* entity.setStatus(Constants.Status.delete);
+        this.updateById(entity);*/
+        this.baseMapper.deleteById(id);
     }
 
     public static  String  code(){

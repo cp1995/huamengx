@@ -9,6 +9,8 @@ import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.mapper.zs.ZsDeptMapper;
 import com.cp.dd.common.support.PageQuery;
 import com.cp.dd.common.util.IdCardUtil;
+import com.cp.dd.common.util.sys.SessionCache;
+import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.zs.ZsDeptVO;
 import com.cp.dd.web.form.zs.ZsDeptForm;
 import com.cp.dd.web.service.zs.IZsDeptService;
@@ -147,6 +149,28 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
         ids.forEach(id->{
             this.audit(id,auditStatus);
         });
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void del(List<Long> ids) {
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            throw new ApiException("暂无权限删除");
+        }
+        ids.forEach(this::delete);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void delete(Long id) {
+        ZsDept entity = baseMapper.selectById(id);
+        if (Objects.isNull(entity)) {
+            throw new ApiException(-1, "该证书不存在");
+        }
+        this.baseMapper.deleteById(id);
+        // 修改状态，逻辑删除
+       /* entity.setStatus(Constants.Status.delete);
+        this.updateById(entity);*/
     }
 
     @Transactional(rollbackFor = Exception.class)

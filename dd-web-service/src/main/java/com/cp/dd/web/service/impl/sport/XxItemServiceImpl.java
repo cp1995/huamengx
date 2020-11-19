@@ -462,12 +462,17 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
 
     @Override
     public void del(Long id) {
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            throw new ApiException("暂无权限删除");
+        }
         XxItem item = baseMapper.selectById(id);
         if(item == null){
             throw new ApiException("该报告不存在");
         }
-        item.setState(CommonConstant.State.DELETE);
-        baseMapper.updateById(item);
+        /*item.setState(CommonConstant.State.DELETE);
+        baseMapper.updateById(item);*/
+        this.baseMapper.deleteById(id);
     }
 
     @Override

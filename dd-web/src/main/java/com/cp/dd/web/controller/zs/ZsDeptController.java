@@ -85,6 +85,15 @@ public class ZsDeptController {
         return Result.success(zsDeptService.getPage(pageQuery,categoryId,status,areaCode));
     }
 
+    @GetMapping(value = "/del")
+    @AddOperLog(name = "删除证书信息")
+    @ApiOperation(value = "删除证书信息", notes = "删除证书信息")
+    public Result del(@RequestParam @ApiParam(value = "Id", required = true)
+                              List<Long> ids) {
+        zsDeptService.del(ids);
+        return Result.success();
+    }
+
     @GetMapping("/auditPage")
     @ApiOperation(value = "审核分页列表", notes = "审核分页列表")
     public Result<PageModel<ZsDeptVO>> auditPage(@Valid PageQuery pageQuery,

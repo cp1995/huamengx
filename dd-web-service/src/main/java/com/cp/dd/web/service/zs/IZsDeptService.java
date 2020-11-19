@@ -35,4 +35,6 @@ public interface IZsDeptService extends IService<ZsDept> {
 
     void audit(List<Long> ids, Integer auditStatus);
 
+    void del(List<Long> ids);
+
 }
