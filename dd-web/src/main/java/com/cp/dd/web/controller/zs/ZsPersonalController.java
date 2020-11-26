@@ -92,6 +92,7 @@ public class ZsPersonalController {
     ) {
         List<ZsPersonal> zsPersonal = zsPersonalService.list(Wrappers.<ZsPersonal>lambdaQuery()
             .eq(ZsPersonal::getName,name)
+                .eq(ZsPersonal::getStatus,1)
 
         );
         return Result.success(zsPersonal);

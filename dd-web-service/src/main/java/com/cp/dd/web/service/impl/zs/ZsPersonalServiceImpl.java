@@ -43,7 +43,7 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     public void save(ZsPersonalForm zsPersonalForm) {
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
-                .eq(ZsPersonal::getName,zsPersonalForm.getName())
+                .eq(ZsPersonal::getIdCard,zsPersonalForm.getIdCard())
                 .eq(ZsPersonal::getCategoryId,zsPersonalForm.getCategoryId())
         );
         if(zsTeachers1 != null){
@@ -63,7 +63,7 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     public void wechatSave(ZsPersonalForm zsPersonalForm) {
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
-                .eq(ZsPersonal::getName,zsPersonalForm.getName())
+                .eq(ZsPersonal::getIdCard,zsPersonalForm.getIdCard())
                 .eq(ZsPersonal::getCategoryId,zsPersonalForm.getCategoryId())
         );
         if(zsTeachers1 != null){

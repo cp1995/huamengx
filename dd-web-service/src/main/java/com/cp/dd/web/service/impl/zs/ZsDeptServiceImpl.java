@@ -40,7 +40,7 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
     public void save(ZsDeptForm zsDeptForm) {
         ZsDept zsDept = new ZsDept();
         ZsDept zsDept1 = this.baseMapper.selectOne(Wrappers.<ZsDept>lambdaQuery()
-                .eq(ZsDept::getName,zsDeptForm.getName())
+                .eq(ZsDept::getIdCard,zsDeptForm.getIdCard())
                 .eq(ZsDept::getCategoryId,zsDeptForm.getCategoryId())
         );
         if(zsDept1 != null){
@@ -60,7 +60,7 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
     public void wechatSave(ZsDeptForm zsDeptForm) {
         ZsDept zsDept = new ZsDept();
         ZsDept zsDept1 = this.baseMapper.selectOne(Wrappers.<ZsDept>lambdaQuery()
-                .eq(ZsDept::getName,zsDeptForm.getName())
+                .eq(ZsDept::getIdCard,zsDeptForm.getIdCard())
                 .eq(ZsDept::getCategoryId,zsDeptForm.getCategoryId())
         );
         if(zsDept1 != null){
