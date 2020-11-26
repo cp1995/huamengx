@@ -43,7 +43,7 @@ public class ZsPersonalController {
     @PostMapping(value = "/save")
     @AddOperLog(name = "新增认证证书")
     @ApiOperation(value = "新增认证证书", notes = "新增认证证书")
-    public Result  save(ZsPersonalForm zsDeptForm) {
+    public Result  save(@Valid ZsPersonalForm zsDeptForm) {
         zsPersonalService.save(zsDeptForm);
         return Result.success();
     }
@@ -51,7 +51,7 @@ public class ZsPersonalController {
     @PostMapping(value = "/update")
     @AddOperLog(name = "修改认证证书")
     @ApiOperation(value = "修改认证证书", notes = "修改认证证书")
-    public Result  update(ZsPersonalForm zsDeptForm) {
+    public Result  update(@Valid ZsPersonalForm zsDeptForm) {
         zsPersonalService.update(zsDeptForm);
         return Result.success();
     }
@@ -60,7 +60,7 @@ public class ZsPersonalController {
     @PostMapping(value = "/wechatSave")
     @AddOperLog(name = "公众号新增认证证书")
     @ApiOperation(value = "公众号新增认证证书", notes = "公众号新增认证证书")
-    public Result  wechatSave(ZsPersonalForm zsDeptForm) {
+    public Result  wechatSave(@Valid ZsPersonalForm zsDeptForm) {
         zsPersonalService.wechatSave(zsDeptForm);
         return Result.success();
     }
@@ -69,7 +69,7 @@ public class ZsPersonalController {
     @PostMapping(value = "/wechatUpdate")
     @AddOperLog(name = "公众号修改认证证书")
     @ApiOperation(value = "公众号修改认证证书", notes = "修改认证证书")
-    public Result  wechatUpdate(ZsPersonalForm zsDeptForm) {
+    public Result  wechatUpdate(@Valid ZsPersonalForm zsDeptForm) {
         zsPersonalService.wechatUpdate(zsDeptForm);
         return Result.success();
     }

@@ -87,6 +87,10 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void del(List<Long> ids) {
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            throw new ApiException("暂无权限删除");
+        }
         ids.forEach(this::delete);
     }
 
@@ -159,14 +163,15 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Long actId) {
-        ZsInfo entity = baseMapper.selectById(actId);
+    public void delete(Long id) {
+        ZsInfo entity = baseMapper.selectById(id);
         if (Objects.isNull(entity)) {
             throw new ApiException(-1, "该证书不存在");
         }
+        this.baseMapper.deleteById(id);
         // 修改状态，逻辑删除
-        entity.setStatus(Constants.Status.delete);
-        this.updateById(entity);
+       /* entity.setStatus(Constants.Status.delete);
+        this.updateById(entity);*/
     }
 
     @Transactional(rollbackFor = Exception.class)

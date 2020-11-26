@@ -331,12 +331,17 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
 
     @Override
     public void del(Long id) {
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            throw new ApiException("暂无权限删除");
+        }
         BaskItem item = baseMapper.selectById(id);
         if(item == null){
             throw new ApiException("该报告不存在");
         }
-        item.setState(CommonConstant.State.DELETE);
-        baseMapper.updateById(item);
+       /* item.setState(CommonConstant.State.DELETE);
+        baseMapper.updateById(item);*/
+        this.baseMapper.deleteById(id);
     }
 
     public static String geAge(String birth){

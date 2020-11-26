@@ -70,6 +70,10 @@ public class SportServiceImpl extends ServiceImpl<SportMapper, Sport> implements
 
     @Override
     public void delete(Long id) {
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            throw new ApiException("暂无权限删除");
+        }
         Sport sport = baseMapper.selectById(id);
         if(sport == null){
             throw new ApiException("该场次不存在");
@@ -79,8 +83,9 @@ public class SportServiceImpl extends ServiceImpl<SportMapper, Sport> implements
         if(list.size()>0){
             throw new ApiException("该场次下有数据,不能删除");
         }
-        sport.setState(CommonConstant.State.DELETE);
-        baseMapper.updateById(sport);
+        /*sport.setState(CommonConstant.State.DELETE);
+        baseMapper.updateById(sport);*/
+        this.baseMapper.deleteById(id);
     }
 
     @Override

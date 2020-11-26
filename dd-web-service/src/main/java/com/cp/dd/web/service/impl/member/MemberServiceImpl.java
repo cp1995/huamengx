@@ -142,8 +142,9 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
                 }
             }
         }
-        member.setState(CommonConstant.State.DELETE);
-        baseMapper.updateById(member);
+        /*member.setState(CommonConstant.State.DELETE);
+        baseMapper.updateById(member);*/
+        this.baseMapper.deleteById(id);
     }
 
     @Override

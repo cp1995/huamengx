@@ -9,6 +9,9 @@ import com.cp.dd.common.exception.ApiException;
 import com.cp.dd.common.mapper.sys.SysAreaMapper;
 import com.cp.dd.common.mapper.zs.ZsPersonalMapper;
 import com.cp.dd.common.support.PageQuery;
+import com.cp.dd.common.util.IdCardUtil;
+import com.cp.dd.common.util.sys.SessionCache;
+import com.cp.dd.common.vo.member.MemberVO;
 import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import com.cp.dd.web.form.zs.ZsPersonalForm;
 import com.cp.dd.web.service.zs.IZsPersonalService;
@@ -41,6 +44,12 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
 
     @Override
     public void save(ZsPersonalForm zsPersonalForm) {
+        if(StringUtils.isBlank(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入身份证号码");
+        }
+        if(!IdCardUtil.validateCard(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入正确身份证号码");
+        }
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
                 .eq(ZsPersonal::getIdCard,zsPersonalForm.getIdCard())
@@ -61,6 +70,12 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
 
     @Override
     public void wechatSave(ZsPersonalForm zsPersonalForm) {
+        if(StringUtils.isBlank(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入身份证号码");
+        }
+        if(!IdCardUtil.validateCard(zsPersonalForm.getIdCard())){
+            throw new ApiException("请输入正确身份证号码");
+        }
         ZsPersonal zsTeachers = new ZsPersonal();
         ZsPersonal zsTeachers1 = this.baseMapper.selectOne(Wrappers.<ZsPersonal>lambdaQuery()
                 .eq(ZsPersonal::getIdCard,zsPersonalForm.getIdCard())
@@ -117,6 +132,10 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void del(List<Long> ids) {
+        MemberVO memberVO  = SessionCache.get();
+        if(memberVO.getRole() != 1){
+            throw new ApiException("暂无权限删除");
+        }
         ids.forEach(this::delete);
     }
 
@@ -134,14 +153,15 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void delete(Long actId) {
-        ZsPersonal entity = baseMapper.selectById(actId);
+    public void delete(Long id) {
+        ZsPersonal entity = baseMapper.selectById(id);
         if (Objects.isNull(entity)) {
             throw new ApiException(-1, "该证书不存在");
         }
         // 修改状态，逻辑删除
-        entity.setStatus(Constants.Status.delete);
-        this.updateById(entity);
+       /* entity.setStatus(Constants.Status.delete);
+        this.updateById(entity);*/
+        this.baseMapper.deleteById(id);
     }
 
     @Transactional(rollbackFor = Exception.class)
