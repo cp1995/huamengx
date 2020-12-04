@@ -36,5 +36,7 @@ public interface IZsPersonalService extends IService<ZsPersonal> {
 
     ZsPersonalVO detail(Long id);
 
+    List<ZsPersonalVO> getName(String name);
+
 
 }

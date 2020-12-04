@@ -152,6 +152,11 @@ public class ZsPersonalServiceImpl extends ServiceImpl<ZsPersonalMapper, ZsPerso
         return this.baseMapper.detail(id);
     }
 
+    @Override
+    public List<ZsPersonalVO> getName(String name) {
+        return this.baseMapper.getName(name);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         ZsPersonal entity = baseMapper.selectById(id);

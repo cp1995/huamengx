@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cp.dd.common.vo.zs.ZsPersonalVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -26,5 +28,7 @@ public interface ZsPersonalMapper extends BaseMapper<ZsPersonal> {
                                 @Param("shortCode") String shortCode
 
     );
+
+    List<ZsPersonalVO> getName(String name);
 
 }

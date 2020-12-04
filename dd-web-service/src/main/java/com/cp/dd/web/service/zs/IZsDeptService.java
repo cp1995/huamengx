@@ -37,4 +37,6 @@ public interface IZsDeptService extends IService<ZsDept> {
 
     void del(List<Long> ids);
 
+    List<ZsDeptVO> getName(String name);
+
 }

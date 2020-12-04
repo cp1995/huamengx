@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cp.dd.common.vo.zs.ZsDeptVO;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -32,5 +34,7 @@ public interface ZsDeptMapper extends BaseMapper<ZsDept> {
     );
 
     ZsDeptVO detail(Long id);
+
+    List<ZsDeptVO> getName(String name);
 
 }

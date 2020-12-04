@@ -161,6 +161,11 @@ public class ZsDeptServiceImpl extends ServiceImpl<ZsDeptMapper, ZsDept> impleme
         ids.forEach(this::delete);
     }
 
+    @Override
+    public List<ZsDeptVO> getName(String name) {
+        return this.baseMapper.getName(name);
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void delete(Long id) {
         ZsDept entity = baseMapper.selectById(id);

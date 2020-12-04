@@ -110,15 +110,15 @@ public class ZsDeptController {
     @IgnoreLogin
     @GetMapping(value = "/getName")
     @ApiOperation(value = "公众号证书查询", notes = "公众号证书查询")
-    public Result<List<ZsDept>> getName(@RequestParam @ApiParam(value = "加盟商名称", required = true)
+    public Result<List<ZsDeptVO>> getName(@RequestParam @ApiParam(value = "加盟商名称", required = true)
                                               String  name
 
     ) {
-        List<ZsDept> zsDept = zsDeptService.list(Wrappers.<ZsDept>lambdaQuery()
+        /*List<ZsDept> zsDept = zsDeptService.list(Wrappers.<ZsDept>lambdaQuery()
                 .eq(ZsDept::getName,name)
                 .eq(ZsDept::getAuditStatus,1)
-        );
-        return Result.success(zsDept);
+        );*/
+        return Result.success(zsDeptService.getName(name));
     }
 
     @IgnoreLogin

@@ -87,15 +87,15 @@ public class ZsPersonalController {
     @IgnoreLogin
     @GetMapping(value = "/getName")
     @ApiOperation(value = "公众号证书查询", notes = "公众号证书查询")
-    public Result<List<ZsPersonal>> getName(@RequestParam @ApiParam(value = "name", required = true)
+    public Result<List<ZsPersonalVO>> getName(@RequestParam @ApiParam(value = "name", required = true)
                                                String  name
     ) {
-        List<ZsPersonal> zsPersonal = zsPersonalService.list(Wrappers.<ZsPersonal>lambdaQuery()
+       /* List<ZsPersonal> zsPersonal = zsPersonalService.list(Wrappers.<ZsPersonal>lambdaQuery()
             .eq(ZsPersonal::getName,name)
                 .eq(ZsPersonal::getStatus,1)
 
-        );
-        return Result.success(zsPersonal);
+        );*/
+        return Result.success(zsPersonalService.getName(name));
     }
 
     @IgnoreLogin

@@ -38,4 +38,22 @@
         order by zi.create_time desc
     </select>
 
+
+    <select id="getName" resultType="com.cp.dd.common.vo.zs.ZsPersonalVO">
+
+        SELECT zi.*,zs.name categoryName,
+        (SELECT sa.full_name FROM sys_area  sa WHERE sa.`code` = zi.area_code ) areaName
+        FROM zs_personal zi
+        left  join zs_category zs on zi.category_id =zs.id
+
+       where
+
+                 zi.`name` = #{name}
+
+            and  zi.status = 1
+
+
+        order by zi.create_time desc
+    </select>
+
 </mapper>
