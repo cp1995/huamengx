@@ -481,7 +481,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
     }
 
     @Override
-    public List<ItemVO> getData(String childName, String phone, Long sportId) {
+    public List<ItemVO> getData(String parentName,String childName, String phone, Long sportId) {
     /*    List<ItemVO> list = baseMapper.getData(childName,phone,sportId);
         ItemVO vo =new ItemVO();
         if(list.size()>0){
@@ -501,7 +501,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
                vo.setShootAvg(avg.getShootAvg());
             }
         }*/
-        return baseMapper.getData(childName,phone,sportId);
+        return baseMapper.getData(parentName,childName,phone,sportId);
     }
 
     @Override

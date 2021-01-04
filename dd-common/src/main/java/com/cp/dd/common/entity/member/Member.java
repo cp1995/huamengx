@@ -45,7 +45,7 @@ public class Member implements Serializable {
     @ApiModelProperty(value = "园区id")
     private Long areaId;
 
-    @ApiModelProperty(value = "1管理员2录入员3园区管理员4 师资部 5总部管理员")
+    @ApiModelProperty(value = "1管理员2录入员3园区管理员4 师资部 5证书主管 6 体测主管 7 班主任 ")
     private Integer role;
 
     @ApiModelProperty(value = "状态")

@@ -43,7 +43,7 @@ public interface IZsInfoService extends IService<ZsInfo> {
 
     List<ZsInfoCountVO> countInfo();
 
-    ZsInfoAreaCountVO countArea();
+    List<ZsInfoAreaCountVO>  countArea();
 
     ZsInfoLsCountVO countLx(String year);
 

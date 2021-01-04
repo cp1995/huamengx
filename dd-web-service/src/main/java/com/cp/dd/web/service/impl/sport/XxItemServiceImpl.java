@@ -435,9 +435,9 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
     }
 
     @Override
-    public List<XxItemVO> getData(String childName, String phone, Long sportId) {
+    public List<XxItemVO> getData(String parentName,String childName, String phone, Long sportId) {
 
-        return baseMapper.getData(childName,phone,sportId);
+        return baseMapper.getData(parentName,childName,phone,sportId);
     }
 
     @Override

@@ -50,7 +50,8 @@ public interface XxItemMapper extends BaseMapper<XxItem> {
     );
 
 
-    List<XxItemVO> getData(@Param("childName") String childName,
+    List<XxItemVO> getData( @Param("parentName") String parentName,
+                            @Param("childName")String childName,
                          @Param("phone") String phone,
                          @Param("sportId") Long sportId);
 

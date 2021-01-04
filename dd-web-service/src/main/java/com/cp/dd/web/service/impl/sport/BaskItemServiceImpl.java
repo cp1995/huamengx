@@ -313,8 +313,8 @@ public class BaskItemServiceImpl extends ServiceImpl<BaskItemMapper, BaskItem> i
     }
 
     @Override
-    public List<BaskItemVO> getData(String childName, String phone, Long sportId) {
-        return baseMapper.getData(childName,phone,sportId);
+    public List<BaskItemVO> getData(String parentName,String childName, String phone, Long sportId) {
+        return baseMapper.getData(parentName,childName,phone,sportId);
     }
 
     @Override

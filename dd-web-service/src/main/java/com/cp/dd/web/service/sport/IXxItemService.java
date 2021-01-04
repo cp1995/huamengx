@@ -39,7 +39,7 @@ public interface IXxItemService extends IService<XxItem> {
 
     void importItem(MultipartFile file);
 
-    List<XxItemVO> getData(String childName, String phone, Long sportId);
+    List<XxItemVO> getData(String parentName,String childName, String phone, Long sportId);
 
     XxItemVO detail(Long id);
 

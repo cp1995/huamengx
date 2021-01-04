@@ -48,7 +48,8 @@ public interface BaskItemMapper extends BaseMapper<BaskItem> {
     );
 
 
-    List<BaskItemVO> getData(@Param("childName") String childName,
+    List<BaskItemVO> getData( @Param("parentName") String parentName,
+                              @Param("childName")String childName,
                          @Param("phone") String phone,
                          @Param("sportId") Long sportId);
 

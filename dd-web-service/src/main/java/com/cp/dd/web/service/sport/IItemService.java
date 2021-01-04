@@ -41,7 +41,7 @@ public interface IItemService extends IService<Item> {
 
     void importItem(MultipartFile file);
 
-    List<ItemVO> getData(String childName, String phone, Long sportId);
+    List<ItemVO> getData(String parentName,String childName, String phone, Long sportId);
 
     ItemVO detail( Long id);
 

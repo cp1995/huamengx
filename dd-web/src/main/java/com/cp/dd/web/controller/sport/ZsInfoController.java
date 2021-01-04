@@ -159,7 +159,7 @@ public class ZsInfoController {
 
     @GetMapping("/countArea")
     @ApiOperation(value = "证书区域统计", notes = "证书区域统计")
-    public Result<ZsInfoAreaCountVO> countArea(
+    public Result<List<ZsInfoAreaCountVO> > countArea(
     ) {
         return Result.success(zsInfoService.countArea());
     }

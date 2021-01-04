@@ -85,10 +85,12 @@
         FROM bask_item i
         LEFT JOIN sport s on i.sport_id = s.id
         <where>
-            <if test="childName != null">
-                AND i.`name` like concat('%',#{childName},'%')
+            <if test="childName != null and childName !='' ">
+                AND i.`name` = #{childName}
             </if>
-
+            <if test="parentName != null and parentName !='' ">
+                AND i.parent_name = #{parentName}
+            </if>
             <if test="phone != null">
                 AND i.phone = #{phone}
             </if>

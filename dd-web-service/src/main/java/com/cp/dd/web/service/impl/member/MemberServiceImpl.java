@@ -177,8 +177,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         return page.convert(member -> {
             MemberVO memberVO = new MemberVO();
             BeanUtils.copyProperties(member, memberVO);
-            Area area = areaMapper.selectById(member.getAreaId());
-            memberVO.setAreaName(area.getName());
+            if(member.getAreaId() != null){
+                Area area = areaMapper.selectById(member.getAreaId());
+                memberVO.setAreaName(area.getName());
+            }
             return memberVO;
         });
     }
@@ -204,8 +206,10 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
        list.forEach(member -> {
            MemberVO vo = new MemberVO();
            BeanUtils.copyProperties(member, vo);
-           Area area = areaMapper.selectById(member.getAreaId());
-           vo.setAreaName(area.getName());
+           if(member.getAreaId() != null){
+               Area area = areaMapper.selectById(member.getAreaId());
+               vo.setAreaName(area.getName());
+           }
            memberList.add(vo);
        });
         String[] titles = new String[]{"姓名", "ID", "联系电话", "所属区域"};

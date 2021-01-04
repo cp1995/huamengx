@@ -16,17 +16,13 @@ public class ZsInfoAreaCountVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
-    @ApiModelProperty(value = "东部")
-    private Integer east;
+    @ApiModelProperty(value = "区域名称")
+    private String name;
 
-    @ApiModelProperty(value = "西北部")
-    private Integer  northWest;
+    @ApiModelProperty(value = "数量")
+    private Integer  areaTotal;
 
-    @ApiModelProperty(value = "南部")
-    private Integer  south;
 
-    @ApiModelProperty(value = "北方")
-    private Integer  north;
 
 
 

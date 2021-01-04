@@ -145,13 +145,13 @@ public class ZsInfoServiceImpl extends ServiceImpl<ZsInfoMapper, ZsInfo> impleme
     }
 
     @Override
-    public ZsInfoAreaCountVO countArea() {
+    public  List<ZsInfoAreaCountVO>  countArea() {
         MemberVO memberVO = SessionCache.get();
         String areaId = null;
 //        if (memberVO.getRole() == 4){
 //            areaId = memberVO.getAreaId()+"";
 //        }
-        return this.baseMapper.countArea(areaId);
+        return this.baseMapper.countArea();
     }
 
     @Override

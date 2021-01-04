@@ -126,7 +126,7 @@ public class XxItemController {
                                                  @ApiParam("场次名称") @RequestParam(required = true) Long sportId
 
     ) {
-        return Result.success(xxItemService.getData(childName,phone,sportId));
+        return Result.success(xxItemService.getData(null,childName,phone,sportId));
     }
 
 
@@ -134,11 +134,12 @@ public class XxItemController {
     @GetMapping("/getWxData")
     @ApiOperation(value = "公众号游客获取报告", notes = "公众号游客获取报告")
     public Result<List<XxItemVO> > getWxData(
-            @ApiParam(value = "小朋友姓名" ,required = true) @RequestParam(required = false) String childName,
-            @ApiParam(value = "家长手机号" ,required = true) @RequestParam(required = false) String phone
+            @ApiParam(value = "父母姓名" ,required = true) @RequestParam() String parentName,
+            @ApiParam(value = "小朋友姓名" ,required = true) @RequestParam() String childName,
+            @ApiParam(value = "家长手机号" ,required = true) @RequestParam() String phone
 
     ) {
-        return Result.success(xxItemService.getData(childName,phone,null));
+        return Result.success(xxItemService.getData(parentName,childName,phone,null));
     }
 
 

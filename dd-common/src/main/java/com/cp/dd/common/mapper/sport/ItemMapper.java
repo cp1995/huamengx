@@ -50,7 +50,9 @@ public interface ItemMapper extends BaseMapper<Item> {
     );
 
 
-    List<ItemVO> getData(@Param("childName")String childName,
+    List<ItemVO> getData(
+                         @Param("parentName") String parentName,
+                         @Param("childName")String childName,
                          @Param("phone")String phone,
                          @Param("sportId")Long sportId);
 

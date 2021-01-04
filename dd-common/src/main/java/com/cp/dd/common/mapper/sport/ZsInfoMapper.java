@@ -51,7 +51,7 @@ public interface ZsInfoMapper extends BaseMapper<ZsInfo> {
 
     List<ZsInfoCountVO> countInfo( @Param("areaId")String areaId);
 
-    ZsInfoAreaCountVO countArea( @Param("areaId")String areaId);
+    List<ZsInfoAreaCountVO> countArea();
 
     ZsInfoLsCountVO countLx(@Param("year")String year);
 

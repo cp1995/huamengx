@@ -37,7 +37,7 @@ public interface IBaskItemService extends IService<BaskItem> {
 
     void importItem(MultipartFile file);
 
-    List<BaskItemVO> getData(String childName, String phone, Long sportId);
+    List<BaskItemVO> getData(String parentName,String childName, String phone, Long sportId);
 
     BaskItemVO detail(Long id);
 
