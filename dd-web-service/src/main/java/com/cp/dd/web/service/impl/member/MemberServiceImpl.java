@@ -163,10 +163,15 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
         LambdaQueryWrapper<Member> wrapper;
-        if(role == CommonConstant.Role.SUPER || role == 6){
+        if(role == CommonConstant.Role.SUPER ){
             wrapper = Wrappers.<Member>lambdaQuery().like(StringUtils.isNotBlank(name), Member::getUsername, name)
                                                     .eq(Member::getState,CommonConstant.State.ENABLE)
                                                     .orderByAsc(Member::getCreateTime);
+        }else if(role == CommonConstant.Role.zg){
+            wrapper = Wrappers.<Member>lambdaQuery().like(StringUtils.isNotBlank(name), Member::getUsername, name)
+                    .eq(Member::getState,CommonConstant.State.ENABLE)
+                    .ne(Member::getId,1L)
+                    .orderByAsc(Member::getCreateTime);
         }else{
             wrapper = Wrappers.<Member>lambdaQuery().like(StringUtils.isNotBlank(name), Member::getUsername, name)
                                                     .eq(Member::getAreaId,session.getAreaId())
@@ -190,10 +195,16 @@ public class MemberServiceImpl extends ServiceImpl<MemberMapper, Member> impleme
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
         List<Member> list = null;
-        if(role == CommonConstant.Role.SUPER || role != 6){
+        if(role == CommonConstant.Role.SUPER  ){
              list = baseMapper.selectList(Wrappers.<Member>lambdaQuery().like(StringUtils.isNotBlank(name), Member::getUsername, name)
                     .eq(Member::getState,CommonConstant.State.ENABLE)
                     .orderByAsc(Member::getCreateTime)
+            );
+        }else if(role == CommonConstant.Role.zg){
+            list = baseMapper.selectList(Wrappers.<Member>lambdaQuery().like(StringUtils.isNotBlank(name), Member::getUsername, name)
+                    .eq(Member::getState,CommonConstant.State.ENABLE)
+                    .orderByAsc(Member::getCreateTime)
+                    .ne(Member::getId,1L)
             );
         }else{
              list = baseMapper.selectList(Wrappers.<Member>lambdaQuery().like(StringUtils.isNotBlank(name), Member::getUsername, name)

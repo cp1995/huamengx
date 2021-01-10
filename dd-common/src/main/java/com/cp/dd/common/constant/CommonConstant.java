@@ -14,6 +14,7 @@ public class CommonConstant {
         int SUPER = 1; //管理员
         int ENTRY =2;  //录入员
         int AREA =3;  //园区管理员
+        int zg=6;//体测主管
     }
 
 

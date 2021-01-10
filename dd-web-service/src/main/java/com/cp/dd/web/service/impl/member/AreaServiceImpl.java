@@ -101,7 +101,7 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
     public void save(String name,String areaCode,String type) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
-        if(role != CommonConstant.Role.SUPER){
+        if(role != CommonConstant.Role.SUPER || role != CommonConstant.Role.zg){
             throw new ApiException("暂无权限");
         }
         SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
@@ -119,7 +119,7 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
     public void update(Long id,String name,String areaCode,String type) {
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
-        if(role != CommonConstant.Role.SUPER){
+        if(role != CommonConstant.Role.SUPER || role != CommonConstant.Role.zg){
             throw new ApiException("暂无权限");
         }
         SysArea sysArea = sysAreaMapper.selectOne(Wrappers.<SysArea>lambdaQuery()
@@ -137,7 +137,7 @@ public class AreaServiceImpl extends ServiceImpl<AreaMapper, Area> implements IA
         MemberVO session = SessionCache.get();
         Integer role = session.getRole();
         LambdaQueryWrapper<Area> wrapper;
-        if(role == CommonConstant.Role.SUPER){
+        if(role == CommonConstant.Role.SUPER || role == CommonConstant.Role.zg){
             wrapper = Wrappers.<Area>lambdaQuery().like(StringUtils.isNotBlank(name), Area::getName, name)
                     .eq(Area::getState,CommonConstant.State.ENABLE)
                     .ne(Area::getType,"区域")
