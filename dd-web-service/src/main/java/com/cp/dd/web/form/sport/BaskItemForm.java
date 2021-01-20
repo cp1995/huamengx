@@ -49,13 +49,12 @@ public class BaskItemForm implements Serializable {
     @ApiModelProperty(value = "体重" , required = true)
     private double weight;
 
-    @ApiModelProperty(value = "家长姓名", required = true)
-    @NotBlank(message = "家长姓名不能为空")
+    @ApiModelProperty(value = "家长姓名")
     private String parentName;
 
-    @ApiModelProperty(value = "手机号", required = true)
+    @ApiModelProperty(value = "手机号")
     @Pattern(regexp = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$", message = "手机格式错误")
-    @NotBlank(message = "手机号姓名不能为空")
+   // @NotBlank(message = "手机号姓名不能为空")
     private String phone;
 
     @ApiModelProperty(value = "学校", required = true)
