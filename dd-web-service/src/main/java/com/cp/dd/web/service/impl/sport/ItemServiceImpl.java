@@ -41,6 +41,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 /**
@@ -426,7 +427,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             item.setSensitiveScore(calculation.calSensitives(item.getAge(),item.getSensitives(),item.getSex()));
             //拍球
             Cell cell17 =row.getCell(17);
-            if (cell17 != null) {
+            if (!Objects.isNull(cell17) && StringUtils.isNoneBlank(row.getCell(17).getStringCellValue())) {
                 cell17.setCellType(CellType.STRING);
                 item.setRacket(Integer.valueOf(row.getCell(17).getStringCellValue()));
                 item.setRacketScore(calculation.calRacket(item.getAge(),item.getRacket()));
@@ -437,7 +438,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
             //传球
             Cell cell18 =row.getCell(18);
-            if (cell18 != null) {
+            if (cell18 != null && StringUtils.isNoneBlank(row.getCell(18).getStringCellValue())) {
                 cell18.setCellType(CellType.STRING);
                 item.setPass(Integer.valueOf(row.getCell(18).getStringCellValue()));
                 item.setPassScore(calculation.calPass(item.getAge(),item.getPass()));
@@ -448,7 +449,7 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
 
             //投篮成绩
             Cell cell19 =row.getCell(19);
-            if (cell19 != null) {
+            if (cell19 != null && StringUtils.isNoneBlank(row.getCell(19).getStringCellValue())) {
                 cell19.setCellType(CellType.STRING);
                 item.setShoot(Integer.valueOf(row.getCell(19).getStringCellValue()));
                 item.setShootScore(calculation.calShoot(item.getAge(),item.getShoot()));

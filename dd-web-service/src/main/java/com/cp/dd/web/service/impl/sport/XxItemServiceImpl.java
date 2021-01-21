@@ -388,7 +388,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
 
             //拍球
             Cell cell17 =row.getCell(15);
-            if (cell17 != null) {
+            if (cell17 != null && StringUtils.isNoneBlank(row.getCell(15).getStringCellValue())) {
                 cell17.setCellType(CellType.STRING);
                 item.setRemove(Integer.valueOf(row.getCell(15).getStringCellValue()));
                 item.setRemoveScore(XxCalculation.calYd(item.getAge(),item.getRemove(),item.getSex()));
@@ -399,7 +399,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
 
             //接球
             Cell cell18 =row.getCell(16);
-            if (cell18 != null) {
+            if (cell18 != null && StringUtils.isNoneBlank(row.getCell(16).getStringCellValue())) {
                 cell18.setCellType(CellType.STRING);
                 item.setPass(Integer.valueOf(row.getCell(16).getStringCellValue()));
                 item.setPassScore(XxCalculation.calPass(item.getAge(),item.getPass(),item.getSex()));
@@ -410,7 +410,7 @@ public class XxItemServiceImpl extends ServiceImpl<XxItemMapper, XxItem> impleme
 
             //投篮成绩
             Cell cell19 =row.getCell(17);
-            if (cell19 != null) {
+            if (cell19 != null && StringUtils.isNoneBlank(row.getCell(17).getStringCellValue())) {
                 cell19.setCellType(CellType.STRING);
                 item.setShoot(Integer.valueOf(row.getCell(17).getStringCellValue()));
                 item.setShootScore(XxCalculation.calShoot(item.getAge(),item.getShoot(),item.getSex()));
