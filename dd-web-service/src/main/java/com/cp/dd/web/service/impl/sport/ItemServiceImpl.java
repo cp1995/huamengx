@@ -325,151 +325,157 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
         if (file.isEmpty()) {
             throw new ApiException("文件上传失败");
         }
-        // 获取 Excel 工作簿
-        Workbook workbook = ExcelUtil.getWorkbookFromFile(file);
-        Sheet sheet = workbook.getSheetAt(0);
-        MemberVO session = SessionCache.get();
-        if(session.getRole() == CommonConstant.Role.SUPER){
-            throw new ApiException("超级管理员不能导入");
-        }
-        Sport sport = new Sport();
-        if(sheet.getRow(1).getCell(0).getStringCellValue()!=null){
-            sport.setName(sheet.getRow(1).getCell(0).getStringCellValue());
-            sport.setAreaId(session.getAreaId());
-            Sport vo = sportMapper.selectOne(Wrappers.<Sport>lambdaQuery().eq(Sport::getAreaId,sport.getAreaId()).
-                                                                eq(Sport::getName,sport.getName()).
-                                                                eq(Sport::getState,CommonConstant.State.ENABLE));
-            if(vo !=null){
-                BeanUtils.copyProperties(vo,sport);
-            }else{
-                LocalDate date = LocalDate.now();
-                DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-                String dateStr = date.format(fmt);
-                LocalDateTime startTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"00:00:00"));
-                LocalDateTime endTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"23:59:59"));
-                sport.setStartTime(startTime);
-                sport.setEndTime(endTime);
-                sport.setState(CommonConstant.State.ENABLE);
-                sportMapper.insert(sport);
-            }
-        }
-        for (Row row : sheet) {
-            if (row.getRowNum() == 0) {
-                continue;
-            }
-            int index =0;
-            Item item = new Item();
-            item.setSportId(sport.getId());
-            item.setName(row.getCell(1).getStringCellValue());
-            Cell cell2 =row.getCell(2);
-            cell2.setCellType(CellType.STRING);
-            item.setSex(Integer.valueOf(cell2.getStringCellValue()));
-            LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(row.getCell(3).getStringCellValue()));
-            // long years = ChronoUnit.YEARS.between(playerDate, today);
-            item.setBirthday(playerDate);
-            item.setAge(geAge(row.getCell(3).getStringCellValue()));
-            if(Double.valueOf(item.getAge()) <3 || Double.valueOf(item.getAge()) >6){
-                throw new ApiException("测试年龄不符合");
-            }
-            item.setParentName(row.getCell(4).getStringCellValue());
-            Cell cell5 =row.getCell(5);
-            cell5.setCellType(CellType.STRING);
-            item.setPhone(row.getCell(5).getStringCellValue());
-            item.setSchool(row.getCell(6).getStringCellValue());
-            Cell cell7 =row.getCell(7);
-            cell7.setCellType(CellType.STRING);
-            item.setHeight(Double.valueOf(row.getCell(7).getStringCellValue()));
-            Cell cell8 =row.getCell(8);
-            cell8.setCellType(CellType.STRING);
-            item.setWeight(Double.valueOf(row.getCell(8).getStringCellValue()));
-            Cell cell9 =row.getCell(9);
-            cell9.setCellType(CellType.STRING);
-            item.setFHeight(Double.valueOf(row.getCell(9).getStringCellValue()));
-            Cell cell10 =row.getCell(10);
-            cell10.setCellType(CellType.STRING);
-            item.setMHeight(Double.valueOf(row.getCell(10).getStringCellValue()));
-            //身高预测
-            item.setResultHeight(calculation.calResultHeight(item.getFHeight(),item.getMHeight(),item.getSex()));
-            //身高得分
-            item.setHeightScore(calculation.calHeight(item.getAge(),item.getHeight(),item.getSex()));
-            item.setIbm(calculation.getBMI(item.getHeight(),item.getWeight()));
-            //BMI得分
-            item.setIbmScore(calculation.calBmi(item.getAge(),item.getHeight(),item.getWeight(),item.getSex()));
-            //下肢得分
-            Cell cell11 =row.getCell(11);
-            cell11.setCellType(CellType.STRING);
-            item.setLegs(Integer.valueOf(row.getCell(11).getStringCellValue()));
-            item.setLegsScore(calculation.calLeg(item.getAge(),item.getLegs(),item.getSex()));
-            //上肢得分
-            Cell cell12 =row.getCell(12);
-            cell12.setCellType(CellType.STRING);
-            item.setSzLimb(Double.valueOf(row.getCell(12).getStringCellValue()));
-            item.setLimbScore(calculation.calLimb(item.getAge(),item.getSzLimb(),item.getSex()));
-            //协调性成绩
-            Cell cell13 =row.getCell(13);
-            cell13.setCellType(CellType.STRING);
-            item.setCoordinate(Double.valueOf(row.getCell(13).getStringCellValue()));
-            item.setCoordinateScore(calculation.calCoordinate(item.getAge(),item.getCoordinate(),item.getSex()));
-            //平衡性成绩
-            Cell cell14 =row.getCell(14);
-            cell14.setCellType(CellType.STRING);
-            item.setBalance(Double.valueOf(row.getCell(14).getStringCellValue()));
-            item.setBalanceScore(calculation.calBalance(item.getAge(),item.getBalance(),item.getSex()));
-            //柔韧性成绩
-            Cell cell15 =row.getCell(15);
-            cell15.setCellType(CellType.STRING);
-            item.setFlexibility(Double.valueOf(row.getCell(15).getStringCellValue()));
-            item.setFlexibilityScore(calculation.calFlexibility(item.getAge(),item.getFlexibility(),item.getSex()));
-            //灵敏性成绩
-            Cell cell16 =row.getCell(16);
-            cell16.setCellType(CellType.STRING);
-            item.setSensitives(Double.valueOf(row.getCell(16).getStringCellValue()));
-            item.setSensitiveScore(calculation.calSensitives(item.getAge(),item.getSensitives(),item.getSex()));
-            //拍球
-            Cell cell17 =row.getCell(17);
-            if (!Objects.isNull(cell17) && StringUtils.isNoneBlank(row.getCell(17).getStringCellValue())) {
-                cell17.setCellType(CellType.STRING);
-                item.setRacket(Integer.valueOf(row.getCell(17).getStringCellValue()));
-                item.setRacketScore(calculation.calRacket(item.getAge(),item.getRacket()));
-            }else{
-                item.setRacket(0);
-                item.setRacketScore(0);
-            }
+        try {
 
-            //传球
-            Cell cell18 =row.getCell(18);
-            if (cell18 != null && StringUtils.isNoneBlank(row.getCell(18).getStringCellValue())) {
-                cell18.setCellType(CellType.STRING);
-                item.setPass(Integer.valueOf(row.getCell(18).getStringCellValue()));
-                item.setPassScore(calculation.calPass(item.getAge(),item.getPass()));
-            }else{
-                item.setPass(0);
-                item.setPassScore(0);
+            // 获取 Excel 工作簿
+            Workbook workbook = ExcelUtil.getWorkbookFromFile(file);
+            Sheet sheet = workbook.getSheetAt(0);
+            MemberVO session = SessionCache.get();
+            if(session.getRole() == CommonConstant.Role.SUPER){
+                throw new ApiException("超级管理员不能导入");
             }
+            Sport sport = new Sport();
+            if(sheet.getRow(1).getCell(0).getStringCellValue()!=null){
+                sport.setName(sheet.getRow(1).getCell(0).getStringCellValue());
+                sport.setAreaId(session.getAreaId());
+                Sport vo = sportMapper.selectOne(Wrappers.<Sport>lambdaQuery().eq(Sport::getAreaId,sport.getAreaId()).
+                        eq(Sport::getName,sport.getName()).
+                        eq(Sport::getState,CommonConstant.State.ENABLE));
+                if(vo !=null){
+                    BeanUtils.copyProperties(vo,sport);
+                }else{
+                    LocalDate date = LocalDate.now();
+                    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                    String dateStr = date.format(fmt);
+                    LocalDateTime startTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"00:00:00"));
+                    LocalDateTime endTime = LocalDateTime.from(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").parse(dateStr+" "+"23:59:59"));
+                    sport.setStartTime(startTime);
+                    sport.setEndTime(endTime);
+                    sport.setState(CommonConstant.State.ENABLE);
+                    sportMapper.insert(sport);
+                }
+            }
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    continue;
+                }
+                Cell cell2 =row.getCell(2);
+                cell2.setCellType(CellType.STRING);
+                if(row == null || StringUtils.isBlank(row.getCell(1).getStringCellValue()) || StringUtils.isBlank(cell2.getStringCellValue())){
+                    continue;
+                }
+                int index =0;
+                Item item = new Item();
+                item.setSportId(sport.getId());
+                item.setName(row.getCell(1).getStringCellValue());
 
-            //投篮成绩
-            Cell cell19 =row.getCell(19);
-            if (cell19 != null && StringUtils.isNoneBlank(row.getCell(19).getStringCellValue())) {
-                cell19.setCellType(CellType.STRING);
-                item.setShoot(Integer.valueOf(row.getCell(19).getStringCellValue()));
-                item.setShootScore(calculation.calShoot(item.getAge(),item.getShoot()));
-            }else{
-                item.setShoot(0);
-                item.setShootScore(0);
-            }
-            Cell cell20 =row.getCell(20);
-            cell20.setCellType(CellType.STRING);
-            item.setXyType((row.getCell(20).getStringCellValue()));
-            item.setCreateBy(session.getUsername());
-            Item item1 = baseMapper.selectOne(Wrappers.<Item>lambdaQuery().eq(Item::getSportId,sport.getId())
-                                                             .eq(Item::getState,CommonConstant.State.ENABLE)
-                                                             .eq(Item::getName,item.getName()));
-            if(item1 != null){
-                item.setId(item1.getId());
-                baseMapper.updateById(item);
-            }else{
-                baseMapper.insert(item);
-            }
+                item.setSex(Integer.valueOf(cell2.getStringCellValue()));
+                LocalDate playerDate = LocalDate.from(DateTimeFormatter.ofPattern("yyyy-MM-dd").parse(row.getCell(3).getStringCellValue()));
+                // long years = ChronoUnit.YEARS.between(playerDate, today);
+                item.setBirthday(playerDate);
+                item.setAge(geAge(row.getCell(3).getStringCellValue()));
+                if(Double.valueOf(item.getAge()) <3 || Double.valueOf(item.getAge()) >6){
+                    throw new ApiException("测试年龄不符合");
+                }
+                item.setParentName(row.getCell(4).getStringCellValue());
+                Cell cell5 =row.getCell(5);
+                cell5.setCellType(CellType.STRING);
+                item.setPhone(row.getCell(5).getStringCellValue());
+                item.setSchool(row.getCell(6).getStringCellValue());
+                Cell cell7 =row.getCell(7);
+                cell7.setCellType(CellType.STRING);
+                item.setHeight(Double.valueOf(row.getCell(7).getStringCellValue()));
+                Cell cell8 =row.getCell(8);
+                cell8.setCellType(CellType.STRING);
+                item.setWeight(Double.valueOf(row.getCell(8).getStringCellValue()));
+                Cell cell9 =row.getCell(9);
+                cell9.setCellType(CellType.STRING);
+                item.setFHeight(Double.valueOf(row.getCell(9).getStringCellValue()));
+                Cell cell10 =row.getCell(10);
+                cell10.setCellType(CellType.STRING);
+                item.setMHeight(Double.valueOf(row.getCell(10).getStringCellValue()));
+                //身高预测
+                item.setResultHeight(calculation.calResultHeight(item.getFHeight(),item.getMHeight(),item.getSex()));
+                //身高得分
+                item.setHeightScore(calculation.calHeight(item.getAge(),item.getHeight(),item.getSex()));
+                item.setIbm(calculation.getBMI(item.getHeight(),item.getWeight()));
+                //BMI得分
+                item.setIbmScore(calculation.calBmi(item.getAge(),item.getHeight(),item.getWeight(),item.getSex()));
+                //下肢得分
+                Cell cell11 =row.getCell(11);
+                cell11.setCellType(CellType.STRING);
+                item.setLegs(Integer.valueOf(row.getCell(11).getStringCellValue()));
+                item.setLegsScore(calculation.calLeg(item.getAge(),item.getLegs(),item.getSex()));
+                //上肢得分
+                Cell cell12 =row.getCell(12);
+                cell12.setCellType(CellType.STRING);
+                item.setSzLimb(Double.valueOf(row.getCell(12).getStringCellValue()));
+                item.setLimbScore(calculation.calLimb(item.getAge(),item.getSzLimb(),item.getSex()));
+                //协调性成绩
+                Cell cell13 =row.getCell(13);
+                cell13.setCellType(CellType.STRING);
+                item.setCoordinate(Double.valueOf(row.getCell(13).getStringCellValue()));
+                item.setCoordinateScore(calculation.calCoordinate(item.getAge(),item.getCoordinate(),item.getSex()));
+                //平衡性成绩
+                Cell cell14 =row.getCell(14);
+                cell14.setCellType(CellType.STRING);
+                item.setBalance(Double.valueOf(row.getCell(14).getStringCellValue()));
+                item.setBalanceScore(calculation.calBalance(item.getAge(),item.getBalance(),item.getSex()));
+                //柔韧性成绩
+                Cell cell15 =row.getCell(15);
+                cell15.setCellType(CellType.STRING);
+                item.setFlexibility(Double.valueOf(row.getCell(15).getStringCellValue()));
+                item.setFlexibilityScore(calculation.calFlexibility(item.getAge(),item.getFlexibility(),item.getSex()));
+                //灵敏性成绩
+                Cell cell16 =row.getCell(16);
+                cell16.setCellType(CellType.STRING);
+                item.setSensitives(Double.valueOf(row.getCell(16).getStringCellValue()));
+                item.setSensitiveScore(calculation.calSensitives(item.getAge(),item.getSensitives(),item.getSex()));
+                //拍球
+                Cell cell17 =row.getCell(17);
+                if (!Objects.isNull(cell17) && StringUtils.isNoneBlank(row.getCell(17).getStringCellValue())) {
+                    cell17.setCellType(CellType.STRING);
+                    item.setRacket(Integer.valueOf(row.getCell(17).getStringCellValue()));
+                    item.setRacketScore(calculation.calRacket(item.getAge(),item.getRacket()));
+                }else{
+                    item.setRacket(0);
+                    item.setRacketScore(0);
+                }
+
+                //传球
+                Cell cell18 =row.getCell(18);
+                if (cell18 != null && StringUtils.isNoneBlank(row.getCell(18).getStringCellValue())) {
+                    cell18.setCellType(CellType.STRING);
+                    item.setPass(Integer.valueOf(row.getCell(18).getStringCellValue()));
+                    item.setPassScore(calculation.calPass(item.getAge(),item.getPass()));
+                }else{
+                    item.setPass(0);
+                    item.setPassScore(0);
+                }
+
+                //投篮成绩
+                Cell cell19 =row.getCell(19);
+                if (cell19 != null && StringUtils.isNoneBlank(row.getCell(19).getStringCellValue())) {
+                    cell19.setCellType(CellType.STRING);
+                    item.setShoot(Integer.valueOf(row.getCell(19).getStringCellValue()));
+                    item.setShootScore(calculation.calShoot(item.getAge(),item.getShoot()));
+                }else{
+                    item.setShoot(0);
+                    item.setShootScore(0);
+                }
+                Cell cell20 =row.getCell(20);
+                cell20.setCellType(CellType.STRING);
+                item.setXyType((row.getCell(20).getStringCellValue()));
+                item.setCreateBy(session.getUsername());
+                Item item1 = baseMapper.selectOne(Wrappers.<Item>lambdaQuery().eq(Item::getSportId,sport.getId())
+                        .eq(Item::getState,CommonConstant.State.ENABLE)
+                        .eq(Item::getName,item.getName()));
+                if(item1 != null){
+                    item.setId(item1.getId());
+                    baseMapper.updateById(item);
+                }else{
+                    baseMapper.insert(item);
+                }
       /*      act.setName(row.getCell(0).getStringCellValue());
             act.setCategory(getCategoryId(row.getCell(1).getStringCellValue(),categoryMap));
             act.setBeginTime(row.getCell(2).getLocalDateTimeCellValue());
@@ -478,7 +484,12 @@ public class ItemServiceImpl extends ServiceImpl<ItemMapper, Item> implements II
             act.setAddress(row.getCell(5).getStringCellValue());
             act.setCreateDeptId(sysUserVO.getDeptId());
             save(act);*/
+            }
+
+        }catch (Exception e){
+            throw new ApiException("导入文件失败:"+ e.getMessage());
         }
+
     }
 
     @Override
