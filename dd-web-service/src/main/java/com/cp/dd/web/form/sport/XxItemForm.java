@@ -1,5 +1,6 @@
 package com.cp.dd.web.form.sport;
 
+import com.cp.dd.common.support.validator.custom.Mobile;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -41,7 +42,8 @@ public class XxItemForm implements Serializable {
     private String parentName;
 
     @ApiModelProperty(value = "手机号")
-    @Pattern(regexp = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$", message = "手机格式错误")
+    @Mobile
+//    @Pattern(regexp = "^1([38][0-9]|4[579]|5[0-3,5-9]|6[6]|7[0135678]|9[89])\\d{8}$", message = "手机格式错误")
     private String phone;
 
     @ApiModelProperty(value = "学校", required = true)
