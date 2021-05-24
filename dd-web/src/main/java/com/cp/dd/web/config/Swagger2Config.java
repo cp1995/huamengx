@@ -72,7 +72,7 @@ public class Swagger2Config {
     public Docket zsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(swaggerEnable)
-                .apiInfo(apiInfo("新证书", "新证书"))
+                .apiInfo(apiInfo("新证书接口", "新证书"))
                 .groupName("新证书")
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.cp.dd.web.controller.zs"))
