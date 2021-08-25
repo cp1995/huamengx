@@ -27,7 +27,7 @@ public class ZsPersonalForm implements Serializable {
     @ApiModelProperty(value = "教师名字", required = true)
     private String name;
 
-    @ApiModelProperty(value = "培训名称", required = true)
+    @ApiModelProperty(value = "培训名称")
     private String pxName;
 
     @ApiModelProperty(value = "证书编号", required = true)
@@ -57,7 +57,7 @@ public class ZsPersonalForm implements Serializable {
     @ApiModelProperty(value = "所属机构")
     private String deptName;
 
-    @ApiModelProperty(value = "内容", required = true)
+    @ApiModelProperty(value = "内容")
     private String content;
 
     @ApiModelProperty(value = "头像")

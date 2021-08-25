@@ -146,6 +146,10 @@ public class ZsCategoryServiceImpl extends ServiceImpl<ZsCategoryMapper, ZsCateg
                 vo.setName("俱乐部教练BC认证培训");
                 vo.setCode("WBC"+code);
                 break;
+            case 30 :
+                vo.setName("跳绳C级教练员");
+                vo.setCode("RS"+code()+"C"+listCode);
+                break;
 
 
         }
